@@ -1,11 +1,11 @@
 allprojects {
-	version = "1.0"
-	repositories {
-        jcenter()
-    }
+	version = "1.0"	
 }
 
 buildscript { 
+	repositories {
+        jcenter()
+    }
   dependencies {
     classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5' // Add this lin
   }
