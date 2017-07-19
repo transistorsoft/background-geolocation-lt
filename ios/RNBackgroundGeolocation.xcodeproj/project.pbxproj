@@ -1,0 +1,441 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		831FD3071DCAD76300F8F62A /* TSLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF0B461BCB624E00831D47 /* TSLocationManager.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */; };
+		83FF5F8B1AFD0D2B0016A13E /* RNBackgroundGeolocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */; };
+		83FF5F911AFD0D2B0016A13E /* libRNBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		83FF5F921AFD0D2B0016A13E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83FF5F7D1AFD0D2B0016A13E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83FF5F841AFD0D2B0016A13E;
+			remoteInfo = RNBackgroundGeolocation;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		83FF5F831AFD0D2B0016A13E /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				83FF5F891AFD0D2B0016A13E /* RNBackgroundGeolocation.h in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		831E1F691D57515F00F0A1F4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		83FF0B461BCB624E00831D47 /* TSLocationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSLocationManager.framework; path = RNBackgroundGeolocation/TSLocationManager.framework; sourceTree = "<group>"; };
+		83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNBackgroundGeolocation.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNBackgroundGeolocation.h; sourceTree = "<group>"; };
+		83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNBackgroundGeolocation.m; sourceTree = "<group>"; };
+		83FF5F901AFD0D2B0016A13E /* RNBackgroundGeolocationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RNBackgroundGeolocationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		83FF5F961AFD0D2B0016A13E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		83FF5F821AFD0D2B0016A13E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				831FD3071DCAD76300F8F62A /* TSLocationManager.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83FF5F8D1AFD0D2B0016A13E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83FF5F911AFD0D2B0016A13E /* libRNBackgroundGeolocation.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		83FF5F7C1AFD0D2B0016A13E = {
+			isa = PBXGroup;
+			children = (
+				831E1F691D57515F00F0A1F4 /* libsqlite3.tbd */,
+				83FF0B461BCB624E00831D47 /* TSLocationManager.framework */,
+				83FF5F871AFD0D2B0016A13E /* RNBackgroundGeolocation */,
+				83FF5F941AFD0D2B0016A13E /* RNBackgroundGeolocationTests */,
+				83FF5F861AFD0D2B0016A13E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		83FF5F861AFD0D2B0016A13E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */,
+				83FF5F901AFD0D2B0016A13E /* RNBackgroundGeolocationTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		83FF5F871AFD0D2B0016A13E /* RNBackgroundGeolocation */ = {
+			isa = PBXGroup;
+			children = (
+				83FF5F881AFD0D2B0016A13E /* RNBackgroundGeolocation.h */,
+				83FF5F8A1AFD0D2B0016A13E /* RNBackgroundGeolocation.m */,
+			);
+			path = RNBackgroundGeolocation;
+			sourceTree = "<group>";
+		};
+		83FF5F941AFD0D2B0016A13E /* RNBackgroundGeolocationTests */ = {
+			isa = PBXGroup;
+			children = (
+				83FF5F951AFD0D2B0016A13E /* Supporting Files */,
+			);
+			path = RNBackgroundGeolocationTests;
+			sourceTree = "<group>";
+		};
+		83FF5F951AFD0D2B0016A13E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				83FF5F961AFD0D2B0016A13E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		83FF5F841AFD0D2B0016A13E /* RNBackgroundGeolocation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83FF5F991AFD0D2B0016A13E /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocation" */;
+			buildPhases = (
+				83FF5F811AFD0D2B0016A13E /* Sources */,
+				83FF5F821AFD0D2B0016A13E /* Frameworks */,
+				83FF5F831AFD0D2B0016A13E /* Copy Files */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RNBackgroundGeolocation;
+			productName = RNBackgroundGeolocation;
+			productReference = 83FF5F851AFD0D2B0016A13E /* libRNBackgroundGeolocation.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		83FF5F8F1AFD0D2B0016A13E /* RNBackgroundGeolocationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83FF5F9C1AFD0D2B0016A13E /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocationTests" */;
+			buildPhases = (
+				83FF5F8C1AFD0D2B0016A13E /* Sources */,
+				83FF5F8D1AFD0D2B0016A13E /* Frameworks */,
+				83FF5F8E1AFD0D2B0016A13E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				83FF5F931AFD0D2B0016A13E /* PBXTargetDependency */,
+			);
+			name = RNBackgroundGeolocationTests;
+			productName = RNBackgroundGeolocationTests;
+			productReference = 83FF5F901AFD0D2B0016A13E /* RNBackgroundGeolocationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83FF5F7D1AFD0D2B0016A13E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "Transistor Software";
+				TargetAttributes = {
+					83FF5F841AFD0D2B0016A13E = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					83FF5F8F1AFD0D2B0016A13E = {
+						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 32A636YFGZ;
+					};
+				};
+			};
+			buildConfigurationList = 83FF5F801AFD0D2B0016A13E /* Build configuration list for PBXProject "RNBackgroundGeolocation" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 83FF5F7C1AFD0D2B0016A13E;
+			productRefGroup = 83FF5F861AFD0D2B0016A13E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				83FF5F841AFD0D2B0016A13E /* RNBackgroundGeolocation */,
+				83FF5F8F1AFD0D2B0016A13E /* RNBackgroundGeolocationTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		83FF5F8E1AFD0D2B0016A13E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		83FF5F811AFD0D2B0016A13E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83FF5F8B1AFD0D2B0016A13E /* RNBackgroundGeolocation.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83FF5F8C1AFD0D2B0016A13E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		83FF5F931AFD0D2B0016A13E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83FF5F841AFD0D2B0016A13E /* RNBackgroundGeolocation */;
+			targetProxy = 83FF5F921AFD0D2B0016A13E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		83FF5F971AFD0D2B0016A13E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		83FF5F981AFD0D2B0016A13E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		83FF5F9A1AFD0D2B0016A13E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_TESTABILITY = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(inherited)",
+					"$(PROJECT_DIR)/RNBackgroundGeolocation",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/../../../React/**",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/RNBackgroundGeolocation",
+					"$(inherited)",
+					"$(PROJECT_DIR)/RNBackgroundGeolocation",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		83FF5F9B1AFD0D2B0016A13E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(inherited)",
+					"$(PROJECT_DIR)/RNBackgroundGeolocation",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/../../../React/**",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/RNBackgroundGeolocation",
+					"$(inherited)",
+					"$(PROJECT_DIR)/RNBackgroundGeolocation",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+		83FF5F9D1AFD0D2B0016A13E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 32A636YFGZ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RNBackgroundGeolocationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.transistorsoft.reactnative.background.geolocation.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		83FF5F9E1AFD0D2B0016A13E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 32A636YFGZ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RNBackgroundGeolocationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.transistorsoft.reactnative.background.geolocation.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		83FF5F801AFD0D2B0016A13E /* Build configuration list for PBXProject "RNBackgroundGeolocation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83FF5F971AFD0D2B0016A13E /* Debug */,
+				83FF5F981AFD0D2B0016A13E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83FF5F991AFD0D2B0016A13E /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83FF5F9A1AFD0D2B0016A13E /* Debug */,
+				83FF5F9B1AFD0D2B0016A13E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83FF5F9C1AFD0D2B0016A13E /* Build configuration list for PBXNativeTarget "RNBackgroundGeolocationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83FF5F9D1AFD0D2B0016A13E /* Debug */,
+				83FF5F9E1AFD0D2B0016A13E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83FF5F7D1AFD0D2B0016A13E /* Project object */;
+}
