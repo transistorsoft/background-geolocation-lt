@@ -1,6 +1,6 @@
 TEST
 -----------------------------
-![](https://www.dropbox.com/s/81xgs8ygm5hwfos/Screenshot%202017-08-16%2012.49.08.png?dl=1)
+![foo](https://www.dropbox.com/s/81xgs8ygm5hwfos/Screenshot%202017-08-16%2012.49.08.png?dl=1)
 -----------------------------
 
 Background Geolocation for React Native (iOS & Android)
