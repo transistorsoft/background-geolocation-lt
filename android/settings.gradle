@@ -1,1 +1,1 @@
-include ':BackgroundGeolocation'
+include ':app', ':background-geolocation'
