@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-group = 'com.github.christocracy'
 
 android {
     compileSdkVersion 26
@@ -41,7 +39,7 @@ dependencies {
         exclude group: 'com.google.android', module: 'android'
     }
     // android-permissions
-    implementation 'com.intentfilter:android-permissions:0.1.5'
+    api 'com.intentfilter:android-permissions:0.1.5'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 }
 

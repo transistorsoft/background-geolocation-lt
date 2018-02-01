@@ -1,39 +1,48 @@
-# Android Manual Installation
+# Android Installation
 
-```bash
-$ npm install react-native-background-geolocation --save
-```
+You will have to install the plugin by manually downloading [a Release](https://github.com/transistorsoft/background-geolocation-lt/releases) from this repository.  The plugin is not currently submitted to a package manager (eg: jCenter)
+
+Create a folder in the root of your application project, eg: `/Libraries` and place the extracted **`background-geolocation`** folder into it:
+
+eg: :open_file_folder: **`Libraries/background-geolocation-lt`**
 
 ## Gradle Configuration
 
-:open_file_folder **`android/settings.gradle`**
+:open_file_folder: **`settings.gradle`**
 
 ```diff
-+include ':react-native-background-geolocation'
-+project(':react-native-background-geolocation').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-background-geolocation/android')
++include ':background-geolocation'
++project(':background-geolocation').projectDir = new File(rootProject.projectDir, './Libraries/background-geolocation-lt/android/background-geolocation')
+
 ```
 
-:open_file_folder: **`android/app/build.gradle`**
+:open_file_folder: **`app/build.gradle`**
 
 ```diff
 +repositories {
 +    flatDir {
-+        dirs "../../node_modules/react-native-background-geolocation/android/libs"
++        dirs project(':background-geolocation').projectDir.absolutePath + "/libs"
 +    }
 +}
+
 dependencies {
-+  compile project(':react-native-background-geolocation')
-+  compile(name: 'tslocationmanager', ext: 'aar')
++    compile project(':background-geolocation')
 }
 ```
 
-:information_source: If you have a different play serivces than the one included in this library, use the following instead (switch **`9.8.0`** for the desired version):
+:information_source: If you have a different play-serivces than the one included in this library, use the following instead (switch **`11.8.0`** for *your* desired version):
 
-```
-compile(project(':react-native-background-geolocation')) {
-  exclude group: 'com.google.android.gms', module: 'play-services-location'
+```diff
+dependencies {
+     .
+     .
+     .
++    compile(project(':background-geolocation')) {     
++        exclude group: 'com.google.android.gms', module: 'play-services-location'
++    }
+     // Now force your desired version
++    compile 'com.google.android.gms:play-services-location:11.8.0'
 }
-compile 'com.google.android.gms:play-services-location:9.8.0'
 ```
 
 ## AndroidManifest.xml
@@ -62,23 +71,6 @@ compile 'com.google.android.gms:play-services-location:9.8.0'
 ```
 
 :information_source: [Purchase a License](http://www.transistorsoft.com/shop/products/react-native-background-geolocation)
-
-## MainApplication.java
-
-:open_file_folder: **`android/app/main/java/com/.../MainApplication.java`**
-
-```diff
-+import com.transistorsoft.rnbackgroundgeolocation.*;
-public class MainApplication extends ReactApplication {
-  @Override
-  protected List<ReactPackage> getPackages() {
-    return Arrays.<ReactPackage>asList(
-+     new RNBackgroundGeolocation(),
-      new MainReactPackage()
-    );
-  }
-}
-```
 
 ## Proguard Config
 
