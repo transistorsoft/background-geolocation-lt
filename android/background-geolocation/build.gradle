@@ -23,7 +23,7 @@ android {
 repositories{
     jcenter()
     flatDir{
-        dirs 'libss'
+        dirs 'libs'
     }
     maven {
         url 'https://maven.google.com'
