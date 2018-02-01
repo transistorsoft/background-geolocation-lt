@@ -1,157 +1,174 @@
-TEST
------------------------------
-![](https://www.dropbox.com/s/81xgs8ygm5hwfos/Screenshot%202017-08-16%2012.49.08.png)
------------------------------
 
-Background Geolocation for React Native (iOS & Android)
-============================================================================
+Background Geolocation Module for iOS &amp; Android
+==============================================================================
+
+[![](https://dl.dropboxusercontent.com/s/nm4s5ltlug63vv8/logo-150-print.png?dl=1)](https://www.transistorsoft.com)
+
+-------------------------------------------------------------------------------
 
 The *most* sophisticated background **location-tracking & geofencing** module with battery-conscious motion-detection intelligence for **iOS** and **Android**.
 
-Also available for [Cordova](https://github.com/transistorsoft/cordova-background-geolocation-lt), [NativeScript](https://github.com/transistorsoft/nativescript-background-geolocation-lt) and pure native apps.
+The plugin's [Philosophy of Operation](../../wiki/Philosophy-of-Operation) is to use **motion-detection** APIs (using accelerometer, gyroscope and magnetometer) to detect when the device is *moving* and *stationary*.  
+
+- When the device is detected to be **moving**, the plugin will *automatically* start recording a location according to the configured `distanceFilter` (meters).  
+
+- When the device is detected be **stationary**, the plugin will automatically turn off location-services to conserve energy.
+
+Also available for [React Native](https://github.com/transistorsoft/react-native-background-geolocation) [Cordova](https://github.com/transistorsoft/cordova-background-geolocation-lt) and [NativeScript](https://github.com/transistorsoft/nativescript-background-geolocation-lt)
 
 ----------------------------------------------------------------------------
 
-:warning: The **[Android module](http://www.transistorsoft.com/shop/products/react-native-background-geolocation)** requires [purchasing a license](http://www.transistorsoft.com/shop/products/react-native-background-geolocation).  However, it *will* work for **DEBUG** builds.  It will **not** work with **RELEASE** builds [without purchasing a license](http://www.transistorsoft.com/shop/products/react-native-background-geolocation).
+[![Google Play](https://dl.dropboxusercontent.com/s/80rf906x0fheb26/google-play-icon.png?dl=1)](https://play.google.com/store/apps/details?id=com.transistorsoft.backgroundgeolocation.react)
 
-----------------------------------------------------------------------------
+![Home](https://dl.dropboxusercontent.com/s/wa43w1n3xhkjn0i/home-framed-350.png?dl=1)
+![Settings](https://dl.dropboxusercontent.com/s/8oad228siog49kt/settings-framed-350.png?dl=1)
 
-[![Google Play](https://dl.dropboxusercontent.com/u/2319755/cordova-background-geolocaiton/google-play-icon.png)](https://play.google.com/store/apps/details?id=com.transistorsoft.backgroundgeolocation.react)
 
-![Home](https://www.dropbox.com/s/byaayezphkwn36h/home-framed-350.png?dl=1)
-![Settings](https://www.dropbox.com/s/8lvnpp0gowitagq/settings-framed-350.png?dl=1)
-
-## [:books: API Documentation](./docs/README.md)
-- :wrench: [Configuration Options](./docs/README.md#wrench-configuration-options)
-  + [Geolocation Options](./docs/README.md#wrench-geolocation-options)
-  + [Activity Recognition Options](./docs/README.md#wrench-activity-recognition-options)
-  + [HTTP & Persistence Options](./docs/README.md#wrench-http--persistence-options)
-  + [Geofencing Options](./docs/README.md#wrench-geofencing-options)
-  + [Application Options](./docs/README.md#wrench-application-options)
-- :zap: [Events](./docs/README.md#zap-events)
-- :small_blue_diamond: [Methods](./docs/README.md#large_blue_diamond-methods)
-- :blue_book: Guides
-  + [Philosophy of Operation](../../wiki/Philosophy-of-Operation)
-  + [Geofencing](./docs/geofencing.md)
-  + [HTTP Features](./docs/http.md)
-  + [Location Data Schema](../../wiki/Location-Data-Schema)
-  + [Debugging](../../wiki/Debugging)
+# Contents
+- ### :books: [API Documentation](./docs/README.md)
+  - [iOS](./docs/README-iOS.md)
+  - [Android](./docs/README-Android.md)
+- ### [Installing the Plugin](#large_blue_diamond-installing-the-plugin)
+- ### [Setup Guides](#large_blue_diamond-setup-guides)
+- ### [Configure your License](#large_blue_diamond-configure-your-license)
+- ### [Android SDK Setup](#large_blue_diamond-android-sdk)
+- ### [Example](#large_blue_diamond-example)
+- ### [Debugging](../../wiki/Debugging)
+- ### [Demo Application](#large_blue_diamond-demo-application)
+- ### [Testing Server](#large_blue_diamond-simple-testing-server)
 
 
 ## :large_blue_diamond: Installing the Plugin
 
-```
-$ npm install react-native-background-geolocation --save
-```
+You will have to install the plugin by manually downloading [a Release](https://github.com/transistorsoft/background-geolocation-lt/releases) from this repository.  The plugin is not currently submitted to a package manager (eg: jCenter)
 
+Create a folder in the root of your application project, eg: `/Libraries` and place the extracted **`background-geolocation`** folder into it:
+
+eg: :open_file_folder: **`Libraries/background-geolocation-lt`**
 
 ## :large_blue_diamond: Setup Guides
 
-### iOS
-- [Cocoapods](docs/INSTALL-IOS-COCOAPODS.md)
-- [rnpm link](docs/INSTALL-IOS-RNPM.md)
-- [Manual Installation](docs/INSTALL-IOS.md)
+### [iOS Setup Guide](docs/INSTALL-IOS.md)
 
-### Android
-* [RNPM Setup](docs/INSTALL-ANDROID-RNPM.md)
-* [Manual Setup](docs/INSTALL-ANDROID.md)
-
-
-## :large_blue_diamond: Using the plugin ##
-
-```javascript
-import BackgroundGeolocation from "react-native-background-geolocation";
-```
-
+### [Android Setup Guide](docs/INSTALL-ANDROID.md)
 
 ## :large_blue_diamond: Example
 
-```Javascript
+### iOS
 
-import BackgroundGeolocation from "react-native-background-geolocation";
+```obj-c
+#import "ViewController.h"
+@import TSLocationManager;
 
-var Foo = React.createClass({
-  componentWillMount() {
-    // 1.  Wire up event-listeners
+@interface ViewController ()
 
-    // This handler fires whenever bgGeo receives a location update.
-    BackgroundGeolocation.on('location', this.onLocation);
+@end
 
-    // This handler fires whenever bgGeo receives an error
-    BackgroundGeolocation.on('error', this.onError);
+@implementation ViewController
 
-    // This handler fires when movement states changes (stationary->moving; moving->stationary)
-    BackgroundGeolocation.on('motionchange', this.onMotionChange);
+- (void)viewDidLoad {
+    [super viewDidLoad];
 
-    // This event fires when a chnage in motion activity is detected
-    BackgroundGeolocation.on('activitychange', this.onActivityChange);
+    // Get a reference to the SDK
+    TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
+    TSConfig *config = [TSConfig sharedInstance];
+    
+    // Provide a reference to your viewController.
+    bgGeo.viewController = self;
+    
+    if (config.isFirstBoot) {
+        // The SDK *knows* when your app has been launched the first time
+        // after initial install:  By default, the SDK will load its last 
+        // known configuration from persistent storage
 
-    // This event fires when the user toggles location-services
-    BackgroundGeolocation.on('providerchange', this.onProviderChange);
+        [config updateWithBlock:^(TSConfigBuilder *builder) {
+            builder.debug = YES;
+            builder.logLevel = tsLogLevelVerbose;
+            builder.desiredAccuracy = kCLLocationAccuracyBest;
+            builder.distanceFilter = 10;            
+            builder.stopOnTerminate = NO;
+            builder.startOnBoot = YES;
+            builder.url = @"http://your.server.com/locations";                                    
+        }];
+    }
+    
+    // Listen to events.    
+    [bgGeo onLocation:^(TSLocation *location) {
+        NSLog(@"[location] %@", [location toDictionary]);
+    } failure:^(NSError *error) {
+        NSLog(@"[location] error %@", @(error.code));
+    }];
+    
+    // Signal #ready to the plugin.
+    [bgGeo ready];
 
-    // 2.  #configure the plugin (just once for life-time of app)
-    BackgroundGeolocation.configure({
-      // Geolocation Config
-      desiredAccuracy: 0,
-      stationaryRadius: 25,
-      distanceFilter: 10,
-      // Activity Recognition
-      stopTimeout: 1,
-      // Application config
-      debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
-      logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
-      stopOnTerminate: false,   // <-- Allow the background-service to continue tracking when user closes the app.
-      startOnBoot: true,        // <-- Auto start tracking when device is powered-up.
-      // HTTP / SQLite config
-      url: 'http://yourserver.com/locations',
-      batchSync: false,       // <-- [Default: false] Set true to sync locations to server in a single HTTP request.
-      autoSync: true,         // <-- [Default: true] Set true to sync each location to server as it arrives.
-      headers: {              // <-- Optional HTTP headers
-        "X-FOO": "bar"
-      },
-      params: {               // <-- Optional HTTP params
-        "auth_token": "maybe_your_server_authenticates_via_token_YES?"
-      }
-    }, function(state) {
-      console.log("- BackgroundGeolocation is configured and ready: ", state.enabled);
-
-      if (!state.enabled) {
-        BackgroundGeolocation.start(function() {
-          console.log("- Start success");
-        });
-      }
-    });
-  }
-
-  // You must remove listeners when your component unmounts
-  componentWillUnmount() {
-    // Remove BackgroundGeolocation listeners
-    BackgroundGeolocation.un('location', this.onLocation);
-    BackgroundGeolocation.un('error', this.onError);
-    BackgroundGeolocation.un('motionchange', this.onMotionChange);
-    BackgroundGeolocation.un('activitychange', this.onActivityChange);
-    BackgroundGeolocation.un('providerchange', this.onProviderChange);
-  }
-  onLocation(location) {
-    console.log('- [js]location: ', JSON.stringify(location));
-  }
-  onError(error) {
-    var type = error.type;
-    var code = error.code;
-    alert(type + " Error: " + code);
-  }
-  onActivityChange(activityName) {
-    console.log('- Current motion activity: ', activityName);  // eg: 'on_foot', 'still', 'in_vehicle'
-  }
-  onProviderChange(provider) {
-    console.log('- Location provider changed: ', provider.enabled);    
-  }
-  onMotionChange(location) {
-    console.log('- [js]motionchanged: ', JSON.stringify(location));
-  }
-});
+    if (!config.enabled) {
+        // Start tracking immediately (if not already).
+        [bgGeo start];
+    }
+}
 
 ```
+
+### Android
+
+```java
+package com.your.app;
+
+import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
+
+public class MainActivity extends AppCompatActivity {
+    private static String TAG = "MyApp";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // Get a reference to the SDK
+        BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+        TSConfig config = TSConfig.getInstance(getApplicationContext());
+
+        if (config.isFirstBoot()) {
+            // The SDK *knows* when your app has been launched the first time
+            // after initial install:  By default, the SDK will load its last 
+            // known configuration from persistent storage
+            config.updateWithBuilder()
+                    .setDebug(true) // Sound Fx / notifications during development
+                    .setLogLevel(5) // Verbose logging during development
+                    .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                    .setDistanceFilter(10f)
+                    .setStopOnTerminate(false)
+                    .setForegroundService(true)
+                    .setStartOnBoot(true)
+                    .setUrl("http://your.server.com/locations")
+                    .commit();
+        }        
+        
+        // Listen events
+        bgGeo.onLocation(new TSLocationCallback() {
+            @Override public void onLocation(TSLocation location) {
+                Log.i(TAG, "[event] - location: " + location.toJson());
+            }
+            @Override public void onError(Integer code) {
+                Log.i(TAG, "[event] - location error: " + code);
+            }
+        });
+
+        // Finally, signal #ready to the SDK.
+        bgGeo.ready(new TSCallback() {
+            @Override public void onSuccess() {
+                Log.i(TAG, "[ready] success");
+                if (!config.enabled) {
+                    // Start tracking immediately (if not already).
+                    bgGeo.start(); 
+                }
+            }
+            @Override public void onFailure(String error) {
+                Log.i(TAG, "[ready] FAILURE: " + error);
+            }
+        });        
+    }
+}
+```
+
 
 ## :large_blue_diamond: [Advanced Demo Application for Field-testing](https://github.com/transistorsoft/rn-background-geolocation-demo)
 
