@@ -32,9 +32,11 @@ repositories{
 
 dependencies {
     implementation 'com.google.android.gms:play-services-location:11.8.0'
-    api 'org.greenrobot:eventbus:3.0.0'
-    api 'com.squareup.okhttp3:okhttp:3.8.1'
-    api(name: 'tslocationmanager', ext: 'aar')
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile(name: 'tslocationmanager', ext: 'aar') {
+        transitive = true
+    }
     api 'org.slf4j:slf4j-api:1.7.21'
     api 'com.github.tony19:logback-android-core:1.1.1-6'
     api('com.github.tony19:logback-android-classic:1.1.1-6') {
