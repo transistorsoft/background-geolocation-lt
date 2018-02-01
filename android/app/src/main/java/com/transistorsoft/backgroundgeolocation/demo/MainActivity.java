@@ -2,12 +2,15 @@ package com.transistorsoft.backgroundgeolocation.demo;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
 import com.transistorsoft.locationmanager.adapter.Config;
@@ -22,24 +25,41 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final BackgroundGeolocation adapter = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                // Toggle BackgroundGeolocation ON or OFF.
+                Config state = adapter.getConfig();
+                boolean isMoving = !state.getIsMoving();
+                adapter.changePace(isMoving);
+                int icon = (isMoving) ? android.R.drawable.ic_media_pause : android.R.drawable.ic_media_play;
+                fab.setImageResource(icon);
             }
         });
 
-        final BackgroundGeolocation adapter = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+        final SwitchCompat btnEnable = (SwitchCompat) findViewById(R.id.btnEnable);
+        btnEnable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isMoving) {
+                fab.setEnabled(isMoving);
+                if (isMoving) {
+                    adapter.start();
+                } else {
+                    adapter.stop();
+                }
+            }
+        });
+
+        final TextView content = (TextView) findViewById(R.id.content);
 
         ArrayList<String> schedule = new ArrayList<>();
 
@@ -66,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 .setHeader("X-FOO", "FOO")
                 .setHeader("X-BAR", "BAR")
                 .setExtras(extras)
-                .setDistanceFilter(50)
+                .setDistanceFilter(50D)
                 .setDesiredAccuracy(0);
 
         Config config = builder.build();
@@ -75,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLocation(TSLocation location) {
                 TSLog.logger.debug("*** [event] motionchange: " + location.getJson());
+                int icon = (location.getIsMoving()) ? android.R.drawable.ic_media_pause : android.R.drawable.ic_media_play;
+                fab.setImageResource(icon);
             }
             @Override
             public void onError(Integer code) {
@@ -86,6 +108,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLocation(TSLocation location) {
                 TSLog.logger.debug("*** [event] location: " + location.toJson());
+                try {
+                    CharSequence json = location.toJson().toString(2);
+                    content.setText(json);
+                } catch (JSONException e) {
+
+                }
             }
 
             @Override
@@ -94,21 +122,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Now #configure the plugin.
         adapter.configure(config, new TSCallback() {
             @Override
             public void onSuccess() {
-                TSLog.logger.debug("************* configure success");
-                adapter.start(new TSCallback() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onFailure(String error) {
-
-                    }
-                });
+                TSLog.logger.debug("- configure success");
+                Config state = adapter.getConfig();
+                btnEnable.setChecked(state.getEnabled());
             }
 
             @Override
