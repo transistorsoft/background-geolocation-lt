@@ -14,7 +14,7 @@ The plugin's [Philosophy of Operation](../../wiki/Philosophy-of-Operation) is to
 
 - When the device is detected be **stationary**, the plugin will automatically turn off location-services to conserve energy.
 
-Also available for [React Native](https://github.com/transistorsoft/react-native-background-geolocation) [Cordova](https://github.com/transistorsoft/cordova-background-geolocation-lt) and [NativeScript](https://github.com/transistorsoft/nativescript-background-geolocation-lt)
+Also available for [React Native](https://github.com/transistorsoft/react-native-background-geolocation), [Cordova](https://github.com/transistorsoft/cordova-background-geolocation-lt) and [NativeScript](https://github.com/transistorsoft/nativescript-background-geolocation-lt)
 
 ----------------------------------------------------------------------------
 
@@ -26,14 +26,12 @@ Also available for [React Native](https://github.com/transistorsoft/react-native
 
 # Contents
 - ### :books: [API Documentation](./docs/README.md)
-  - :wrench: [Configuration Options](./docs/README.md#wrench-configuration-options)
-  - :zap: [Events](./docs/README.md#zap-events)
-  - :small_blue_diamond: [Methods](./docs/README.md#large_blue_diamond-methods)        
+  - [iOS](./docs/README-iOS.md)
+  - [Android](./docs/README-Android.md)
 - ### [Installing the Plugin](#large_blue_diamond-installing-the-plugin)
 - ### [Setup Guides](#large_blue_diamond-setup-guides)
 - ### [Configure your License](#large_blue_diamond-configure-your-license)
 - ### [Android SDK Setup](#large_blue_diamond-android-sdk)
-- ### [Using the plugin](#large_blue_diamond-using-the-plugin)
 - ### [Example](#large_blue_diamond-example)
 - ### [Debugging](../../wiki/Debugging)
 - ### [Demo Application](#large_blue_diamond-demo-application)
@@ -50,35 +48,68 @@ eg: :open_file_folder: **`Libraries/background-geolocation-lt`**
 
 ## :large_blue_diamond: Setup Guides
 
-### [iOS Setup Guide](docs/INSTALL-IOS.md)
-
-### [Android Setup Guide](docs/INSTALL-ANDROID.md)
-
-## :large_blue_diamond: Using the plugin ##
-
-```java
-package com.your.app;
-
-import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
-
-public class MainActivity extends AppCompatActivity {
-    private static String TAG = "MyApp";
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // Get a reference to the API by providing it a Context & Intent
-        BackgroundGeolocation adapter = BackgroundGeolocation.getInstance(this, getIntent());
-    }
-
-}
-```
-
+- ### [iOS Setup Guide](docs/INSTALL-IOS.md)
+- ### [Android Setup Guide](docs/INSTALL-ANDROID.md)
 
 ## :large_blue_diamond: Example
 
-```java
+### iOS
+
+```obj-c
+#import "ViewController.h"
+@import TSLocationManager;
+
+@interface ViewController ()
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    // Get a reference to the SDK
+    TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
+    TSConfig *config = [TSConfig sharedInstance];
+    
+    // Provide a reference to your viewController.
+    bgGeo.viewController = self;
+    
+    if (config.isFirstBoot) {
+        // The SDK *knows* when your app has been launched the first time
+        // after initial install:  By default, the SDK will load its last 
+        // known configuration from persistent storage
+
+        [config updateWithBlock:^(TSConfigBuilder *builder) {
+            builder.debug = YES;
+            builder.logLevel = tsLogLevelVerbose;
+            builder.desiredAccuracy = kCLLocationAccuracyBest;
+            builder.distanceFilter = 10;            
+            builder.stopOnTerminate = NO;
+            builder.startOnBoot = YES;
+            builder.url = @"http://your.server.com/locations";                                    
+        }];
+    }
+    
+    // Listen to events.    
+    [bgGeo onLocation:^(TSLocation *location) {
+        NSLog(@"[location] %@", [location toDictionary]);
+    } failure:^(NSError *error) {
+        NSLog(@"[location] error %@", @(error.code));
+    }];
+    
+    // Signal #ready to the plugin.
+    [bgGeo ready];
+
+    if (!config.enabled) {
+        // Start tracking immediately (if not already).
+        [bgGeo start];
+    }
+}
+
+```
+
+### Android
 
 ```java
 package com.your.app;
@@ -90,62 +121,49 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        // Get a reference to the SDK
+        BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+        TSConfig config = TSConfig.getInstance(getApplicationContext());
 
-        // Get a reference to the plugin
-        BackgroundGeolocation adapter = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
-
-        // Build the config.
-        Config config = new Config.Builder()
-            .setDesiredAccuracy(0)
-            .setDistanceFilter(50)            
-            .setDebug(true)
-            .setLogLevel(5)
-            .setForegroundService(true)            
-            .setUrl("http://your.server.com/endpoint")
-            .setHeader("X-FOO", "FOO")
-            .setHeader("X-BAR", "BAR")        
-            .build();
+        if (config.isFirstBoot()) {
+            // The SDK *knows* when your app has been launched the first time
+            // after initial install:  By default, the SDK will load its last 
+            // known configuration from persistent storage
+            config.updateWithBuilder()
+                    .setDebug(true) // Sound Fx / notifications during development
+                    .setLogLevel(5) // Verbose logging during development
+                    .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                    .setDistanceFilter(10f)
+                    .setStopOnTerminate(false)
+                    .setForegroundService(true)
+                    .setStartOnBoot(true)
+                    .setUrl("http://your.server.com/locations")
+                    .commit();
+        }        
         
-        // Listen location event
-        adapter.onMotionChange(new TSLocationCallback() {
-            @Override
-            public void onLocation(TSLocation location) {
-                Log.i(TAG, "- [event] motionchange: " + location.toJson());
+        // Listen events
+        bgGeo.onLocation(new TSLocationCallback() {
+            @Override public void onLocation(TSLocation location) {
+                Log.i(TAG, "[event] - location: " + location.toJson());
             }
-            @Override
-            public void onError(Integer code) {
-                Log.i(TAG, "- [event] motionchange ERROR: " + code);
-            }
-        });
-        // Listen to motionchange event
-        adapter.onLocation(new TSLocationCallback() {
-            @Override
-            public void onLocation(TSLocation location) {
-                Log.i(TAG, "- [event] location: " + location.toJson());
-            }
-            @Override
-            public void onError(Integer code) {
-                Log.i(TAG, "- [event] location ERROR: " + code);
+            @Override public void onError(Integer code) {
+                Log.i(TAG, "[event] - location error: " + code);
             }
         });
 
-        // Configure the plugin
-        adapter.configure(config, new TSCallback() {
-            @Override
-            public void onSuccess() {
-                Log.i(TAG, "- configure success");
-                Config state = adapter.getConfig();
-                if (!state.getEnabled()) {
-                    adapter.start();
+        // Finally, signal #ready to the SDK.
+        bgGeo.ready(new TSCallback() {
+            @Override public void onSuccess() {
+                Log.i(TAG, "[ready] success");
+                if (!config.enabled) {
+                    // Start tracking immediately (if not already).
+                    bgGeo.start(); 
                 }
             }
-
-            @Override
-            public void onFailure(String error) {
-                TSLog.logger.debug("************** configure FAILURE: " + error);
+            @Override public void onFailure(String error) {
+                Log.i(TAG, "[ready] FAILURE: " + error);
             }
-        });
+        });        
     }
 }
 ```

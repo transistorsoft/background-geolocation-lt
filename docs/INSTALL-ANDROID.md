@@ -8,46 +8,89 @@ eg: :open_file_folder: **`Libraries/background-geolocation-lt`**
 
 ## Gradle Configuration
 
-:open_file_folder: **`settings.gradle`**
+### :open_file_folder: **`settings.gradle`**
 
 ```diff
 +include ':background-geolocation'
 +project(':background-geolocation').projectDir = new File(rootProject.projectDir, './Libraries/background-geolocation-lt/android/background-geolocation')
-
 ```
 
-:open_file_folder: **`app/build.gradle`**
+### :open_file_folder: **`android/build.gradle`**
 
 ```diff
-+repositories {
-+    flatDir {
-+        dirs project(':background-geolocation').projectDir.absolutePath + "/libs"
+allprojects {
+    repositories {
++        google()
++        maven {
++            url project(':background-geolocation').projectDir.absolutePath + "/libs"
++        }
 +    }
+}
+
+/**
+-* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-* !!! THE FOLLOWING IS OPTIONAL BUT HIGHLY RECOMMENDED FOR YOUR SANITY !!!
+-* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+*
+* Do you hate Gradle conflicts where other plugin require some particular
+* version of play-services or define a compileSdkVersion, buildToolsVersion
+* which conflicts with that of your app?  Me too!
+*
+* If you define these key gradle configuration variables globally, the 
+* background-geolocation plugin (and any other "wise" plugins you've installed) 
+* can align themselves to YOUR desired versions!  You should define these variables 
+* as desired according to current values in your app/build.gradle
+*
+* You'll find that more and more plugins are beginning to wise up to checking 
+* for the presense of global gradle variables like this.
+*
+* BackgroundGeolocation is aware of the following variables:
+*/
++ext {
++    compileSdkVersion   = 26
++    targetSdkVersion    = 26
++    buildToolsVersion   = "26.0.2"
++    supportLibVersion   = "26.1.0"
++    playServicesVersion = "11.8.0" 
 +}
+-// BackgroundGeolocation is also aware of googlePlayServicesVersion if you prefer
+```
+
+### :open_file_folder: **`app/build.gradle`**
+
+```diff
+-/**
+-* OPTIONAL:  If you've implemeted the "OPTIONAL BUT HIGHLY RECOMMENDED" note
+-* above, you can define your compileSdkVersion, buildToolsVersion, targetSdkVersion 
+-* using your own global variables as well:
+-* Android Studio is smart enough to be aware of the evaulated values here,
+-* to offer upgrade notices when applicable.
+-*
+-*/
+android {
++    compileSdkVersion rootProject.compileSdkVersion
+     defaultConfig {
++        targetSdkVersion rootProject.targetSdkVersion
+         .
+         .
+         .
+     }
+     .
+     .
+     .
+}
 
 dependencies {
 +    compile project(':background-geolocation')
++    implementation "com.android.support:appcompat-v7:$rootProject.supportLibVersion"    
 }
+
 ```
 
-:information_source: If you have a different play-serivces than the one included in this library, use the following instead (switch **`11.8.0`** for *your* desired version):
-
-```diff
-dependencies {
-     .
-     .
-     .
-+    compile(project(':background-geolocation')) {     
-+        exclude group: 'com.google.android.gms', module: 'play-services-location'
-+    }
-     // Now force your desired version
-+    compile 'com.google.android.gms:play-services-location:11.8.0'
-}
-```
 
 ## AndroidManifest.xml
 
-:open_file_folder: **`android/app/src/main/AndroidManifest.xml`**
+### :open_file_folder: **`android/app/src/main/AndroidManifest.xml`**
 
 ```diff
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
