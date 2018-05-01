@@ -2301,7 +2301,7 @@ config.updateWithBuilder()
     .setSchedule(schedule)
     .commit();
 
-BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 
 // Listen to schedule event
 bgGeo.onSchedule(new TSScheduleCallback() {
@@ -2593,7 +2593,6 @@ TSGeofence office = new TSGeofence.Builder()
     .setRadius(200)
     .setNotifyOnEntry(true)
     .setNotifyOnExit(true)
-    .setExtras(extras)
     .build();
 
 TSGeofence home = new TSGeofence.Builder()
@@ -2603,7 +2602,6 @@ TSGeofence home = new TSGeofence.Builder()
     .setRadius(200)
     .setNotifyOnEntry(true)
     .setNotifyOnExit(true)
-    .setExtras(extras)
     .build();
 
 List<TSGeofence> geofences = new ArrayList<>();
