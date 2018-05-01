@@ -31,63 +31,52 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        TSConfig config = TSConfig.getInstance(getApplicationContext());
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        if (config.isFirstBoot()) {
-            // "BackgroundGeolocation *knows* when your app has been 
-            // launched the first time after initial install.  By default, the 
-            // SDK will load its last known configuration from persistent
-            // storage
+        // Get a reference to the SDK
+        final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+        final TSConfig config = TSConfig.getInstance(getApplicationContext());
 
-            // Compose optional HTTP #params
-            JSONObject params = new JSONObject();
-            try {
-                params.put("foo", "bar");
-            } catch (JSONException e) {
-                TSLog.logger.error(TSLog.error(e.getMessage()));
-            }
+        // Configure the SDK
+        config.updateWithBuilder()
+                .setDebug(true) // Sound Fx / notifications during development
+                .setLogLevel(5) // Verbose logging during development
+                .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setDistanceFilter(10F)
+                .setStopTimeout(1L)
+                .setHeartbeatInterval(60)
+                .setStopOnTerminate(false)
+                .setForegroundService(true)
+                .setStartOnBoot(true)
+                .setUrl("http://your.server.com/locations")
+                .commit();
 
-            // Compose optional #extras attached to each recorded location
-            JSONObject extras = new JSONObject();
-            try {
-                extras.put("extra1", "extra-value-1");
-            } catch (JSONException e) {
-                TSLog.logger.error(TSLog.error(e.getMessage()));
-            }
-
-            config.updateWithBuilder()
-                    .setDebug(true)
-                    .setLogLevel(5) // Verbose logging
-                    .setForegroundService(true)
-                    .setParams(params)
-                    .setHeader("X-FOO", "FOO")
-                    .setHeader("X-BAR", "BAR")
-                    .setExtras(extras)
-                    .setDistanceFilter(50f)
-                    .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY).commit();
-        }
-        BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext());
-        
-        // Listen to location event
+        // Listen events
         bgGeo.onLocation(new TSLocationCallback() {
-            @Override public void onLocation(TSLocation location) {
-                Log.i(TAG, "[event] - location: " + location.toJson());
+            @Override
+            public void onLocation(TSLocation location) {
+                Log.i(TAG, "[location] " + location.toJson());
             }
-            @Override public void onError(Integer code) {
-                Log.i(TAG, "[event] - location error: " + code);
+            @Override
+            public void onError(Integer code) {
+                Log.i(TAG, "[location] ERROR: " + code);
             }
         });
-
+        
         // Finally, signal #ready to the SDK.
         bgGeo.ready(new TSCallback() {
             @Override public void onSuccess() {
-                Log.i(TAG, "- configure success");
-                bgGeo.start();  // <-- start tracking.
+                Log.i(TAG, "[ready] success");
+                if (!config.getEnabled()) {
+                    // Start tracking immediately (if not already).
+                    bgGeo.start();
+                }
             }
             @Override public void onFailure(String error) {
-                Log.i(TAG, "- configure FAILURE: " + error);
+                Log.i(TAG, "[ready] FAILURE: " + error);
             }
-        });        
+        });
     }
 }
 ```
@@ -196,13 +185,7 @@ public class MainActivity extends AppCompatActivity {
 Event-listeners can be attached using the method **`#on{EventName}`**, supplying the **Event Name** in the following table.
 
 ```java
-public class MainActivity extends AppCompatActivity {
-    
-    private FloatingActionButton mBtnChangePace;
-    private SwitchCompat mBtnEnable;
-    private FloatingActionButton mBtnCurrentPosition;
-    private TextView mLocationView;
-
+public class MainActivity extends AppCompatActivity {      
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -532,7 +515,7 @@ bgGeo.ready(new TSCallback() {
         bgGeo.start();  // <-- SDK will automatically #stop itself after 30 minutes
     }
     @Override public void onFailure(String error) {
-        TSLog.logger.debug("- configure FAILURE: " + error);
+        Log.i(TAG, "[ready] FAILURE: " + error);
     }
 });
 ```
@@ -709,7 +692,7 @@ try {
     params.put("user_id", 123);
     params.put("route_id", 456);
 } catch (JSONException e) {
-    TSLog.logger.error(TSLog.error(e.getMessage()));
+
 }
 
 config.updateWithBuilder()                    
@@ -1282,11 +1265,11 @@ bgGeo.onSchedule(new TSScheduleCallback() {
 // Finally, signal #ready and #startSchedule
 bgGeo.ready(new TSCallback() {
     @Override public void onSuccess() {
-        TSLog.logger.debug("- configure success");
+        Log.i(TAG, "[ready] success");
         bgGeo.startSchedule();
     }
     @Override public void onFailure(String error) {
-        TSLog.logger.debug("- configure FAILURE: " + error);
+        Log.i(TAG, "[ready] FAILURE: " + error);
     }
 });
 .
@@ -1875,11 +1858,11 @@ bgGeo.onSchedule(new TSScheduleCallback() {
 // Finally, signal #ready and #startSchedule
 bgGeo.ready(new TSCallback() {
     @Override public void onSuccess() {
-        TSLog.logger.debug("- configure success");
+        Log.i(TAG, "[ready] success");
         bgGeo.startSchedule();
     }
     @Override public void onFailure(String error) {
-        TSLog.logger.debug("- configure FAILURE: " + error);
+        Log.i(TAG, "[ready] FAILURE: " + error);
     }
 });
 ```
@@ -1959,27 +1942,24 @@ The **`#ready`** method is your first point-of-contact with the SDK.  You must e
 ```java
 
 public class MainActivity extends AppCompatActivity {
-
+    private static String TAG = "MyApp";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        TSConfig config = TSConfig.getInstance(getApplicationContext());
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        if (config.isFirstBoot()) {
-            // "BackgroundGeolocation *knows* when your app has been 
-            // launched the first time after initial install.  By default, the 
-            // SDK will load its last known configuration from persistent
-            // storage
-            config.updateWithBuilder()
-                    .setDebug(true)
-                    .setLogLevel(5) // Verbose logging
-                    .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                    .setDistanceFilter(50f)                    
-                    .setForegroundService(true)                    
-                    .setUrl("http://your.server.com/locations")
-                    .commit();
-
-        }
-        BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+        final TSConfig config = TSConfig.getInstance(getApplicationContext());
+        
+        config.updateWithBuilder()
+                .setDebug(true)
+                .setLogLevel(5) // Verbose logging
+                .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setDistanceFilter(50f)                    
+                .setForegroundService(true)                    
+                .setUrl("http://your.server.com/locations")
+                .commit();
+        
+        final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 
         // Listen to events:
         bgGeo.onLocation(new TSLocationCallback() {
@@ -2107,6 +2087,7 @@ Retrieves the current position.  This method instructs the SDK to fetch exactly 
 ```java
 
 public class MainActivity extends AppCompatActivity {
+    private static String TAG = "MyApp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -2310,11 +2291,11 @@ bgGeo.onSchedule(new TSScheduleCallback() {
 // Finally, signal #ready and #startSchedule
 bgGeo.ready(new TSCallback() {
     @Override public void onSuccess() {
-        TSLog.logger.debug("- configure success");
+        Log.i(TAG, "[ready] success");
         bgGeo.startSchedule();  // <-- start the scheduler.
     }
     @Override public void onFailure(String error) {
-        TSLog.logger.debug("- configure FAILURE: " + error);
+        Log.i(TAG, "[ready] FAILURE: " + error);
     }
 });
 ```
@@ -2478,13 +2459,14 @@ Engages the geofences-only `trackingMode`.  In this mode, no active location-tra
 ```java
 
 public class MainActivity extends AppCompatActivity {
+    private static String TAG = "MyApp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
       
-        BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+        final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 
         // Create a Geofence.
         TSGeofence geofence = new TSGeofence.Builder()
@@ -2501,11 +2483,11 @@ public class MainActivity extends AppCompatActivity {
         // Finally, signal #ready to the SDK and #startGeofences
         bgGeo.ready(new TSCallback() {
             @Override public void onSuccess() {
-                TSLog.logger.debug("- BackgroundGeolocation ready");
+                Log.i(TAG, "[ready] success");
                 bgGeo.startGeofences(); 
             }
             @Override public void onFailure(String error) {
-                TSLog.logger.debug("- BackgroundGeolocation failed: " + error);
+                Log.i(TAG, "[ready] FAILURE: " + error);
             }
         });
     }
@@ -2770,6 +2752,8 @@ Fetch the entire contents of the current circular log and email it to a recipien
 
 ```java
 public class MainActivity extends AppCompatActivity {
+    private static String TAG = "MyApp";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
