@@ -121,33 +121,54 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Get a reference to the SDK
-        BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
-        TSConfig config = TSConfig.getInstance(getApplicationContext());
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        if (config.isFirstBoot()) {
-            // The SDK *knows* when your app has been launched the first time
-            // after initial install:  By default, the SDK will load its last 
-            // known configuration from persistent storage
-            config.updateWithBuilder()
-                    .setDebug(true) // Sound Fx / notifications during development
-                    .setLogLevel(5) // Verbose logging during development
-                    .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                    .setDistanceFilter(10f)
-                    .setStopOnTerminate(false)
-                    .setForegroundService(true)
-                    .setStartOnBoot(true)
-                    .setUrl("http://your.server.com/locations")
-                    .commit();
-        }        
-        
+        // Get a reference to the SDK
+        final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+        final TSConfig config = TSConfig.getInstance(getApplicationContext());
+
+        // Configure the SDK
+        config.updateWithBuilder()
+                .setDebug(true) // Sound Fx / notifications during development
+                .setLogLevel(5) // Verbose logging during development
+                .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setDistanceFilter(10F)
+                .setStopTimeout(1L)
+                .setHeartbeatInterval(60)
+                .setStopOnTerminate(false)
+                .setForegroundService(true)
+                .setStartOnBoot(true)
+                .setUrl("http://your.server.com/locations")
+                .commit();
+
         // Listen events
         bgGeo.onLocation(new TSLocationCallback() {
-            @Override public void onLocation(TSLocation location) {
-                Log.i(TAG, "[event] - location: " + location.toJson());
+            @Override
+            public void onLocation(TSLocation location) {
+                Log.i(TAG, "[location] " + location.toJson());
             }
-            @Override public void onError(Integer code) {
-                Log.i(TAG, "[event] - location error: " + code);
+            @Override
+            public void onError(Integer code) {
+                Log.i(TAG, "[location] ERROR: " + code);
+            }
+        });
+
+        bgGeo.onMotionChange(new TSLocationCallback() {
+            @Override
+            public void onLocation(TSLocation tsLocation) {
+                Log.i(TAG, "[motionchange] " + tsLocation.toJson());
+            }
+            @Override
+            public void onError(Integer error) {
+                Log.i(TAG, "[motionchange] ERROR: " + error);
+            }
+        });
+
+        bgGeo.onHeartbeat(new TSHeartbeatCallback() {
+            @Override
+            public void onHeartbeat(HeartbeatEvent heartbeatEvent) {
+                Log.i(TAG, "[heartbeat] " + heartbeatEvent.toJson());
             }
         });
 
@@ -155,15 +176,15 @@ public class MainActivity extends AppCompatActivity {
         bgGeo.ready(new TSCallback() {
             @Override public void onSuccess() {
                 Log.i(TAG, "[ready] success");
-                if (!config.enabled) {
+                if (!config.getEnabled()) {
                     // Start tracking immediately (if not already).
-                    bgGeo.start(); 
+                    bgGeo.start();
                 }
             }
             @Override public void onFailure(String error) {
                 Log.i(TAG, "[ready] FAILURE: " + error);
             }
-        });        
+        });
     }
 }
 ```

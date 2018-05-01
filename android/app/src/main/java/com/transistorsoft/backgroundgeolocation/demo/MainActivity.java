@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
+import android.util.Log;
 import com.google.android.gms.location.LocationRequest;
 import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
 import com.transistorsoft.locationmanager.adapter.TSConfig;
@@ -32,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
+    private static String TAG = "BackgroundGeolocationDemo";
 
     private FloatingActionButton mBtnChangePace;
     private SwitchCompat mBtnEnable;
@@ -56,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         mLocationView = findViewById(R.id.content);
 
         configureBackgroundGeolocation();
-
     }
 
     private void configureBackgroundGeolocation() {
@@ -112,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
         // Finally, signal #ready to the plugin.
         bgGeo.ready(new TSCallback() {
             @Override public void onSuccess() {
-                TSLog.logger.debug("- configure success");
+                TSLog.logger.debug("[ready] success");
                 mBtnEnable.setChecked(config.getEnabled());
             }
             @Override public void onFailure(String error) {
-                TSLog.logger.debug("- configure FAILURE: " + error);
+                TSLog.logger.debug("[ready] FAILURE: " + error);
             }
         });
     }
@@ -179,9 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject extras = new JSONObject();
                 try {
                     extras.put("jobId", 1234);
-                } catch (JSONException e) {
-                    TSLog.logger.error("Uhoh! " + e.getMessage());
-                }
+                } catch (JSONException e) { }
                 // Build position request.
                 TSCurrentPositionRequest request = new TSCurrentPositionRequest.Builder(getApplicationContext())
                         .setPersist(true)       // <-- yes, persist to database
@@ -204,8 +202,8 @@ public class MainActivity extends AppCompatActivity {
                 int icon = (location.getIsMoving()) ? android.R.drawable.ic_media_pause : android.R.drawable.ic_media_play;
                 mBtnChangePace.setImageResource(icon);
             }
-            @Override public void onError(Integer code) {
-
+            @Override public void onError(Integer error) {
+                TSLog.logger.debug("[motionchange] FAILURE: " + error);
             }
         };
     }
@@ -221,8 +219,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
-            @Override public void onError(Integer code) {
-
+            @Override public void onError(Integer error) {
+                TSLog.logger.debug("[location] FAILURE: " + error);
             }
         };
     }
