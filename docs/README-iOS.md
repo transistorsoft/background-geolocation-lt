@@ -32,22 +32,18 @@ The following **Options** can all be provided to the plugin's `TSConfig` instanc
     [super viewDidLoad];
 
     TSConfig *config = [TSConfig sharedInstance];
-
-    if (config.isFirstBoot) {
-        // You only need to provide initial configuration at first boot 
-        // of your app.  The SDK persists any config changes you perform at 
-        // run-time.
-        [config updateWithBlock:^(TSConfigBuilder *builder) {
-            builder.debug = YES;
-            builder.desiredAccuracy = kCLLocationAccuracyBest;
-            build.distanceFilter = 10;
-            builder.stopOnTerminate = NO;    
-            builder.url = @"http://your.server.com/locations";
-            builder.params = @{@"foo":@"bar"};
-            builder.headers = @{@"X-FOO":@"FOO", @"X-BAR":@"BAR"};
-            builder.autoSync = YES;
-        }];
-    }
+          
+    [config updateWithBlock:^(TSConfigBuilder *builder) {
+        builder.debug = YES;
+        builder.desiredAccuracy = kCLLocationAccuracyBest;
+        build.distanceFilter = 10;
+        builder.stopOnTerminate = NO;
+        builder.startOnBoot = YES;
+        builder.url = @"http://your.server.com/locations";
+        builder.params = @{@"foo":@"bar"};
+        builder.headers = @{@"X-FOO":@"FOO", @"X-BAR":@"BAR"};
+        builder.autoSync = YES;
+    }];
 
     TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
 
@@ -382,7 +378,7 @@ The following image shows the typical distance iOS requires to detect exit of th
 The plugin can optionally automatically stop tracking after some number of minutes elapses after the `#start` method was called.
 
 ```obj-c
-TSConfig *config [TSConfig sharedInstance];
+TSConfig *config = [TSConfig sharedInstance];
 
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
@@ -486,7 +482,7 @@ When you configure the plugin location-authorization `Always` or `WhenInUse` and
 ![](s/wyoaf16buwsw7ed/docs-locationAuthorizationAlert.jpg?dl=1)
 
 ```obj-c
-TSConfig *config [TSConfig sharedInstance];
+TSConfig *config = [TSConfig sharedInstance];
 
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
@@ -686,7 +682,7 @@ TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.url = @"http://my-server.com/locations";
-    httpTimeout = 3000;
+    builder.httpTimeout = 3000;
 }];
 ```
 
@@ -1107,7 +1103,7 @@ TSConfig *config = [TSConfig sharedInstance];
 }];
 
 TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
-[locationManager onHeartbeat:^(TSHeartbeatEvent *event) {
+[bgGeo onHeartbeat:^(TSHeartbeatEvent *event) {
     NSLog(@"[heartbeat: %@", event);
 
     // You could request the current position if you wish:
@@ -1347,6 +1343,8 @@ Your **`^callback`** block will be executed each time the device has changed-sta
 ##### [`@param {TSLocation} location`](../ios/BackgroundGeolocation/Frameworks/TSLocationManager.framework/Headers/TSLocation.h)
 
 ```obj-c
+TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
+
 [bgGeo onMotionChange:^(TSLocation *tsLocation) {
     BOOL isMoving = tsLocation.isMoving;
     if (isMoving) {
@@ -1404,6 +1402,8 @@ Your **`^callback`** fill be executed when a change in the state of the device's
 | `kCLAuthorizationStatusAuthorizedWhenInUse` | `4`   |
 
 ```obj-c
+TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
+
 [bgGeo onProviderChange:^(TSProviderChangeEvent *event) {
     BOOL enabled  = event.enabled;
     BOOL gps      = event.gps;
@@ -1492,6 +1492,8 @@ The **`^callback`** will be executed for each successful HTTP request where the 
 Example:
 
 ```obj-c
+TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
+
 [bgGeo onHttp:^(TSHttpEvent *event) {
     NSInteger status = event.statusCode;
     NSString *responseText = event.responseText;
