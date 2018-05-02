@@ -7,14 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		83CE47EE2025071A004DF1CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CE47ED2025071A004DF1CC /* AppDelegate.m */; };
-		83CE47F12025071A004DF1CC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CE47F02025071A004DF1CC /* ViewController.m */; };
-		83CE47F42025071A004DF1CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83CE47F22025071A004DF1CC /* Main.storyboard */; };
-		83CE47F62025071A004DF1CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83CE47F52025071A004DF1CC /* Assets.xcassets */; };
-		83CE47F92025071A004DF1CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83CE47F72025071A004DF1CC /* LaunchScreen.storyboard */; };
-		83CE47FC2025071A004DF1CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CE47FB2025071A004DF1CC /* main.m */; };
-		83CE48052025075D004DF1CC /* TSBackgroundFetch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CE48032025075D004DF1CC /* TSBackgroundFetch.framework */; };
-		83CE48062025075D004DF1CC /* TSLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CE48042025075D004DF1CC /* TSLocationManager.framework */; };
 		83F8A1F32049AF3C00E7B41B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F8A1F22049AF3C00E7B41B /* AppDelegate.m */; };
 		83F8A1F62049AF3C00E7B41B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F8A1F52049AF3C00E7B41B /* ViewController.m */; };
 		83F8A1F92049AF3C00E7B41B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83F8A1F72049AF3C00E7B41B /* Main.storyboard */; };
@@ -173,7 +165,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		83CE47E92025071A004DF1CC /* BackgroundGeolocation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackgroundGeolocation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83CE47EC2025071A004DF1CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		83CE47ED2025071A004DF1CC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		83CE47EF2025071A004DF1CC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -209,15 +200,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		83CE47E62025071A004DF1CC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83CE48062025075D004DF1CC /* TSLocationManager.framework in Frameworks */,
-				83CE48052025075D004DF1CC /* TSBackgroundFetch.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		83F8A1EC2049AF3C00E7B41B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,7 +244,6 @@
 		83CE47EA2025071A004DF1CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				83CE47E92025071A004DF1CC /* BackgroundGeolocation.app */,
 				83F8A1EF2049AF3C00E7B41B /* Demo.app */,
 				83F8A2062049AF3C00E7B41B /* DemoTests.xctest */,
 				83F8A2112049AF3C00E7B41B /* DemoUITests.xctest */,
@@ -376,23 +357,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		83CE47E82025071A004DF1CC /* BackgroundGeolocation */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 83CE47FF2025071A004DF1CC /* Build configuration list for PBXNativeTarget "BackgroundGeolocation" */;
-			buildPhases = (
-				83CE47E52025071A004DF1CC /* Sources */,
-				83CE47E62025071A004DF1CC /* Frameworks */,
-				83CE47E72025071A004DF1CC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = BackgroundGeolocation;
-			productName = BackgroundGeolocation;
-			productReference = 83CE47E92025071A004DF1CC /* BackgroundGeolocation.app */;
-			productType = "com.apple.product-type.application";
-		};
 		83F8A1EE2049AF3C00E7B41B /* Demo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83F8A21E2049AF3C00E7B41B /* Build configuration list for PBXNativeTarget "Demo" */;
@@ -456,10 +420,6 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Christopher Scott";
 				TargetAttributes = {
-					83CE47E82025071A004DF1CC = {
-						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
-					};
 					83F8A1EE2049AF3C00E7B41B = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -501,7 +461,6 @@
 			);
 			projectRoot = "";
 			targets = (
-				83CE47E82025071A004DF1CC /* BackgroundGeolocation */,
 				83F8A1EE2049AF3C00E7B41B /* Demo */,
 				83F8A2052049AF3C00E7B41B /* DemoTests */,
 				83F8A2102049AF3C00E7B41B /* DemoUITests */,
@@ -625,16 +584,6 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
-		83CE47E72025071A004DF1CC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83CE47F92025071A004DF1CC /* LaunchScreen.storyboard in Resources */,
-				83CE47F62025071A004DF1CC /* Assets.xcassets in Resources */,
-				83CE47F42025071A004DF1CC /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		83F8A1ED2049AF3C00E7B41B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -662,16 +611,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		83CE47E52025071A004DF1CC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83CE47F12025071A004DF1CC /* ViewController.m in Sources */,
-				83CE47FC2025071A004DF1CC /* main.m in Sources */,
-				83CE47EE2025071A004DF1CC /* AppDelegate.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		83F8A1EB2049AF3C00E7B41B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -853,42 +792,6 @@
 			};
 			name = Release;
 		};
-		83CE48002025071A004DF1CC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 32A636YFGZ;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
-				);
-				INFOPLIST_FILE = BackgroundGeolocation/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.transistorsoft.BackgroundGeolocation;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		83CE48012025071A004DF1CC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 32A636YFGZ;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
-				);
-				INFOPLIST_FILE = BackgroundGeolocation/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.transistorsoft.BackgroundGeolocation;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		83F8A2182049AF3C00E7B41B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -993,15 +896,6 @@
 			buildConfigurations = (
 				83CE47FD2025071A004DF1CC /* Debug */,
 				83CE47FE2025071A004DF1CC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		83CE47FF2025071A004DF1CC /* Build configuration list for PBXNativeTarget "BackgroundGeolocation" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				83CE48002025071A004DF1CC /* Debug */,
-				83CE48012025071A004DF1CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

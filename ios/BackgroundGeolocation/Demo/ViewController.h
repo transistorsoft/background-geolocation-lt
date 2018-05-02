@@ -7,14 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *btnChangePace;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *btnCurrentPosition;
 @property (weak, nonatomic) IBOutlet UISwitch *enableSwitch;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
+@property (weak, nonatomic) IBOutlet UISwitch *enableSwitch2;
 
+@property (strong, nonatomic) MKPolyline *polyline;
+@property (strong, nonatomic) NSMutableArray *locations;
 
 @end
 

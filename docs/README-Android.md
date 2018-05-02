@@ -31,63 +31,52 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        TSConfig config = TSConfig.getInstance(getApplicationContext());
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        if (config.isFirstBoot()) {
-            // "BackgroundGeolocation *knows* when your app has been 
-            // launched the first time after initial install.  By default, the 
-            // SDK will load its last known configuration from persistent
-            // storage
+        // Get a reference to the SDK
+        final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+        final TSConfig config = TSConfig.getInstance(getApplicationContext());
 
-            // Compose optional HTTP #params
-            JSONObject params = new JSONObject();
-            try {
-                params.put("foo", "bar");
-            } catch (JSONException e) {
-                TSLog.logger.error(TSLog.error(e.getMessage()));
-            }
+        // Configure the SDK
+        config.updateWithBuilder()
+                .setDebug(true) // Sound Fx / notifications during development
+                .setLogLevel(5) // Verbose logging during development
+                .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setDistanceFilter(10F)
+                .setStopTimeout(1L)
+                .setHeartbeatInterval(60)
+                .setStopOnTerminate(false)
+                .setForegroundService(true)
+                .setStartOnBoot(true)
+                .setUrl("http://your.server.com/locations")
+                .commit();
 
-            // Compose optional #extras attached to each recorded location
-            JSONObject extras = new JSONObject();
-            try {
-                extras.put("extra1", "extra-value-1");
-            } catch (JSONException e) {
-                TSLog.logger.error(TSLog.error(e.getMessage()));
-            }
-
-            config.updateWithBuilder()
-                    .setDebug(true)
-                    .setLogLevel(5) // Verbose logging
-                    .setForegroundService(true)
-                    .setParams(params)
-                    .setHeader("X-FOO", "FOO")
-                    .setHeader("X-BAR", "BAR")
-                    .setExtras(extras)
-                    .setDistanceFilter(50f)
-                    .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY).commit();
-        }
-        BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext());
-        
-        // Listen to location event
+        // Listen events
         bgGeo.onLocation(new TSLocationCallback() {
-            @Override public void onLocation(TSLocation location) {
-                Log.i(TAG, "[event] - location: " + location.toJson());
+            @Override
+            public void onLocation(TSLocation location) {
+                Log.i(TAG, "[location] " + location.toJson());
             }
-            @Override public void onError(Integer code) {
-                Log.i(TAG, "[event] - location error: " + code);
+            @Override
+            public void onError(Integer code) {
+                Log.i(TAG, "[location] ERROR: " + code);
             }
         });
-
+        
         // Finally, signal #ready to the SDK.
         bgGeo.ready(new TSCallback() {
             @Override public void onSuccess() {
-                Log.i(TAG, "- configure success");
-                bgGeo.start();  // <-- start tracking.
+                Log.i(TAG, "[ready] success");
+                if (!config.getEnabled()) {
+                    // Start tracking immediately (if not already).
+                    bgGeo.start();
+                }
             }
             @Override public void onFailure(String error) {
-                Log.i(TAG, "- configure FAILURE: " + error);
+                Log.i(TAG, "[ready] FAILURE: " + error);
             }
-        });        
+        });
     }
 }
 ```
@@ -99,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
 |-------------|-----------|-----------|-----------------------------------|
 | [`desiredAccuracy`](#config-int-desiredaccuracy-priority_high_accuracy) | `int` | `PRIORITY_HIGH_ACCURACY` | Specify the desired-accuracy of the geolocation system. |
 | [`distanceFilter`](#config-float-distancefilter-10) | `float` | `10` | The minimum distance (measured in meters) a device must move horizontally before an update event is generated. |
-| [`locationUpdateInterval`](#config-int-millis-locationupdateinterval-1000) | `int` | `1000` | With [`distanceFilter: 0`](config-float-distancefilter-10), Sets the desired interval for location updates, in milliseconds.  :warning: This setting will be ignored when **`distanceFilter > 0`** |
-| [`fastestLocationUpdateInterval`](#config-int-millis-fastestlocationupdateinterval-10000) | `int` | `10000` | Explicitly set the fastest interval for location updates, in milliseconds. |
+| [`locationUpdateInterval`](#config-long-millis-locationupdateinterval-1000) | `long` | `1000` | With [`distanceFilter: 0`](config-float-distancefilter-10), Sets the desired interval for location updates, in milliseconds.  :warning: This setting will be ignored when **`distanceFilter > 0`** |
+| [`fastestLocationUpdateInterval`](#config-long-millis-fastestlocationupdateinterval-10000) | `long` | `10000` | Explicitly set the fastest interval for location updates, in milliseconds. |
 | [`deferTime`](#config-int-defertime-0) | `int` | `0` | Sets the maximum wait time in milliseconds for location updates to be delivered to your callback, when they will all be delivered in a batch.|
 | [`allowIdenticalLocations`](#config-boolean-allowidenticallocations-false) | `boolean` | `false` | The Android SDK will ignore a received location when it is identical to the last location.  Set `true` to override this behaviour and record every location, regardless if it is identical to the last location.|
 | [`stationaryRadius`](#config-int-stationaryradius-25) | `int`  | `25`  | When stopped, the minimum distance the device must move beyond the stationary location for aggressive background-tracking to engage. |
@@ -196,13 +185,7 @@ public class MainActivity extends AppCompatActivity {
 Event-listeners can be attached using the method **`#on{EventName}`**, supplying the **Event Name** in the following table.
 
 ```java
-public class MainActivity extends AppCompatActivity {
-    
-    private FloatingActionButton mBtnChangePace;
-    private SwitchCompat mBtnEnable;
-    private FloatingActionButton mBtnCurrentPosition;
-    private TextView mLocationView;
-
+public class MainActivity extends AppCompatActivity {      
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -385,9 +368,9 @@ Compare now background-geolocation in the scope of a city.  In this image, the l
 
 ------------------------------------------------------------------------------
 
-#### `@config {int millis} locationUpdateInterval [1000]`
+#### `@config {long millis} locationUpdateInterval [1000]`
 
-:warning: To use **`locationUpdateInterval`** you must also configure [`distanceFilter: 0`](#config-int-distancefilter-10).  **`distanceFilter`** *overrides* **`locationUpdateInterval`**.
+:warning: To use **`locationUpdateInterval`** you must also configure [`distanceFilter: 0`](#config-float-distancefilter-10).  **`distanceFilter`** *overrides* **`locationUpdateInterval`**.
 
 Set the desired interval for active location updates, in milliseconds.
 
@@ -402,33 +385,33 @@ Applications with only the coarse location permission may have their interval si
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 config.updateWithBuilder()                    
-    .setLocationUpdateInterval(5000)
-    .setDistanceFilter(0) // <-- Required to use locationUpdateInterval
+    .setLocationUpdateInterval(5000L)
+    .setDistanceFilter(0F) // <-- Required to use locationUpdateInterval
     .commit();
 ```
 
 ------------------------------------------------------------------------------
 
-#### `@config {int millis} fastestLocationUpdateInterval [10000]`
+#### `@config {long millis} fastestLocationUpdateInterval [10000]`
 
 Explicitly set the fastest interval for location updates, in milliseconds.
 
-This controls the fastest rate at which your application will receive location updates, which might be faster than [`#locationUpdateInterval`](#config-int-millis-locationupdateinterval-1000) in some situations (for example, if other applications are triggering location updates).
+This controls the fastest rate at which your application will receive location updates, which might be faster than [`#locationUpdateInterval`](#config-long-millis-locationupdateinterval-1000) in some situations (for example, if other applications are triggering location updates).
 
 This allows your application to passively acquire locations at a rate faster than it actively acquires locations, saving power.
 
-Unlike [`#locationUpdateInterval`](#config-int-millis-locationupdateinterval-1000), this parameter is exact. Your application will never receive updates faster than this value.
+Unlike [`#locationUpdateInterval`](#config-long-millis-locationupdateinterval-1000), this parameter is exact. Your application will never receive updates faster than this value.
 
 If you don't call this method, a fastest interval will be set to **30000 (30s)**. 
 
 An interval of `0` is allowed, but **not recommended**, since location updates may be extremely fast on future implementations.
 
-If **`#fastestLocationUpdateInterval`** is set slower than [`#locationUpdateInterval`](#config-int-millis-locationupdateinterval-1000), then your effective fastest interval is [`#locationUpdateInterval`](#config-int-millis-locationupdateinterval-1000).
+If **`#fastestLocationUpdateInterval`** is set slower than [`#locationUpdateInterval`](#config-long-millis-locationupdateinterval-1000), then your effective fastest interval is [`#locationUpdateInterval`](#config-long-millis-locationupdateinterval-1000).
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 config.updateWithBuilder()                    
-    .setFastestLocationUpdateInterval(1000)
+    .setFastestLocationUpdateInterval(1000L)
     .commit();
 ```
 
@@ -438,7 +421,7 @@ config.updateWithBuilder()
 
 #### `@config {long} deferTime [0]`
 
-Defaults to `0` (no defer).  Sets the maximum wait time in milliseconds for location updates.  If you pass a value at least 2x larger than the interval specified with [`#locationUpdateInterval`](#config-int-millis-locationupdateinterval-1000), then location delivery may be delayed and multiple locations can be delivered at once. Locations are determined at the [`#locationUpdateInterval`](#config-int-millis-locationupdateinterval-1000) rate, but can be delivered in batch after the interval you set in this method. This can consume less battery and give more accurate locations, depending on the device's hardware capabilities. You should set this value to be as large as possible for your needs if you don't need immediate location delivery.
+Defaults to `0` (no defer).  Sets the maximum wait time in milliseconds for location updates.  If you pass a value at least 2x larger than the interval specified with [`#locationUpdateInterval`](#config-long-millis-locationupdateinterval-1000), then location delivery may be delayed and multiple locations can be delivered at once. Locations are determined at the [`#locationUpdateInterval`](#config-long-millis-locationupdateinterval-1000) rate, but can be delivered in batch after the interval you set in this method. This can consume less battery and give more accurate locations, depending on the device's hardware capabilities. You should set this value to be as large as possible for your needs if you don't need immediate location delivery.
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
@@ -525,14 +508,14 @@ config.updateWithBuilder()
     .setStopAfterElapsedMinutes(30)
     .commit();
 
-BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 
 bgGeo.ready(new TSCallback() {
     @Override public void onSuccess() {
         bgGeo.start();  // <-- SDK will automatically #stop itself after 30 minutes
     }
     @Override public void onFailure(String error) {
-        TSLog.logger.debug("- configure FAILURE: " + error);
+        Log.i(TAG, "[ready] FAILURE: " + error);
     }
 });
 ```
@@ -561,7 +544,7 @@ Specify an accuracy threshold in **meters** for odometer calculations.  Defaults
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 config.updateWithBuilder()                    
-    .setDesiredOdometerAccuracy(100)
+    .setDesiredOdometerAccuracy(100F)
     .commit();
 ```
 
@@ -603,7 +586,7 @@ When in the **moving** state, specifies the number of minutes to wait before tur
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 config.updateWithBuilder()                    
-    .setStopTimeout(5)
+    .setStopTimeout(5L)
     .commit();
 ```
 
@@ -709,7 +692,7 @@ try {
     params.put("user_id", 123);
     params.put("route_id", 456);
 } catch (JSONException e) {
-    TSLog.logger.error(TSLog.error(e.getMessage()));
+
 }
 
 config.updateWithBuilder()                    
@@ -732,6 +715,7 @@ config.updateWithBuilder()
 HTTP request timeout in **milliseconds**.  The `http` **`callback`** will execute when an HTTP timeout occurs with an error code of `408`.  Defaults to `60000 ms` (1 minute).
 
 ```java
+BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 
 config.updateWithBuilder()                    
@@ -818,8 +802,8 @@ TSConfig config = TSConfig.getInstance(getApplicationContext());
 // Compose optional HTTP #params attached to each HTTP request
 JSONObject headers = new JSONObject();
 try {
-    params.put("X-FOO", "foo");
-    params.put("X-BAR", "bar");
+    headers.put("X-FOO", "foo");
+    headers.put("X-BAR", "bar");
 } catch (JSONException e) {
 
 }
@@ -928,7 +912,7 @@ TSConfig config = TSConfig.getInstance(getApplicationContext());
 // Compose optional HTTP #extras attached to each HTTP request
 JSONObject extras = new JSONObject();
 try {
-    params.put("foo", "bar");
+    extras.put("foo", "bar");
 } catch (JSONException e) {
 
 }
@@ -1097,7 +1081,7 @@ TSConfig config = TSConfig.getInstance(getApplicationContext());
 // Compose optional HTTP #extras attached to each HTTP request
 JSONObject extras = new JSONObject();
 try {
-    params.put("route_id", 1234);
+    extras.put("route_id", 1234);
 } catch (JSONException e) {
 
 }
@@ -1269,7 +1253,7 @@ config.updateWithBuilder()
     .setSchedule(schedule)
     .commit();
 
-BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 
 // Listen to schedule event
 bgGeo.onSchedule(new TSScheduleCallback() {
@@ -1282,11 +1266,11 @@ bgGeo.onSchedule(new TSScheduleCallback() {
 // Finally, signal #ready and #startSchedule
 bgGeo.ready(new TSCallback() {
     @Override public void onSuccess() {
-        TSLog.logger.debug("- configure success");
+        Log.i(TAG, "[ready] success");
         bgGeo.startSchedule();
     }
     @Override public void onFailure(String error) {
-        TSLog.logger.debug("- configure FAILURE: " + error);
+        Log.i(TAG, "[ready] FAILURE: " + error);
     }
 });
 .
@@ -1434,7 +1418,7 @@ If the user reboots the device with the SDK configured for [`startOnBoot: true`]
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 
 config.updateWithBuilder()
-    .setForceReloadOnMotionBoot(true)
+    .setForceReloadOnBoot(true)
     .commit();
 ```
 
@@ -1535,7 +1519,7 @@ config.updateWithBuilder()
     // 1. drawable
     .setNotificationSmallIcon("drawable/my_custom_notification_small_icon")
     // Or 2. MipMap
-    setNotificationSmallIcon("mipmap/my_custom_notification_small_icon")
+    .setNotificationSmallIcon("mipmap/my_custom_notification_small_icon")
     .commit();
 ```
 
@@ -1558,7 +1542,7 @@ config.updateWithBuilder()
     // 1. drawable
     .setNotificationSmallIcon("drawable/my_custom_notification_large_icon")
     // Or 2. MipMap
-    setNotificationSmallIcon("mipmap/my_custom_notification_large_icon")
+    .setNotificationSmallIcon("mipmap/my_custom_notification_large_icon")
     .commit();
 ```
 
@@ -1637,6 +1621,8 @@ config.updateWithBuilder()
 Fired whenever a location is recorded.
 
 ```java
+BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+
 bgGeo.onLocation(new TSLocationCallback() {
     @Override
     public void onLocation(TSLocation tsLocation) {
@@ -1675,6 +1661,8 @@ Your **`onLocation`** callback will be executed with the following signature whe
 Fired whenever the device changes state between *moving* and *stationary*.
 
 ```java
+BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+
 bgGeo.onMotionChange(new TSLocationCallback() {
     @Override
     public void onLocation(TSLocation tsLocation) {
@@ -1710,6 +1698,8 @@ Your **`onActivityChange`** callback will be executed each time the activity-rec
 ##### [`@param {ActivityChangeEvent} event`](#activitychangeevent)
 
 ```java
+BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+
 bgGeo.onActivityChange(new TSActivityChangeCallback() {
     @Override
     public void onActivityChange(ActivityChangeEvent event) {
@@ -1729,6 +1719,8 @@ Your **`onLocationProviderChange`** callback will be executed when a change in t
 #### [`@param {LocationProviderChangeEvent} event`](#locationproviderchangeevent)
 
 ```java
+BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+
 bgGeo.onLocationProviderChange(new TSLocationProviderChangeCallback() {
     @Override
     public void onLocationProviderChange(LocationProviderChangeEvent event) {
@@ -1751,6 +1743,8 @@ Adds a geofence event-listener.  Your supplied `onGeofence` callback will be exe
 #### [`@param {GeofenceEvent} event`](#geofenceevent)
 
 ```java
+BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+
 bgGeo.onGeofence(new TSGeofenceCallback() {
     @Override
     public void onGeofence(GeofenceEvent event) {
@@ -1782,6 +1776,8 @@ It's when this list of monitored geofences *changes*, the SDK will fire the **`g
 #### [`@param {GeofencesChangeEvent} event`](#geofenceschangeevent)
 
 ```java
+BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+
 bgGeo.onGeofencesChange(new TSGeofencesChangeCallback() {
     @Override
     public void onGeofencesChange(GeofencesChangeEvent event) {
@@ -1808,6 +1804,8 @@ The **`TSHttpResponseCallback`** will be executed for each HTTP request (success
 Example:
 
 ```java
+BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+
 bgGeo.onHttp(new TSHttpResponseCallback() {
     @Override
     public void onHttpResponse(HttpResponse response) {
@@ -1832,6 +1830,8 @@ The **`TSHeartbeatCallback`** will be executed for each [`#heartbeatInterval`](#
 Example:
 
 ```java
+BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+
 bgGeo.onHeartbeat(new TSHeartbeatCallback() {
     @Override
     public void onHeartbeat(HeartbeatEvent event) {
@@ -1862,7 +1862,7 @@ config.updateWithBuilder()
     .setSchedule(schedule)
     .commit();
 
-BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 
 // Listen to schedule event
 bgGeo.onSchedule(new TSScheduleCallback() {
@@ -1875,11 +1875,11 @@ bgGeo.onSchedule(new TSScheduleCallback() {
 // Finally, signal #ready and #startSchedule
 bgGeo.ready(new TSCallback() {
     @Override public void onSuccess() {
-        TSLog.logger.debug("- configure success");
+        Log.i(TAG, "[ready] success");
         bgGeo.startSchedule();
     }
     @Override public void onFailure(String error) {
-        TSLog.logger.debug("- configure FAILURE: " + error);
+        Log.i(TAG, "[ready] FAILURE: " + error);
     }
 });
 ```
@@ -1896,6 +1896,8 @@ Fired when the state of the operating-system's "Power Saving" mode changes.  You
 #### `@param {boolean} isPowerSaveMode`
 
 ```java
+BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+
 bgGeo.onPowerSaveChange(new TSPowerSaveChangeCallback() {
     @Override
     public void onPowerSaveChange(Boolean isPowerSaveMode) {
@@ -1914,6 +1916,8 @@ Fired when the state of the device's network-connectivity changes (enabled -> di
 #### [`@param {ConnectivityChangeEvent} event`](#connectivitychangeevent)
 
 ```java
+BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+
 bgGeo.onConnectivityChange(new TSConnectivityChangeCallback() {
     @Override
     public void onConnectivityChange(ConnectivityChangeEvent event) {
@@ -1932,6 +1936,8 @@ Fired when the SDK's **`enabled`** state changes.  For example, executing `#star
 #### `@param {Boolean} enabled`
 
 ```java
+BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+
 bgGeo.onEnabledChange(new TSEnabledChangeCallback() {
     @Override
     public void onEnabledChange(boolean enabled) {
@@ -1959,27 +1965,24 @@ The **`#ready`** method is your first point-of-contact with the SDK.  You must e
 ```java
 
 public class MainActivity extends AppCompatActivity {
-
+    private static String TAG = "MyApp";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        TSConfig config = TSConfig.getInstance(getApplicationContext());
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        if (config.isFirstBoot()) {
-            // "BackgroundGeolocation *knows* when your app has been 
-            // launched the first time after initial install.  By default, the 
-            // SDK will load its last known configuration from persistent
-            // storage
-            config.updateWithBuilder()
-                    .setDebug(true)
-                    .setLogLevel(5) // Verbose logging
-                    .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                    .setDistanceFilter(50f)                    
-                    .setForegroundService(true)                    
-                    .setUrl("http://your.server.com/locations")
-                    .commit();
-
-        }
-        BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+        final TSConfig config = TSConfig.getInstance(getApplicationContext());
+        
+        config.updateWithBuilder()
+                .setDebug(true)
+                .setLogLevel(5) // Verbose logging
+                .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setDistanceFilter(50f)                    
+                .setForegroundService(true)                    
+                .setUrl("http://your.server.com/locations")
+                .commit();
+        
+        final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 
         // Listen to events:
         bgGeo.onLocation(new TSLocationCallback() {
@@ -2107,6 +2110,7 @@ Retrieves the current position.  This method instructs the SDK to fetch exactly 
 ```java
 
 public class MainActivity extends AppCompatActivity {
+    private static String TAG = "MyApp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -2264,7 +2268,7 @@ Set the **`odometer`** to *any* arbitrary value.  **NOTE** `setOdometer` will pe
 ```java
 BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 
-bgGeo.setOdometer(0, new TSLocationCallback() {
+bgGeo.setOdometer(0F, new TSLocationCallback() {
     @Override
     public void onLocation(TSLocation tsLocation) {
         Log.i(TAG, "[setOdometer] success");        
@@ -2297,7 +2301,7 @@ config.updateWithBuilder()
     .setSchedule(schedule)
     .commit();
 
-BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 
 // Listen to schedule event
 bgGeo.onSchedule(new TSScheduleCallback() {
@@ -2310,11 +2314,11 @@ bgGeo.onSchedule(new TSScheduleCallback() {
 // Finally, signal #ready and #startSchedule
 bgGeo.ready(new TSCallback() {
     @Override public void onSuccess() {
-        TSLog.logger.debug("- configure success");
+        Log.i(TAG, "[ready] success");
         bgGeo.startSchedule();  // <-- start the scheduler.
     }
     @Override public void onFailure(String error) {
-        TSLog.logger.debug("- configure FAILURE: " + error);
+        Log.i(TAG, "[ready] FAILURE: " + error);
     }
 });
 ```
@@ -2478,13 +2482,14 @@ Engages the geofences-only `trackingMode`.  In this mode, no active location-tra
 ```java
 
 public class MainActivity extends AppCompatActivity {
+    private static String TAG = "MyApp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
       
-        BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
+        final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 
         // Create a Geofence.
         TSGeofence geofence = new TSGeofence.Builder()
@@ -2501,11 +2506,11 @@ public class MainActivity extends AppCompatActivity {
         // Finally, signal #ready to the SDK and #startGeofences
         bgGeo.ready(new TSCallback() {
             @Override public void onSuccess() {
-                TSLog.logger.debug("- BackgroundGeolocation ready");
+                Log.i(TAG, "[ready] success");
                 bgGeo.startGeofences(); 
             }
             @Override public void onFailure(String error) {
-                TSLog.logger.debug("- BackgroundGeolocation failed: " + error);
+                Log.i(TAG, "[ready] FAILURE: " + error);
             }
         });
     }
@@ -2588,7 +2593,6 @@ TSGeofence office = new TSGeofence.Builder()
     .setRadius(200)
     .setNotifyOnEntry(true)
     .setNotifyOnExit(true)
-    .setExtras(extras)
     .build();
 
 TSGeofence home = new TSGeofence.Builder()
@@ -2598,7 +2602,6 @@ TSGeofence home = new TSGeofence.Builder()
     .setRadius(200)
     .setNotifyOnEntry(true)
     .setNotifyOnExit(true)
-    .setExtras(extras)
     .build();
 
 List<TSGeofence> geofences = new ArrayList<>();
@@ -2770,6 +2773,8 @@ Fetch the entire contents of the current circular log and email it to a recipien
 
 ```java
 public class MainActivity extends AppCompatActivity {
+    private static String TAG = "MyApp";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
