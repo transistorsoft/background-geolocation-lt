@@ -18,6 +18,12 @@ Also available for [React Native](https://github.com/transistorsoft/react-native
 
 ----------------------------------------------------------------------------
 
+The **[Android module](http://www.transistorsoft.com/shop/products/native-background-geolocation)** requires [purchasing a license](http://www.transistorsoft.com/shop/products/native-background-geolocation).  However, it *will* work for **DEBUG** builds.  It will **not** work with **RELEASE** builds [without purchasing a license](http://www.transistorsoft.com/shop/products/native-background-geolocation).
+
+(2018) This plugin is supported **full-time** and field-tested **daily** since 2013.
+
+----------------------------------------------------------------------------
+
 [![Google Play](https://dl.dropboxusercontent.com/s/80rf906x0fheb26/google-play-icon.png?dl=1)](https://play.google.com/store/apps/details?id=com.transistorsoft.backgroundgeolocation.react)
 
 ![Home](https://dl.dropboxusercontent.com/s/wa43w1n3xhkjn0i/home-framed-350.png?dl=1)
