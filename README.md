@@ -74,24 +74,18 @@ eg: :open_file_folder: **`Libraries/background-geolocation-lt`**
     
     // Provide a reference to your viewController.
     bgGeo.viewController = self;
+            
+    [config updateWithBlock:^(TSConfigBuilder *builder) {
+        builder.debug = YES;
+        builder.logLevel = tsLogLevelVerbose;
+        builder.desiredAccuracy = kCLLocationAccuracyBest;
+        builder.distanceFilter = 10;
+        builder.stopOnTerminate = NO;
+        builder.startOnBoot = YES;
+        builder.url = @"http://your.server.com/locations";
+    }];
     
-    if (config.isFirstBoot) {
-        // The SDK *knows* when your app has been launched the first time
-        // after initial install:  By default, the SDK will load its last 
-        // known configuration from persistent storage
-
-        [config updateWithBlock:^(TSConfigBuilder *builder) {
-            builder.debug = YES;
-            builder.logLevel = tsLogLevelVerbose;
-            builder.desiredAccuracy = kCLLocationAccuracyBest;
-            builder.distanceFilter = 10;            
-            builder.stopOnTerminate = NO;
-            builder.startOnBoot = YES;
-            builder.url = @"http://your.server.com/locations";                                    
-        }];
-    }
-    
-    // Listen to events.    
+    // Listen to events.
     [bgGeo onLocation:^(TSLocation *location) {
         NSLog(@"[location] %@", [location toDictionary]);
     } failure:^(NSError *error) {
@@ -100,7 +94,7 @@ eg: :open_file_folder: **`Libraries/background-geolocation-lt`**
     
     // Signal #ready to the plugin.
     [bgGeo ready];
-
+    
     if (!config.enabled) {
         // Start tracking immediately (if not already).
         [bgGeo start];

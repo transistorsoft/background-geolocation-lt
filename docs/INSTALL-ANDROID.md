@@ -81,12 +81,13 @@ android {
 }
 
 dependencies {
-+    compile project(':background-geolocation')
++    implementation project(':background-geolocation')
 +    implementation "com.android.support:appcompat-v7:$rootProject.supportLibVersion"    
 }
 
 ```
 
+You can now import and use the SDK in your application.  See the [Example](../README.md#android).
 
 ## AndroidManifest.xml
 
