@@ -184,16 +184,21 @@ public class MainActivity extends AppCompatActivity {
 ```
 
 
-## :large_blue_diamond: [Advanced Demo Application for Field-testing](https://github.com/transistorsoft/rn-background-geolocation-demo)
+## :large_blue_diamond: Demo Application
 
-A fully-featured [Demo App](https://github.com/transistorsoft/rn-background-geolocation-demo) is available in its own public repo.  After first cloning that repo, follow the installation instructions in the **README** there.  This demo-app includes a settings-screen allowing you to quickly experiment with all the different settings available for each platform.
+This repo hosts demo apps for both iOS and Android.  Start by cloning this repo.
 
+- ### iOS
+In XCode, open the project at **`/ios/BackgroundGeolocation/BackgroundGeolocation.xcodeproj`** and launch the **`Demo`** target.
+
+- ### Android
+In Android Studio, open the project at **`/android`** and launch the **`app`** target.
 
 # License
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Chris Scott, Transistor Software
+Copyright (c) 2018 Chris Scott, Transistor Software
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
