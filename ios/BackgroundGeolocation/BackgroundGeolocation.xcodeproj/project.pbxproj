@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8306DCFB209CC794000B0D52 /* DeviceUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 8306DCFA209CC794000B0D52 /* DeviceUID.m */; };
 		83F8A1F32049AF3C00E7B41B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F8A1F22049AF3C00E7B41B /* AppDelegate.m */; };
 		83F8A1F62049AF3C00E7B41B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F8A1F52049AF3C00E7B41B /* ViewController.m */; };
 		83F8A1F92049AF3C00E7B41B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83F8A1F72049AF3C00E7B41B /* Main.storyboard */; };
@@ -165,6 +166,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8306DCFA209CC794000B0D52 /* DeviceUID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceUID.m; sourceTree = "<group>"; };
+		8306DCFC209CC7A3000B0D52 /* DeviceUID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceUID.h; sourceTree = "<group>"; };
 		83CE47EC2025071A004DF1CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		83CE47ED2025071A004DF1CC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		83CE47EF2025071A004DF1CC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -229,6 +232,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8306DCE9209CC77B000B0D52 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				8306DCFA209CC794000B0D52 /* DeviceUID.m */,
+				8306DCFC209CC7A3000B0D52 /* DeviceUID.h */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
 		83CE47E02025071A004DF1CC = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +293,7 @@
 		83F8A1F02049AF3C00E7B41B /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				8306DCE9209CC77B000B0D52 /* Lib */,
 				83F8A69A2049B2F500E7B41B /* Frameworks */,
 				83F8A2272049B16A00E7B41B /* Libraries */,
 				83F8A1F12049AF3C00E7B41B /* AppDelegate.h */,
@@ -618,6 +631,7 @@
 				83F8A1F62049AF3C00E7B41B /* ViewController.m in Sources */,
 				83F8A2012049AF3C00E7B41B /* main.m in Sources */,
 				83F8A1F32049AF3C00E7B41B /* AppDelegate.m in Sources */,
+				8306DCFB209CC794000B0D52 /* DeviceUID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "DeviceUID.h"
 @import TSLocationManager;
 
 @interface ViewController ()
@@ -25,29 +26,33 @@
     _mapView.userTrackingMode = MKUserTrackingModeFollow;
     
     TSConfig *config = [TSConfig sharedInstance];
+    
+    [_enableSwitch setOn:config.enabled];
+    
+    // By default, the plugin #url is configured to post to http://tracker.transistorsoft.com.  You can visit the SDK's tracking in the browser by visiting:
+    // http://tracker.transistorsoft.com/username
+    // CHANGME @config username The test-server organizes locations by username and device
+    NSString *username = @"transistor-native-demo";
+    
     [config updateWithBlock:^(TSConfigBuilder *builder) {
+        // Debug config
         builder.debug = YES;
         builder.logLevel = 5;
-        builder.stopOnTerminate = NO;
-        builder.startOnBoot = YES;
+        // Geolocation Config
         builder.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
         builder.distanceFilter = 10;
+        // HTTP Config
+        builder.url = [NSString stringWithFormat:@"http://tracker.transistorsoft.com/locations/%@", username];
+        builder.params = @{
+            @"device": [self getDeviceInfo]
+        };
+        // Application Config
+        builder.stopOnTerminate = NO;
+        builder.startOnBoot = YES;
     }];
+    
     TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
-    
-    [bgGeo onGeofencesChange:^(TSGeofencesChangeEvent *event) {
-        NSArray *geofencesOn    = event.on;
-        NSArray *geofencesOff   = event.off;
-        
-        NSLog(@"- geofences that STARTED monitoring: %@", geofencesOn);
-        NSLog(@"- geofences that STOPPED monitoring: %@", geofencesOff);
-    }];
-    
-    [bgGeo ready];
-    
-    if (!config.schedulerEnabled) {
-        [bgGeo startSchedule];
-    }
+    [bgGeo destroyLocations];
     
     [bgGeo onMotionChange:^(TSLocation *tsLocation) {
         [self setCenterAndZoom:tsLocation.location];
@@ -57,7 +62,9 @@
         if (!tsLocation.isSample) {
             [self renderLocation:tsLocation.location];
         }
-        [self setCenter:tsLocation.location];
+        if (!tsLocation.event) {
+            [self setCenter:tsLocation.location];
+        }
     } failure:^(NSError *error) {
         NSLog(@"[location] FAILURE: %@", @(error.code));
     }];
@@ -111,15 +118,13 @@
 }
 
 - (void) setCenter:(CLLocation*)location {
-    MKCoordinateRegion region = _mapView.region;
-    region = MKCoordinateRegionMake(location.coordinate, region.span);
-    [_mapView setRegion:region animated:YES];
+    [_mapView setCenterCoordinate:location.coordinate animated:YES];
 }
 - (void) renderLocation:(CLLocation*) location {
     MKPointAnnotation *annotation = [MKPointAnnotation new];
     annotation.coordinate = location.coordinate;
     //[_mapView addAnnotation:annotation];
-    MKCircle *circle = [MKCircle circleWithCenterCoordinate:location.coordinate radius:15];
+    MKCircle *circle = [MKCircle circleWithCenterCoordinate:location.coordinate radius:5];
     [_mapView addOverlay:circle];
     
     [_locations addObject:location];
@@ -168,6 +173,23 @@
     [scanner setScanLocation:1]; // bypass '#' character
     [scanner scanHexInt:&rgbValue];
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+}
+
+/**
+ * Device params for test server tracker.transistorsoft.com
+ * https://github.com/transistorsoft/background-geolocation-console
+ * The test server organizes locations by device and username.
+ */
+- (NSDictionary*) getDeviceInfo {
+    UIDevice *currentDevice = [UIDevice currentDevice];
+    return @{
+         @"uuid": [DeviceUID uid],
+         @"model": currentDevice.model,
+         @"platform": currentDevice.systemName,
+         @"manufacturer": @"Apple",
+         @"version": currentDevice.systemVersion,
+         @"framework": @"Native"
+    };
 }
 
 - (void)didReceiveMemoryWarning {
