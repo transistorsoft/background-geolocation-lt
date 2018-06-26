@@ -41,6 +41,7 @@
         // Geolocation Config
         builder.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
         builder.distanceFilter = 10;
+        builder.stopTimeout = 1;
         // HTTP Config
         builder.url = [NSString stringWithFormat:@"http://tracker.transistorsoft.com/locations/%@", username];
         builder.params = @{
@@ -59,6 +60,7 @@
     }];
     
     [bgGeo onLocation:^(TSLocation *tsLocation) {
+        NSLog(@"********* location data: %@", [tsLocation toDictionary]);
         if (!tsLocation.isSample) {
             [self renderLocation:tsLocation.location];
         }
