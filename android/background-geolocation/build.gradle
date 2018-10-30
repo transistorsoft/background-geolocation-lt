@@ -47,12 +47,12 @@ dependencies {
 
     api "com.google.android.gms:play-services-location:$playServicesVersion"
     api 'org.greenrobot:eventbus:3.0.0'
-    api 'com.squareup.okhttp3:okhttp:3.10.0'
+    api 'com.squareup.okhttp3:okhttp:3.11.0'
     api(group: 'com.transistorsoft', name:'tslocationmanager', version: '+')
     api 'org.slf4j:slf4j-api:1.7.21'
     api 'com.github.tony19:logback-android:1.1.1-9'
     // android-permissions
-    api 'com.intentfilter:android-permissions:0.1.6'
+    api 'com.intentfilter:android-permissions:0.1.7'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 }
 
