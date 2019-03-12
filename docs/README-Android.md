@@ -1540,9 +1540,9 @@ TSConfig config = TSConfig.getInstance(getApplicationContext());
 
 config.updateWithBuilder()
     // 1. drawable
-    .setNotificationSmallIcon("drawable/my_custom_notification_large_icon")
+    .setNotificationLargeIcon("drawable/my_custom_notification_large_icon")
     // Or 2. MipMap
-    .setNotificationSmallIcon("mipmap/my_custom_notification_large_icon")
+    .setNotificationLargeIcon("mipmap/my_custom_notification_large_icon")
     .commit();
 ```
 
