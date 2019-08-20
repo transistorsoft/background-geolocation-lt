@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "com.transistorsoft.backgroundgeolocation.demo"
         minSdkVersion 18
-        targetSdkVersion rootProject.targetSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -27,9 +27,9 @@ repositories{
 dependencies {
     implementation project(':background-geolocation')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "com.android.support:appcompat-v7:$rootProject.supportLibVersion"
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation "com.android.support:design:$rootProject.supportLibVersion"
+    implementation "com.android.support:design:$rootProject.ext.supportLibVersion"
     testImplementation 'junit:junit:4.12'
 
 }
