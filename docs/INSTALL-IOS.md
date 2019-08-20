@@ -55,19 +55,25 @@ Right-click&nbsp;&nbsp;:open_file_folder:**Frameworks** ➜ **`Add Files to...`*
 
 ## Configure Background Capabilities
 
-Select the root of your project.  Select **Capabilities** tab.  Enable **Background Modes** and enable the following modes:
+With `YourApp.xcworkspace` open in XCode, add the following **Background Modes Capabilities**:
 
 - [x] Location updates
 - [x] Background fetch
 - [x] Audio (**optional for debug-mode sound FX**)
 
-![](https://dl.dropboxusercontent.com/s/5o6czxuvgzv9f3z/background-capabilities.png?dl=1)
+![](https://dl.dropbox.com/s/c3vm8x0wgrfn9f4/ios-setup-background-modes.png?dl=1)
 
 ## Info.plist
 
-Edit **`Info.plist`**.  Add the following **three Privacy Descriptions**.  These descriptions will appear on popups requesting permission from user for *Motion Usage* and *Location Usage*
+Edit **`Info.plist`**.  Add the following items (Set **Value** as desired):
 
-![](https://dl.dropboxusercontent.com/s/nrm5xfpcpj70itj/plist-permissions.png?dl=1)
+| Key | Type | Value |
+|-----|-------|-------------|
+| *Privacy - Location Always and When in Use Usage Description* | `String` | *CHANGEME: Location required in background* |
+| *Privacy - Location When in Use Usage Description* | `String` | *CHANGEME: Location required when app is in use* |
+| *Privacy - Motion Usage Description* | `String` | *CHANGEME: Motion permission helps detect when device in in-motion* |
+
+![](https://dl.dropbox.com/s/9non3j83jj0rimu/ios-setup-plist-strings.png?dl=1)
 
 ## Background Fetch API
 

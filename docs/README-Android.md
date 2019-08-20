@@ -1,11 +1,11 @@
 # :books: Android API Documentation
 ### :wrench: [Configuration Options](#wrench-configuration-options-1)
-  + [Geolocation Options](#wrench-geolocation-options)    
-  + [Activity Recognition Options](#wrench-activity-recognition-options)    
+  + [Geolocation Options](#wrench-geolocation-options)
+  + [Activity Recognition Options](#wrench-activity-recognition-options)
   + [HTTP & Persistence Options](#wrench-http--persistence-options)
   + [Geofencing Options](#wrench-geofencing-options)
-  + [Application Options](#wrench-application-options)   
-  + [Logging &amp; Debug Options](#wrench-logging--debug-options) 
+  + [Application Options](#wrench-application-options)
+  + [Logging &amp; Debug Options](#wrench-logging--debug-options)
 ### :zap: [Events](#zap-events-1)
 ### :small_blue_diamond: [Methods](#large_blue_diamond-methods)
   + [Core API Methods](#small_blue_diamond-core-api-methods)
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "[location] ERROR: " + code);
             }
         });
-        
+
         // Finally, signal #ready to the SDK.
         bgGeo.ready(new TSCallback() {
             @Override public void onSuccess() {
@@ -98,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
 | [`stopAfterElapsedMinutes`](#config-int-stopafterelapsedminutes--1) | `int`  | `0`  | The SDK can optionally automatically stop tracking after some number of minutes elapses after the [`#start`](#start) method was called. |
 | [`stopOnStationary`](#config-boolean-stoponstationary-false) | `boolean`  | `false`  | The SDK can optionally automatically `#stop` tracking when the `stopTimeout` timer elapses. |
 | [`desiredOdometerAccuracy`](#config-float-desiredodometeraccuracy-100) | `float`  | `100`  | Location accuracy threshold in **meters** for odometer calculations. |
+| [`useSignificantChangesOnly`](#config-boolean-usesignificantchangesonly-false) | `boolean` | `false` | Defaults to `false`.  Set `true` in order to disable constant background-tracking and record a loction only every 500-1000 meters. |
+| [`locationAuthorizationRequest`](#config-string-locationauthorizationrequest-always) | `String` | `Always` | The desired iOS location-authorization request, either `Always` or `WhenInUse`. |
 
 ## :wrench: Activity Recognition Options
 
@@ -165,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 |-------------|-----------|-----------|-----------------------------------|
 | [`geofenceProximityRadius`](#config-long-geofenceproximityradius-1000) | `long`  | `1000`  | Radius in **meters** to query for geofences within proximity. |
 | [`geofenceInitialTriggerEntry`](#config-boolean-geofenceinitialtriggerentry-true) | `boolean` | `true` | Set `false` to disable triggering a geofence immediately if device is already inside it.|
-
+| [`geofenceModeHighAccuracy`](#config-boolean-geofencemodehighaccuracy-false) | `boolean`  | `false` | Runs `#startGeofences` with a *foreground service* (along with its corresponding persitent notification).  This will make geofence triggering **far more consistent** at the expense of higher power usage. |
 
 ## :wrench: Logging & Debug Options
 
@@ -185,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 Event-listeners can be attached using the method **`#on{EventName}`**, supplying the **Event Name** in the following table.
 
 ```java
-public class MainActivity extends AppCompatActivity {      
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
         bgGeo.onLocation(new TSLocationCallback() {
             @Override
             public void onLocation(TSLocation tsLocation) {
-                Log.i(TAG, "[location] " + tsLocation.toJson());   
+                Log.i(TAG, "[location] " + tsLocation.toJson());
             }
 
             @Override
@@ -229,10 +231,10 @@ bgGeo.removeListeners();
 | [`geofenceschange`](#geofenceschange) | Fired when the list of monitored geofences within [`#geofenceProximityRadius`](#config-cllocationdistance-geofenceproximityradius-1000) changed|
 | [`http`](#http) | Fired after a successful HTTP response. `response` object is provided with `status` and `responseText`. |
 | [`heartbeat`](#heartbeat) | Fired each [`#heartbeatInterval`](#config-integer-heartbeatinterval-undefined) while the SDK is in the **stationary** state with.  Your callback will be provided with a `params {}` containing the last known `location {Object}` |
-| [`schedule`](#schedule) | Fired when a schedule event occurs.  Your `callbackFn` will be provided with the current **`state`** Object. | 
-| [`powersavechange`](#powersavechange) | Fired when the state of the operating-system's "Power Saving" system changes.  Your `callbackFn` will be provided with a `Boolean` showing whether "Power Saving" is **enabled** or **disabled** | 
+| [`schedule`](#schedule) | Fired when a schedule event occurs.  Your `callbackFn` will be provided with the current **`state`** Object. |
+| [`powersavechange`](#powersavechange) | Fired when the state of the operating-system's "Power Saving" system changes.  Your `callbackFn` will be provided with a `Boolean` showing whether "Power Saving" is **enabled** or **disabled** |
 | [`connectivitychange`](#connectivitychange) | Fired when the state of the device's network connectivity changes (enabled -> disabled and vice-versa) |
-| [`enabledchange`](#enabledchange) | Fired when the SDK's `enabled` state changes.  For example, executing `#start` and `#stop` will fire the `enabledchange` event. | 
+| [`enabledchange`](#enabledchange) | Fired when the SDK's `enabled` state changes.  For example, executing `#start` and `#stop` will fire the `enabledchange` event. |
 
 
 
@@ -307,7 +309,7 @@ int PRIORITY_NO_POWER Used with setPriority(int) to request the best accuracy po
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
     .commit();
 ```
@@ -321,11 +323,11 @@ config.updateWithBuilder()
 
 The minimum distance (measured in meters) a device must move horizontally before an update event is generated.
 
-However, by default, **`distanceFilter`** is elastically auto-calculated by the SDK:  When speed increases, **`distanceFilter`** increases;  when speed decreases, so too does **`distanceFilter`**.  
+However, by default, **`distanceFilter`** is elastically auto-calculated by the SDK:  When speed increases, **`distanceFilter`** increases;  when speed decreases, so too does **`distanceFilter`**.
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setDistanceFilter(10f)
     .commit();
 ```
@@ -376,7 +378,7 @@ Set the desired interval for active location updates, in milliseconds.
 
 The location client will actively try to obtain location updates for your application at this interval, so it has a direct influence on the amount of power used by your application. Choose your interval wisely.
 
-This interval is inexact. You may not receive updates at all (if no location sources are available), or you may receive them slower than requested. You may also receive them faster than requested (if other applications are requesting location at a faster interval). 
+This interval is inexact. You may not receive updates at all (if no location sources are available), or you may receive them slower than requested. You may also receive them faster than requested (if other applications are requesting location at a faster interval).
 
 Applications with only the coarse location permission may have their interval silently throttled.
 
@@ -384,7 +386,7 @@ Applications with only the coarse location permission may have their interval si
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setLocationUpdateInterval(5000L)
     .setDistanceFilter(0F) // <-- Required to use locationUpdateInterval
     .commit();
@@ -402,7 +404,7 @@ This allows your application to passively acquire locations at a rate faster tha
 
 Unlike [`#locationUpdateInterval`](#config-long-millis-locationupdateinterval-1000), this parameter is exact. Your application will never receive updates faster than this value.
 
-If you don't call this method, a fastest interval will be set to **30000 (30s)**. 
+If you don't call this method, a fastest interval will be set to **30000 (30s)**.
 
 An interval of `0` is allowed, but **not recommended**, since location updates may be extremely fast on future implementations.
 
@@ -410,7 +412,7 @@ If **`#fastestLocationUpdateInterval`** is set slower than [`#locationUpdateInte
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setFastestLocationUpdateInterval(1000L)
     .commit();
 ```
@@ -425,7 +427,7 @@ Defaults to `0` (no defer).  Sets the maximum wait time in milliseconds for loca
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setDeferTime(60000L)  // <-- delay location updates for 60 seconds
     .commit();
 ```
@@ -445,7 +447,7 @@ An identical location is often generated when changing state from *stationary* -
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setAllowIdenticalLocations(true)
     .commit();
 ```
@@ -459,7 +461,7 @@ Defaults to **`false`**.  Set **`true`** to disable automatic, speed-based [`#di
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setDisableElasticity(true)
     .commit();
 ```
@@ -472,7 +474,7 @@ Controls the scale of automatic speed-based [`#distanceFilter`](#config-float-di
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setElasticityMultiplier(2f)
     .commit();
 ```
@@ -488,7 +490,7 @@ Configuring **`stationaryRadius: 0`** has **NO EFFECT** (in fact the SDK enforce
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setStationaryRadius(25)
     .commit();
 ```
@@ -504,7 +506,7 @@ The SDK can optionally automatically stop tracking after some number of minutes 
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setStopAfterElapsedMinutes(30)
     .commit();
 
@@ -528,7 +530,7 @@ The SDK can optionally automatically stop tracking when the `stopTimeout` timer 
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setStopOnStationary(true)
     .commit();
 ```
@@ -543,13 +545,50 @@ Specify an accuracy threshold in **meters** for odometer calculations.  Defaults
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setDesiredOdometerAccuracy(100F)
     .commit();
 ```
 
 ------------------------------------------------------------------------------
 
+#### `@config {boolean} useSignificantChangesOnly [false]`
+
+Defaults to `false`.  Set `true` in order to disable constant background-tracking and record a location every ~500-1000 meters.
+
+```java
+TSConfig config = TSConfig.getInstance(getApplicationContext());
+config.updateWithBuilder()
+    .setUseSignificantChangesOnly(true)
+    .commit();
+```
+
+**`useSignificantChanges: true`**
+![](https://dl.dropboxusercontent.com/s/wdl9e156myv5b34/useSignificantChangesOnly.png?dl=1)
+
+**`useSignificantChanges: false` (Default)**
+![](https://dl.dropboxusercontent.com/s/hcxby3sujqanv9q/useSignificantChangesOnly-false.png?dl=1)
+
+------------------------------------------------------------------------------
+
+#### `@config {String} locationAuthorizationRequest [Always]`
+
+**`>= API 29`**
+
+The desired location-authorization request, either **`Always`**, **`WhenInUse`** or **`Any`**.  **`locationAuthorizationRequest`** tells the SDK the mode it *expects* to be in.
+
+Configuring **`Any`** will tell the plugin to operate in whichever mode the user selects, eight `WhenInUse` or `Always`.
+
+```java
+TSConfig config = TSConfig.getInstance(getApplicationContext());
+config.updateWithBuilder()
+    .setLocationAuthorizationRequest("Any")
+    .commit();
+```
+
+:warning: Configuring **`WhenInUse`** will disable many of the plugin's features.
+
+------------------------------------------------------------------------------
 
 # :wrench: Activity Recognition Options
 
@@ -559,20 +598,20 @@ Defaults to `10000` (10 seconds).  The desired time between activity detections.
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setActivityRecognitionInterval(10000L)
     .commit();
 ```
 
 ------------------------------------------------------------------------------
 
-#### `@config {int} minimumActivityRecognitionConfidence [75]` 
+#### `@config {int} minimumActivityRecognitionConfidence [75]`
 
 Each activity-recognition-result returned by the API is tagged with a "confidence" level expressed as a %.  You can set your desired confidence to trigger a [`motionchange`](#motionchange) event.  Defaults to **`75`**.
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setMinimumActivityRecognitionConfidence(75)
     .commit();
 ```
@@ -585,7 +624,7 @@ When in the **moving** state, specifies the number of minutes to wait before tur
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setStopTimeout(5L)
     .commit();
 ```
@@ -602,7 +641,7 @@ Disables the accelerometer-based **Stop-detection System**.  When disabled, you 
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setDisableStopDetection(false)
     .commit();
 ```
@@ -649,7 +688,7 @@ Defaults to `1000` meters.  **@see** releated event [`geofenceschange`](#geofenc
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setGeofenceProximityRadius(1000L)
     .commit();
 ```
@@ -668,13 +707,51 @@ Defaults to `true`.  Set `false` to disable triggering a geofence immediately if
 
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setGeofenceInitialTriggerEntry(true)
     .commit();
 ```
 
 ------------------------------------------------------------------------------
 
+
+#### `@config {boolean} geofenceModeHighAccuracy [false]`
+
+__`[Android only]`__ Enable high-accuracy for **geofence-only** mode (See [[BackgroundGeolocation.startGeofences]]).
+
+### ⚠️ Warning: Will consume more power.
+
+Defaults to `false`.  Runs Android's [[BackgroundGeolocation.startGeofences]] with a *foreground service* (along with its corresponding persistent [[Notification]].
+
+Configuring `geofenceModeHighAccuracy: true` will make Android geofence triggering **far more responsive**.  In this mode, the usual config options to control location-services will be applied:
+
+- `desiredAccuracy`
+- `locationUpdateInterval`
+- `distanceFilter`
+- `deferTime`
+
+With the default `geofenceModeHighAccuracy: false`, a device will have to move farther *into* a geofence before the *ENTER* event fires and farther *out of* a geofence before the *EXIT* event fires.
+
+The more aggressive you configure the location-update params above (at the cost of power consumption), the more responsive will be your geofence-triggering.
+
+
+```java
+
+TSConfig config = TSConfig.getInstance(getApplicationContext());
+config.updateWithBuilder()
+    .setGeofenceModeHighAccuracy(true)
+    .commit();
+
+BackgroundGeolocation.startGeofences();
+```
+
+**`geofenceModeHighAccuracy: false`** (Default) &mdash; Transition events **are delayed**.
+![](https://dl.dropboxusercontent.com/s/6nxbuersjcdqa8b/geofenceModeHighAccuracy-false.png?dl=1)
+
+**`geofenceModeHighAccuracy: true`** &mdash; Transition events are **nearly instantaneous**.
+![](https://dl.dropbox.com/s/w53hqn7f7n1ug1o/geofenceModeHighAccuracy-true.png?dl=1)
+
+------------------------------------------------------------------------------
 
 # :wrench: HTTP & Persistence Options
 
@@ -695,7 +772,7 @@ try {
 
 }
 
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setUrl("http://my-server.com/locations")
     .setAutoSync(true)
     .setParams(params)
@@ -718,7 +795,7 @@ HTTP request timeout in **milliseconds**.  The `http` **`callback`** will execut
 BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setUrl("http://my-server.com/locations")
     .setHttpTimeout(60000)
     .commit();
@@ -740,7 +817,7 @@ The HTTP method to use when creating an HTTP request to your configured [`#url`]
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setUrl("http://my-server.com/locations")
     .setMethod("POST")
     .commit();
@@ -761,12 +838,12 @@ try {
     params.put("user_id", 1234);
     params.put("device_id", "abc123");
 } catch (JSONException e) {
-    
+
 }
 
-config.updateWithBuilder()                    
-    .setUrl("http://my-server.com/locations")    
-    .setParams(params)    
+config.updateWithBuilder()
+    .setUrl("http://my-server.com/locations")
+    .setParams(params)
     .commit();
 ```
 
@@ -808,9 +885,9 @@ try {
 
 }
 
-config.updateWithBuilder()                    
-    .setUrl("http://my-server.com/locations")    
-    .setHeaders(headers)    
+config.updateWithBuilder()
+    .setUrl("http://my-server.com/locations")
+    .setHeaders(headers)
     .commit();
 ```
 
@@ -819,8 +896,8 @@ config.updateWithBuilder()
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 
-config.updateWithBuilder()                    
-    .setUrl("http://my-server.com/locations")    
+config.updateWithBuilder()
+    .setUrl("http://my-server.com/locations")
     .setHeader("X-FOO", "foo")
     .setHeader("X-BAR", "bar")
     .commit();
@@ -835,8 +912,8 @@ The root property of the JSON data where location-data will be placed in the HTT
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 
-config.updateWithBuilder()                    
-    .setUrl("http://my-server.com/locations")    
+config.updateWithBuilder()
+    .setUrl("http://my-server.com/locations")
     .setHttpRootProperty("rootProperty")
     .commit();
 ```
@@ -861,8 +938,8 @@ You may also specify the character **`httpRootProperty:"."`** to place your data
 ```java
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 
-config.updateWithBuilder()                    
-    .setUrl("http://my-server.com/locations")    
+config.updateWithBuilder()
+    .setUrl("http://my-server.com/locations")
     .setHttpRootProperty(".")
     .commit();
 ```
@@ -894,12 +971,12 @@ Optional custom template for rendering `location` JSON request data in HTTP requ
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 
 config.updateWithBuilder()
-    .setUrl("http://my-server.com/locations")    
+    .setUrl("http://my-server.com/locations")
     .setLocationTemplate("{\"lat\":<%= latitude %>,\"lng\":<%= longitude %>,\"event\":\"<%= event %>\",isMoving:<%= isMoving %>}")
     .commit();
 
 config.updateWithBuilder()
-    .setUrl("http://my-server.com/locations")    
+    .setUrl("http://my-server.com/locations")
     .setLocationTemplate("[<%=latitude%>, <%=longitude%>, \"<%=event%>\", <%=is_moving%>]")
     .commit();
 ```
@@ -917,8 +994,8 @@ try {
 
 }
 
-config.updateWithBuilder()                    
-    .setUrl("http://my-server.com/locations")    
+config.updateWithBuilder()
+    .setUrl("http://my-server.com/locations")
     .setHttpRootProperty("data")
     .setLocationTemplate("{\"lat\":<%= latitude %>,\"lng\":<%= longitude %>}")
     .setExtras(extras)
@@ -974,13 +1051,13 @@ Evaulate variables in your **`geofenceTemplate`** using Ruby `erb`-style tags:
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 
 config.updateWithBuilder()
-    .setUrl("http://my-server.com/locations")    
+    .setUrl("http://my-server.com/locations")
     .setGeofenceTemplate("{\"lat\":<%= latitude %>,\"lng\":<%= longitude %>, \"geofence\":\"<%= geofence.identifier %>:<%= geofence.action %>\"}")
     .commit();
 ```
 
 **Template Tags**
-The tag-list is identical to [`#locationTemplate`](#config-string-locationtemplate-undefined) with the addition of `geofence.identifier` and `geofence.action`.  
+The tag-list is identical to [`#locationTemplate`](#config-string-locationtemplate-undefined) with the addition of `geofence.identifier` and `geofence.action`.
 
 | Tag | Type | Description |
 |-----|------|-------------|
@@ -1012,7 +1089,7 @@ Default is **`false`**.  If you've enabled HTTP feature by configuring an [`#url
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 
 config.updateWithBuilder()
-    .setUrl("http://my-server.com/locations")    
+    .setUrl("http://my-server.com/locations")
     .setBatchSync(true)
     .commit();
 ```
@@ -1027,7 +1104,7 @@ If you've enabled HTTP feature by configuring an [`#url`](#config-nsstring-url--
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 
 config.updateWithBuilder()
-    .setUrl("http://my-server.com/locations")    
+    .setUrl("http://my-server.com/locations")
     .setBatchSync(true)
     .setMaxBatchSize(100)
     .commit();
@@ -1043,7 +1120,7 @@ Default is `true`.  If you've enabeld HTTP feature by configuring an [`#url`](#c
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 
 config.updateWithBuilder()
-    .setUrl("http://my-server.com/locations")    
+    .setUrl("http://my-server.com/locations")
     .setAutoSync(true)
     .commit();
 ```
@@ -1058,7 +1135,7 @@ The minimum number of persisted records to trigger an [`autoSync`](#config-boole
 TSConfig config = TSConfig.getInstance(getApplicationContext());
 
 config.updateWithBuilder()
-    .setUrl("http://my-server.com/locations")    
+    .setUrl("http://my-server.com/locations")
     .setAutoSyncThreshold(5)  // <-- queue 5 locations before performing HTTP
     .commit();
 ```
@@ -1094,7 +1171,7 @@ try {
 
 }
 
-config.updateWithBuilder()                    
+config.updateWithBuilder()
     .setUrl("http://my-server.com/locations")
     .setExtras(extras)
     .setParams(params)
@@ -1486,8 +1563,8 @@ config.updateWithBuilder()
 
 #### `@config {String} notificationColor [null]`
 
-When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), Android requires a persistent notification in the Notification Bar.  This will configure the **color** of the notification icon (API >= 21).Supported formats are: 
-- `#RRGGBB` 
+When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), Android requires a persistent notification in the Notification Bar.  This will configure the **color** of the notification icon (API >= 21).Supported formats are:
+- `#RRGGBB`
 - `#AARRGGBB`
 
 ```java
@@ -1506,7 +1583,7 @@ config.updateWithBuilder()
 
 When running the service with [`foregroundService: true`](#config-boolean-foregroundservice-false), Android requires a persistent notification in the Notification Bar.  This allows you customize that icon.  Defaults to your application icon.  **NOTE** You must specify the **`type`** (`drawable|mipmap`) of resource you wish to use in the following format:
 
-`{type}/icon_name`, 
+`{type}/icon_name`,
 
 :warning: Do not append the file-extension (eg: `.png`)
 
@@ -1531,7 +1608,7 @@ When running the service with [`foregroundService: true`](#config-boolean-foregr
 
 :warning: Do not append the file-extension (eg: `.png`)
 
-`{type}/icon_name`, 
+`{type}/icon_name`,
 
 eg:
 
@@ -1693,7 +1770,7 @@ Your **`onLocation`** callback will be executed each time the device has changed
 
 ### `activitychange`
 
-Your **`onActivityChange`** callback will be executed each time the activity-recognition system receives an event (`still, on_foot, in_vehicle, on_bicycle, running`).  
+Your **`onActivityChange`** callback will be executed each time the activity-recognition system receives an event (`still, on_foot, in_vehicle, on_bicycle, running`).
 
 ##### [`@param {ActivityChangeEvent} event`](#activitychangeevent)
 
@@ -1752,7 +1829,7 @@ bgGeo.onGeofence(new TSGeofenceCallback() {
         Location location = tsLocation.getLocation();
         TSGeofence tsGeofence = event.getGeofence();
         GeofencingEvent geofencingEvent = event.getGeofencingEvent();
-        
+
         Log.i(TAG, "[geofence] " + event.toJson());
     }
 });
@@ -1812,7 +1889,7 @@ bgGeo.onHttp(new TSHttpResponseCallback() {
         int status = response.getStatus();
         int responseText = response.getResponseText();
         boolean success = response.isSuccess();
-        
+
         Log.i(TAG, "[http] " + status + ", responseText: " + responseText);
     }
 });
@@ -1823,7 +1900,7 @@ bgGeo.onHttp(new TSHttpResponseCallback() {
 
 ### `heartbeat`
 
-The **`TSHeartbeatCallback`** will be executed for each [`#heartbeatInterval`](#config-int-heartbeatinterval-60) while the device is in **stationary** state.  The `HeartbeatEvent` provides access to the *last known* location -- this is *not* the current location.  The `heartbeat` event will **not** request a new location.  If you want a new location in the `heartbeat` event, use the [`#getCurrentPosition`](#getcurrentpositiontscurrentpositionrequest) method. 
+The **`TSHeartbeatCallback`** will be executed for each [`#heartbeatInterval`](#config-int-heartbeatinterval-60) while the device is in **stationary** state.  The `HeartbeatEvent` provides access to the *last known* location -- this is *not* the current location.  The `heartbeat` event will **not** request a new location.  If you want a new location in the `heartbeat` event, use the [`#getCurrentPosition`](#getcurrentpositiontscurrentpositionrequest) method.
 
 #### [`@param {TSHeartbeatEvent} event`](#tsheartbeatevent)
 
@@ -1846,7 +1923,7 @@ bgGeo.onHeartbeat(new TSHeartbeatCallback() {
 
 ### `schedule`
 
-The **`TSScheduleCallback`** will be executed each time a [`schedule`](#schedule) event fires. 
+The **`TSScheduleCallback`** will be executed each time a [`schedule`](#schedule) event fires.
 
 #### [`@param {ScheduleEvent} event`](#scheduleevent)
 
@@ -1958,7 +2035,7 @@ enabledchange
 
 The **`#ready`** method is your first point-of-contact with the SDK.  You must execute the `#ready` method each time your application boots.  The supplied `TSCallback` will be executed when the SDK is ready for tracking.
 
-:information_source: BackgroundGeolocation persists its **`enabled`** state between application terminate or device reboot and **`#ready`** will **automatically** [`#start`](startsuccessfn-failurefn) tracking if it finds **`enabled == true`**.  
+:information_source: BackgroundGeolocation persists its **`enabled`** state between application terminate or device reboot and **`#ready`** will **automatically** [`#start`](startsuccessfn-failurefn) tracking if it finds **`enabled == true`**.
 
 #### `@param {TSCallback}` Callback fired when SDK is ready for location-tracking (or failure).
 
@@ -1972,16 +2049,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TSConfig config = TSConfig.getInstance(getApplicationContext());
-        
+
         config.updateWithBuilder()
                 .setDebug(true)
                 .setLogLevel(5) // Verbose logging
                 .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setDistanceFilter(50f)                    
-                .setForegroundService(true)                    
+                .setDistanceFilter(50f)
+                .setForegroundService(true)
                 .setUrl("http://your.server.com/locations")
                 .commit();
-        
+
         final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 
         // Listen to events:
@@ -1998,7 +2075,7 @@ public class MainActivity extends AppCompatActivity {
         bgGeo.ready(new TSCallback() {
             @Override public void onSuccess() {
                 Log.i(TAG, "- configure success");
-                // The SDK persists its enabled state.  
+                // The SDK persists its enabled state.
                 // #ready will automatically execute #start if already enabled.
                 if (!config.getEnabled()) {
                     bgGeo.start();  // <-- start tracking.
@@ -2007,7 +2084,7 @@ public class MainActivity extends AppCompatActivity {
             @Override public void onFailure(String error) {
                 Log.i(TAG, "- configure FAILURE: " + error);
             }
-        });                
+        });
     }
 }
 ```
@@ -2031,12 +2108,12 @@ private CompoundButton.OnCheckedChangeListener createEnableSwitchListener() {
             // #start / #stop BackgroundGeolocation
             if (isMoving) {
                 bgGeo.start();
-                
+
                 // Or with optional callback
                 bgGeo.start(new TSCallback() {
                   @Override
                   public void onSuccess() {
-                    Log.i(TAG, "[start] success");        
+                    Log.i(TAG, "[start] success");
                   }
                   @Override
                   public void onFailure(String error) {
@@ -2116,9 +2193,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-      
+
         View.OnClickListener listener = new View.OnClickListener() {
-            @Override public void onClick(View view) {                
+            @Override public void onClick(View view) {
                 // Build position request.
                 TSCurrentPositionRequest request = new TSCurrentPositionRequest.Builder(getApplicationContext())
                     .setPersist(true)       // <-- yes, persist to database
@@ -2271,7 +2348,7 @@ BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationCo
 bgGeo.setOdometer(0F, new TSLocationCallback() {
     @Override
     public void onLocation(TSLocation tsLocation) {
-        Log.i(TAG, "[setOdometer] success");        
+        Log.i(TAG, "[setOdometer] success");
     }
 
     @Override
@@ -2373,7 +2450,7 @@ bgGeo.removeListeners();
 
 ### `getLocations(TSGetLocationsCallback)`
 
-Fetch all the locations currently stored in native SDK's SQLite database.  Your **`TSGetLocationsCallback`** will receive an `List` of locations 
+Fetch all the locations currently stored in native SDK's SQLite database.  Your **`TSGetLocationsCallback`** will receive an `List` of locations
 
 #### `@param {TSGetLocationsCallback}` Callback to receive locations fetched from database.
 
@@ -2400,7 +2477,7 @@ bgGeo.getLocations(new TSGetLocationsCallback() {
 
 
 ### `int getCount`
-Fetches count of SQLite locations table `SELECT count(*) from locations`. 
+Fetches count of SQLite locations table `SELECT count(*) from locations`.
 
 ```java
 BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
@@ -2439,7 +2516,7 @@ bgGeo.destroyLocations(new TSCallback() {
 
 ### `sync([TSSyncCallback])`
 
-If the SDK is configured for HTTP with an [`#url`](#config-string-url-) and [`autoSync: false`](#config-boolean-autosync-true), this method will initiate POSTing the locations currently stored in the native SQLite database to your configured [`#url`](#config-string-url-).  When your HTTP server returns a response of `200 OK`, that record(s) in the database will be DELETED.  
+If the SDK is configured for HTTP with an [`#url`](#config-string-url-) and [`autoSync: false`](#config-boolean-autosync-true), this method will initiate POSTing the locations currently stored in the native SQLite database to your configured [`#url`](#config-string-url-).  When your HTTP server returns a response of `200 OK`, that record(s) in the database will be DELETED.
 If you configured [`batchSync: true`](#config-boolean-batchsync-false), all the locations will be sent to your server in a single HTTP POST request, otherwise the SDK will create execute an HTTP post for **each** location in the database (REST-style).  Your **`TSSyncCallback#onSuccess`** will be executed and provided with a `List` of all the locations from the SQLite database.  If you configured the SDK for HTTP (by configuring an [`#url`](#config-nsstring-url--), your **`TSSyncCallback#onSuccess`** will be executed after the HTTP request(s) have completed.  If the SDK failed to sync to your server (possibly because of no network connection), the **`TSSyncCallback#onFailure`** will be called with an `errorMessage`.  If you are **not** using the HTTP features, **`sync`** will delete all records from its SQLite datbase.  Eg:
 
 Your callback will be provided with the following params
@@ -2461,7 +2538,7 @@ bgGeo.sync(new TSSyncCallback() {
 });
 
 // You may optionally provide no callback if you're configured an #url with
-// autoSync: false and simply wish to initiate the SDK's HTTP service.  
+// autoSync: false and simply wish to initiate the SDK's HTTP service.
 bgGeo.sync();
 
 ```
@@ -2488,7 +2565,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-      
+
         final BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
 
         // Create a Geofence.
@@ -2507,7 +2584,7 @@ public class MainActivity extends AppCompatActivity {
         bgGeo.ready(new TSCallback() {
             @Override public void onSuccess() {
                 Log.i(TAG, "[ready] success");
-                bgGeo.startGeofences(); 
+                bgGeo.startGeofences();
             }
             @Override public void onFailure(String error) {
                 Log.i(TAG, "[ready] FAILURE: " + error);
@@ -2558,7 +2635,7 @@ bgGeo.addGeofence(geofence);
 bgGeo.addGeofence(geofence, new TSCallback() {
     @Override
     public void onSuccess() {
-        Log.i(TAG, "[addGeofence] success");    
+        Log.i(TAG, "[addGeofence] success");
     }
     @Override
     public void onFailure(String error) {
@@ -2615,7 +2692,7 @@ bgGeo.addGeofences(geofences);
 bgGeo.addGeofences(geofences, new TSCallback() {
     @Override
     public void onSuccess() {
-        Log.i(TAG, "[addGeofences] success");    
+        Log.i(TAG, "[addGeofences] success");
     }
     @Override
     public void onFailure(String error) {
@@ -2641,11 +2718,11 @@ bgGeo.removeGeofence("Home");
 
 // With optional Callback
 bgGeo.removeGeofence("Home", new TSCallback() {
-    @Override 
+    @Override
     public void onSuccess() {
         Log.i(TAG, "[removeGeofence] success");
     }
-    @Override 
+    @Override
     public void onFailure(String s) {
         Log.i(TAG, "[removeGeofence] FAILURE");
     }
@@ -2671,11 +2748,11 @@ bgGeo.removeGeofences();
 
 // With optional Callback
 bgGeo.removeGeofences(new TSCallback() {
-    @Override 
+    @Override
     public void onSuccess() {
         Log.i(TAG, "[removeGeofence] success");
     }
-    @Override 
+    @Override
     public void onFailure(String s) {
         Log.i(TAG, "[removeGeofence] FAILURE");
     }
@@ -2695,11 +2772,11 @@ bgGeo.removeGeofences(identifiers);
 
 // With optional Callback
 bgGeo.removeGeofences(identifiers, new TSCallback() {
-    @Override 
+    @Override
     public void onSuccess() {
         Log.i(TAG, "[removeGeofences] success");
     }
-    @Override 
+    @Override
     public void onFailure(String s) {
         Log.i(TAG, "[removeGeofences] FAILURE");
     }
@@ -2785,7 +2862,7 @@ public class MainActivity extends AppCompatActivity {
         bgGeo.emailLog("foo@bar.com", this, new TSEmailLogCallback() {
             @Override
             public void onSuccess() {
-                Log.i(TAG, "[emailLog] success");    
+                Log.i(TAG, "[emailLog] success");
             }
             @Override
             public void onFailure(String error) {
@@ -2833,7 +2910,7 @@ bgGeo.destroyLog(new TSCallback() {
 | Return        | Name               | Description                            |
 |---------------|--------------------|----------------------------------------|
 | `Location`    | `getLocation`      | Fetch native [`Location`](https://developer.android.com/reference/android/location/Location.html) instance      |
-| `String`      | `getTimestamp`     | Returns the ISO-8601 formatted UTC timestamp | 
+| `String`      | `getTimestamp`     | Returns the ISO-8601 formatted UTC timestamp |
 | `String`      | `getUUID`          | Returns the `uuid` of the location     |
 | `String`      | `getEvent`         | Returns associated event for this location (eg: `motionchange`, `providerchange`, `geofence`) |
 | `boolean`     | `getIsMoving`      | `true` when the location was recorded while device is in **moving** state |
