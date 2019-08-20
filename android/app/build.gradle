@@ -24,8 +24,16 @@ repositories{
 
 }
 
+// Get a reference to background-geolocation project.
+Project background_geolocation = project(':background-geolocation')
+
+// Apply background-geolocation's custom app.gradle file
+apply from: "${background_geolocation.projectDir}/app.gradle"
+
 dependencies {
-    implementation project(':background-geolocation')
+    // import background-geolocation project.
+    implementation background_geolocation
+
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
