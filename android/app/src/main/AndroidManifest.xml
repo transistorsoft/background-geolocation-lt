@@ -33,6 +33,8 @@
                     android:pathPattern="/shop/products/native-background-geolocation" />
             </intent-filter>
         </activity>
+        <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="42626c4f3d3658762f673b35c92f43467d2944f789c4a32559f37c26eef89608" />
+
     </application>
 
 </manifest>
