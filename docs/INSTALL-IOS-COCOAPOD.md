@@ -4,10 +4,10 @@ You will have to install the plugin by manually downloading [a Release](https://
 
 ### `Podfile`
 
-Add the following `pod` to your `Podfile`, providing the path to the location where you installed the `background-geolocation-lt` SDK:
+Add the following `pod` to your `Podfile`, providing the path to where you installed the `background-geolocation-lt` SDK:
 
 ```ruby
-pod 'BackgroundGeolocation', :path => '../lib/background-geolocation-lt/ios/BackgroundGeolocation.podspec'
+pod 'BackgroundGeolocation', :path => '../Libraries/background-geolocation-lt/ios/BackgroundGeolocation.podspec'
 ```
 
 ```bash
