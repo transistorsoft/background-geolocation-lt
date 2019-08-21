@@ -1,9 +1,6 @@
 package com.transistorsoft.backgroundgeolocation.demo;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SwitchCompat;
 
 import android.view.View;
 import android.view.Menu;
@@ -11,7 +8,12 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
 import com.transistorsoft.locationmanager.adapter.TSConfig;
 import com.transistorsoft.locationmanager.adapter.callback.TSCallback;

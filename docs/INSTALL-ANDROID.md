@@ -21,10 +21,9 @@ eg: :open_file_folder: **`Libraries/background-geolocation-lt`**
 buildscript {
     ext {
         buildToolsVersion = "28.0.3"  # <-- set as desired
-        minSdkVersion = 16            # <-- set as desired
         compileSdkVersion = 28        # <-- set as desired
         targetSdkVersion = 28         # <-- set as desired
-
+        minSdkVersion = 19            # <-- set as desired
 +       appCompatVersion = "1.0.2"    # <-- AndroidX compatibility.  For pre-androidX, specify `com.android.support` version.
 +       googlePlayServicesLocationVersion = "17.0.0"
     }
