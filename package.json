@@ -15,7 +15,7 @@
     "geofence",
     "geofencing"
   ],
-  "author": "Chris Scott <chris@transistorsoft.com>",
+  "author": "Chris Scott, Transistor Software <info@transistorsoft.com>",
   "license": "Custom",
   "bugs": {
     "url": "https://github.com/transistorsoft/background-geolocation-lt/issues"
