@@ -8,9 +8,9 @@ Background Geolocation Module for iOS &amp; Android
 
 The *most* sophisticated background **location-tracking & geofencing** module with battery-conscious motion-detection intelligence for **iOS** and **Android**.
 
-The plugin's [Philosophy of Operation](../../wiki/Philosophy-of-Operation) is to use **motion-detection** APIs (using accelerometer, gyroscope and magnetometer) to detect when the device is *moving* and *stationary*.  
+The plugin's [Philosophy of Operation](../../wiki/Philosophy-of-Operation) is to use **motion-detection** APIs (using accelerometer, gyroscope and magnetometer) to detect when the device is *moving* and *stationary*.
 
-- When the device is detected to be **moving**, the plugin will *automatically* start recording a location according to the configured `distanceFilter` (meters).  
+- When the device is detected to be **moving**, the plugin will *automatically* start recording a location according to the configured `distanceFilter` (meters).
 
 - When the device is detected be **stationary**, the plugin will automatically turn off location-services to conserve energy.
 
@@ -53,9 +53,11 @@ Create a folder in the root of your application project, eg: `/Libraries` and pl
 eg: :open_file_folder: **`Libraries/background-geolocation-lt`**
 
 ## :large_blue_diamond: Setup Guides
-
-- ### [iOS Setup Guide](docs/INSTALL-IOS.md)
-- ### [Android Setup Guide](docs/INSTALL-ANDROID.md)
+- ### iOS
+    - [Cocoapods Setup (*recommended*)](docs/INSTALL-IOS-COCOAPOD.md)
+    - [Manual Setup](docs/INSTALL-IOS.md)
+- ### Android
+    - [Manual Setup](docs/INSTALL-ANDROID.md)
 
 ## :large_blue_diamond: Example
 
@@ -77,10 +79,10 @@ eg: :open_file_folder: **`Libraries/background-geolocation-lt`**
     // Get a reference to the SDK
     TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
     TSConfig *config = [TSConfig sharedInstance];
-    
+
     // Provide a reference to your viewController.
     bgGeo.viewController = self;
-            
+
     [config updateWithBlock:^(TSConfigBuilder *builder) {
         builder.debug = YES;
         builder.logLevel = tsLogLevelVerbose;
@@ -90,17 +92,17 @@ eg: :open_file_folder: **`Libraries/background-geolocation-lt`**
         builder.startOnBoot = YES;
         builder.url = @"http://your.server.com/locations";
     }];
-    
+
     // Listen to events.
     [bgGeo onLocation:^(TSLocation *location) {
         NSLog(@"[location] %@", [location toDictionary]);
     } failure:^(NSError *error) {
         NSLog(@"[location] error %@", @(error.code));
     }];
-    
+
     // Signal #ready to the plugin.
     [bgGeo ready];
-    
+
     if (!config.enabled) {
         // Start tracking immediately (if not already).
         [bgGeo start];

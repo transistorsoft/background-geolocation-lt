@@ -2,9 +2,9 @@
 
 You will have to install the plugin by manually downloading [a Release](https://github.com/transistorsoft/background-geolocation-lt/releases) from this repository.  The plugin is not currently submitted to a package manager (eg: jCenter)
 
-Create a folder in the root of your application project, eg: `/Libraries` and place the extracted **`background-geolocation`** folder into it:
+Create a folder in the root of your application project, eg: `/lib` and place the extracted **`background-geolocation`** folder into it:
 
-eg: :open_file_folder: **`Libraries/background-geolocation-lt`**
+eg: :open_file_folder: **`lib/background-geolocation-lt`**
 
 ## Gradle Configuration
 
@@ -12,65 +12,33 @@ eg: :open_file_folder: **`Libraries/background-geolocation-lt`**
 
 ```diff
 +include ':background-geolocation'
-+project(':background-geolocation').projectDir = new File(rootProject.projectDir, './Libraries/background-geolocation-lt/android/background-geolocation')
++project(':background-geolocation').projectDir = new File(rootProject.projectDir, './lib/background-geolocation-lt/android/background-geolocation')
 ```
 
 ### :open_file_folder: **`android/build.gradle`**
 
 ```diff
-allprojects {
-    repositories {
-+        google()
-+        maven {
-+            url project(':background-geolocation').projectDir.absolutePath + "/libs"
-+        }
-+    }
-}
+buildscript {
+    ext {
+        buildToolsVersion = "28.0.3"  # <-- set as desired
+        minSdkVersion = 16            # <-- set as desired
+        compileSdkVersion = 28        # <-- set as desired
+        targetSdkVersion = 28         # <-- set as desired
 
-/**
--* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
--* !!! THE FOLLOWING IS OPTIONAL BUT HIGHLY RECOMMENDED FOR YOUR SANITY !!!
--* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-*
-* Do you hate Gradle conflicts where other plugin require some particular
-* version of play-services or define a compileSdkVersion, buildToolsVersion
-* which conflicts with that of your app?  Me too!
-*
-* If you define these key gradle configuration variables globally, the 
-* background-geolocation plugin (and any other "wise" plugins you've installed) 
-* can align themselves to YOUR desired versions!  You should define these variables 
-* as desired according to current values in your app/build.gradle
-*
-* You'll find that more and more plugins are beginning to wise up to checking 
-* for the presense of global gradle variables like this.
-*
-* BackgroundGeolocation is aware of the following variables:
-*/
-+ext {
-+    compileSdkVersion   = 26
-+    targetSdkVersion    = 26
-+    buildToolsVersion   = "26.0.2"
-+    supportLibVersion   = "26.1.0"
-+    playServicesVersion = "11.8.0" 
-+}
--// BackgroundGeolocation is also aware of googlePlayServicesVersion if you prefer
++       appCompatVersion = "1.0.2"    # <-- AndroidX compatibility.  For pre-androidX, specify support lib version.
++       googlePlayServicesLocationVersion = "17.0.0"
+    }
+    ...
+}
 ```
 
 ### :open_file_folder: **`app/build.gradle`**
 
 ```diff
--/**
--* OPTIONAL:  If you've implemeted the "OPTIONAL BUT HIGHLY RECOMMENDED" note
--* above, you can define your compileSdkVersion, buildToolsVersion, targetSdkVersion 
--* using your own global variables as well:
--* Android Studio is smart enough to be aware of the evaulated values here,
--* to offer upgrade notices when applicable.
--*
--*/
 android {
-+    compileSdkVersion rootProject.compileSdkVersion
++    compileSdkVersion rootProject.ext.compileSdkVersion
      defaultConfig {
-+        targetSdkVersion rootProject.targetSdkVersion
++        targetSdkVersion rootProject.ext.targetSdkVersion
          .
          .
          .
@@ -80,9 +48,17 @@ android {
      .
 }
 
+// Get a reference to background-geolocation project.
++Project background_geolocation = project(':background-geolocation')
+
+// Apply background-geolocation's custom app.gradle file
++apply from: "${background_geolocation.projectDir}/app.gradle"
+
 dependencies {
-+    implementation project(':background-geolocation')
-+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibVersion"    
+     .
+     .
+     .
++    implementation background_geolocation
 }
 
 ```
@@ -114,7 +90,7 @@ You can now import and use the SDK in your application.  See the [Example](../RE
 
 ```
 
-:information_source: [Purchase a License](http://www.transistorsoft.com/shop/products/react-native-background-geolocation)
+:information_source: [Purchase a License](http://www.transistorsoft.com/shop/products/native-background-geolocation)
 
 ## Proguard Config
 
