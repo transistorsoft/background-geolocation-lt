@@ -2,9 +2,9 @@
 
 You will have to install the plugin by manually downloading [a Release](https://github.com/transistorsoft/background-geolocation-lt/releases) from this repository.  The plugin is not currently submitted to a package manager (eg: jCenter)
 
-Create a folder in the root of your application project, eg: `/lib` and place the extracted **`background-geolocation`** folder into it:
+Create a folder in the root of your application project, eg: `/Libraries` and place the extracted **`background-geolocation`** folder into it:
 
-eg: :open_file_folder: **`lib/background-geolocation-lt`**
+eg: :open_file_folder: **`Libraries/background-geolocation-lt`**
 
 ## Gradle Configuration
 
@@ -12,7 +12,7 @@ eg: :open_file_folder: **`lib/background-geolocation-lt`**
 
 ```diff
 +include ':background-geolocation'
-+project(':background-geolocation').projectDir = new File(rootProject.projectDir, './lib/background-geolocation-lt/android/background-geolocation')
++project(':background-geolocation').projectDir = new File(rootProject.projectDir, './Libraries/background-geolocation-lt/android/background-geolocation')
 ```
 
 ### :open_file_folder: **`android/build.gradle`**
@@ -25,7 +25,7 @@ buildscript {
         compileSdkVersion = 28        # <-- set as desired
         targetSdkVersion = 28         # <-- set as desired
 
-+       appCompatVersion = "1.0.2"    # <-- AndroidX compatibility.  For pre-androidX, specify support lib version.
++       appCompatVersion = "1.0.2"    # <-- AndroidX compatibility.  For pre-androidX, specify `com.android.support` version.
 +       googlePlayServicesLocationVersion = "17.0.0"
     }
     ...
