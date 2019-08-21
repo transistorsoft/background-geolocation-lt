@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 This repo hosts demo apps for both iOS and Android.  Start by cloning this repo.
 
 - ### iOS
-In XCode, open the project at **`/ios/BackgroundGeolocation/BackgroundGeolocation.xcodeproj`** and launch the **`Demo`** target.
+In XCode, open the project at **`/ios/BackgroundGeolocation/BackgroundGeolocation.xcworkspace`** and launch the **`Demo`** target.
 
 - ### Android
 In Android Studio, open the project at **`/android`** and launch the **`app`** target.
