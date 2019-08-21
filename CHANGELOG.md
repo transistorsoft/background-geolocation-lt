@@ -1,6 +1,15 @@
 # Change Log
 
 ## [1.0.0] - 2019-08-21
+------------------------------------------------------------------------------
+### :warning: Breaking Changes
+
+#### [Changed] The license format has changed.  New `1.0.0` licenses are now available for customers in the [product dashboard](https://www.transistorsoft.com/shop/customers).
+![](https://dl.dropbox.com/s/3ohnvl9go4mi30t/Screenshot%202019-03-26%2023.07.46.png?dl=1)
+
+- For versions `< 1.0.0`, use *old* license keys.
+- For versions `>= 1.0.0`, use *new* license keys.
+
 - [Changed] Major refactor of Android Service architecture.  The SDK no longer requires a foreground-service active at all times.  The foreground-service (and cooresponding persistent notification) will only be active while the SDK is in the *moving* state.  No breaking dart api changes.
 - [Changed] Improved Android debug notifications.
 
