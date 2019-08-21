@@ -74,6 +74,8 @@
 - (void) watchPosition:(TSWatchPositionRequest*)request;
 - (void) stopWatchPosition;
 - (NSDictionary*) getStationaryLocation;
+- (TSProviderChangeEvent*) getProviderState;
+- (void) requestPermission:(void(^)(NSNumber *status))success failure:(void(^)(NSNumber *status))failure;
 
 #pragma mark - HTTP & Persistence Methods
 
@@ -110,6 +112,7 @@
 
 - (NSArray*) getGeofences;
 - (void) getGeofences:(void (^)(NSArray*))success failure:(void (^)(NSString*))failure;
+- (void) geofenceExists:(NSString*)identifier callback:(void (^)(BOOL))callback;
 
 #pragma mark - Sensor Methods
 
