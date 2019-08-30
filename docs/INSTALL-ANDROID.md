@@ -96,14 +96,9 @@ You can now import and use the SDK in your application.  See the [Example](../RE
 :open_file_folder: **`android/app/proguard-rules.pro`**
 
 ```proguard
-# BackgroundGeolocation
+# BackgroundGeolocation lib tslocationmanager.aar is *already* proguarded
 -keep class com.transistorsoft.** { *; }
 -dontwarn com.transistorsoft.**
-
--keep class com.google.**
--dontwarn com.google.**
--dontwarn org.apache.http.**
--dontwarn com.android.volley.toolbox.**
 
 # BackgroundGeolocation (EventBus)
 -keepclassmembers class * extends de.greenrobot.event.util.ThrowableFailureEvent {
@@ -122,4 +117,7 @@ You can now import and use the SDK in your application.  See the [Example](../RE
 -keep class ch.qos.** { *; }
 -keep class org.slf4j.** { *; }
 -dontwarn ch.qos.logback.core.net.*
+
+# OkHttp3
+-dontwarn okio.**
 ```
