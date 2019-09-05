@@ -93,31 +93,32 @@ You can now import and use the SDK in your application.  See the [Example](../RE
 
 ## Proguard Config
 
-:open_file_folder: **`android/app/proguard-rules.pro`**
+If you've set **`minifyEnabled`** in your `android/app/build.gradle`, be sure to apply the SDK's **Proguard Rules**:
 
-```proguard
-# BackgroundGeolocation lib tslocationmanager.aar is *already* proguarded
--keep class com.transistorsoft.** { *; }
--dontwarn com.transistorsoft.**
+### :open_file_folder: `android/app/build.gradle`)
 
-# BackgroundGeolocation (EventBus)
--keepclassmembers class * extends de.greenrobot.event.util.ThrowableFailureEvent {
-    <init>(java.lang.Throwable);
+```diff
+/**
+ * Run Proguard to shrink the Java bytecode in release builds.
+ */
+def enableProguardInReleaseBuilds = true
+.
+.
+.
+android {
+    .
+    .
+    .
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            // Add following proguardFiles (leave existing one above untouched)
++           proguardFiles "${background_geolocation.projectDir}/proguard-rules.pro"
+            signingConfig signingConfigs.release
+        }
+    }
 }
--keepattributes *Annotation*
--keepclassmembers class ** {
-    @org.greenrobot.eventbus.Subscribe <methods>;
-}
--keep enum org.greenrobot.eventbus.ThreadMode { *; }
--keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-    <init>(java.lang.Throwable);
-}
-
-# logback
--keep class ch.qos.** { *; }
--keep class org.slf4j.** { *; }
--dontwarn ch.qos.logback.core.net.*
-
-# OkHttp3
--dontwarn okio.**
 ```
+
+
