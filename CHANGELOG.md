@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.0.1] - 2019-09-05
+
+- [Changed] Android now hosts its own `proguard-rules.pro`.  See Android setup docs for new integration of plugin's required Proguard Rules into your app.
+- [Changed] Rebuild iOS `TSLocationManager.framework` with XCode 10 (previous build used XCode 11-beta6).  Replace `@available` macro with `SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO`.
+- [Fixed] iOS 13 preventSuspend was not working with iOS 13.  iOS has once again decreased the max time for UIApplication beginBackgroundTask from 180s down to 30s.
+- [Changed] Upgrade `android-logback` dependency to `2.0.0`
+- [Changed] Android: move some plugin initialization into background-threads (eg: `performLogCleanup`) to help mitigate against ANR "`Context.startForegroundService` did not then call `Service.startForeground`".
+
 ## [1.0.0] - 2019-08-21
 ------------------------------------------------------------------------------
 ### :warning: Breaking Changes

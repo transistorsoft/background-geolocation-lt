@@ -48,7 +48,7 @@ dependencies {
     api "org.greenrobot:eventbus:$eventBusVersion"
     api "com.google.android.gms:play-services-location:$playServicesLocationVersion"
     api 'org.slf4j:slf4j-api:1.7.25'
-    api 'com.github.tony19:logback-android:1.3.0-2'
+    api 'com.github.tony19:logback-android:2.0.0'
 
 
 }
