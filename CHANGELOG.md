@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.0.2] - 2019-09-25
+- [Changed] Android:  move more location-handling code into background-threads to help mitigate against ANR referencing `Context.startForegroundService`
+- [Changed] Android:  If BackgroundGeolocation adapter is instantiated headless and is enabled, force ActivityRecognitionService to start.
+- [Added] Add `mock` to `locationTemplate` data.
+
 ## [1.0.1] - 2019-09-05
 
 - [Changed] Android now hosts its own `proguard-rules.pro`.  See Android setup docs for new integration of plugin's required Proguard Rules into your app.
