@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 | [`minimumActivityRecognitionConfidence`](#config-int-minimumactivityrecognitionconfidence-75) | `int` | `75` | Each activity-recognition-result returned by the API is tagged with a "confidence" level expressed as a `%`.  You can set your desired confidence to trigger a state-change.|
 | [`disableStopDetection`](#config-boolean-disablestopdetection-false) | `boolean` | `false` | Disable accelerometer-based **Stop-detection System**. :warning: Not recommended|
 | [`triggerActivities`](#config-string-triggeractivities) | `String` |  | These are the comma-delimited list of [activity-names](https://developers.google.com/android/reference/com/google/android/gms/location/DetectedActivity) returned by the `ActivityRecognition` API which will trigger a state-change from **stationary** to **moving**.  By default, the SDK will trigger on **any** of the **moving-states**. |
+| [`disableMotionActivityUpdates`](#config-boolean-disablemotionactivityupdates-false) | `boolean` | `false` | Disable iOS motion-activity updates (eg: "walking", "in_vehicle").  :warning: The SDK is **HIGHLY** optimized to use this for improved battery performance.  You are **STRONLY** recommended to **NOT** disable this. |
 
 ## :wrench: HTTP & Persistence Options
 
@@ -677,6 +678,25 @@ config.updateWithBuilder()
     .commit();
 
 ```
+
+#### `@config {boolean} disableMotionActivityUpdates [false]`
+
+Android 10+ now requires run-time permission from the user for "Physical Activity".
+![](https://dl.dropbox.com/s/6v4391oz592bdjg/android-permission-physical-activity.png?dl=1)
+
+Traditionally, the `background-geolocation` Android SDK has relied heavily upon the Motion API for determining when to toggle location-services on/off based upon whether the device is *moving* vs *stationary*.
+
+However, the Android SDK has a fallback "stationary geofence" mechanism just like iOS, the exit of which will cause the plugin to change to the *moving* state, toggle location-services and begin tracking.  This will, of course, require the device moves a distance of typically **200-500 meters** before tracking engages.  With the Motion API authorized, the Android SDK typically requires just **a few meters** of movement for tracking to engage.
+
+```java
+TSConfig config = TSConfig.getInstance(getApplicationContext());
+config.updateWithBuilder()
+    .setDisableMotionActivityUpdates(true)
+    .commit();
+```
+
+
+# :wrench: Geofencing Options
 
 ------------------------------------------------------------------------------
 
