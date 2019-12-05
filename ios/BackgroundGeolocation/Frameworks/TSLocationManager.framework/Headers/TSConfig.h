@@ -7,6 +7,7 @@
 //
 @import CoreLocation;
 #import <objc/runtime.h>
+#import "TSAuthorization.h"
 
 /**
  * Create TSSettingType
@@ -20,7 +21,8 @@ typedef enum TSSettingType : NSInteger {
     tsSettingTypeFloat,
     tsSettingTypeLong,
     tsSettingTypeDictionary,
-    tsSettingTypeArray
+    tsSettingTypeArray,
+    tsSettingTypeModule
 } TSSettingType;
 
 typedef enum TSTrackingMode : NSInteger {
@@ -104,6 +106,9 @@ typedef enum TSPersistMode : NSInteger {
 @property (nonatomic) NSString* locationsOrderDirection;
 @property (nonatomic) NSInteger httpTimeout;
 @property (nonatomic) TSPersistMode persistMode;
+@property (nonatomic) BOOL disableAutoSyncOnCellular;
+@property (nonatomic) BOOL encrypt;
+@property (nonatomic) TSAuthorization* authorization;
 
 // Application
 @property (nonatomic) BOOL stopOnTerminate;
@@ -131,7 +136,8 @@ TSConfig
 @interface TSConfig : NSObject <NSCoding>
 #pragma mark - Singleton
 + (TSConfig *)sharedInstance;
-
++ (Class) classForPropertyName:(NSString*)name fromObject:(id)object;
+    
 # pragma mark Initializers
 
 /**
@@ -142,7 +148,9 @@ TSConfig
 
 - (void)updateWithBlock:(void(^)(TSConfigBuilder*))block;
 - (void)updateWithDictionary:(NSDictionary*)config;
+
 - (void)reset;
+- (void)reset:(BOOL)silent;
 
 # pragma mark Events
 - (void)onChange:(NSString*)property callback:(void(^)(id))block;
@@ -159,9 +167,14 @@ TSConfig
 
 # pragma mark Utility methods
 - (NSDictionary*) toDictionary;
+- (NSDictionary*) toDictionary:(BOOL)redact;
+
+// Logs a safe version of toDictionary with sensitive information redacted
+- (NSString*) toJson;
 - (void) registerPlugin:(NSString*)pluginName;
 - (BOOL) hasPluginForEvent:(NSString*)eventName;
-
+// Returns the configured BACKGROUND_GEOLOCATION_ENCRYPTION_PASSWORD from application's Info.plist
+- (NSString*) encryptionPassword;
 /// @name State Properties
 /**
  * enabled is tracking enabled?
@@ -233,6 +246,9 @@ TSConfig
 @property (nonatomic, readonly) NSString* locationsOrderDirection;
 @property (nonatomic, readonly) NSInteger httpTimeout;
 @property (nonatomic) TSPersistMode persistMode;
+@property (nonatomic) BOOL disableAutoSyncOnCellular;
+@property (nonatomic) BOOL encrypt;
+@property (nonatomic) TSAuthorization* authorization;
 
 /// @name Application Properties
 @property (nonatomic, readonly) BOOL stopOnTerminate;

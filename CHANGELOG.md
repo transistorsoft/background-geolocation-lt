@@ -1,4 +1,22 @@
 # Change Log
+
+## [1.1.0] - 2019-12-05
+- [Added] New `Config.authorization` option for automated authorization-token support.  If the SDK receives an HTTP response status `401 Unauthorized` and you've provided an `authorization` config, the plugin will automatically send a request to your configured `refreshUrl` to request a new token.  The SDK will take care of adding the required `Authorization` HTTP header with `Bearer accessToken`.  In the past, one would manage token-refresh by listening to the SDK's `onHttp` listener for HTTP `401`.  This can now all be managed by the SDK by providing a `Config.authorization`.
+- [Added] Implemented strong encryption support via `Config.encrypt`.  When enabled, the SDK will encrypt location data in its SQLite datbase, as well as the payload in HTTP requests.  See API docs `Config.encrypt` for more information, including the configuration of encryption password.
+- [Added] New JSON Web Token API for the Demo server at http://tracker.transistorsoft.com.  It's now easier than ever to configure the plugin to post to the demo server.
+- [Added] New `DeviceInfo` module for providing simple device-info (`model`, `manufacturer`, `version`, `platform`).
+- [Fixed] Android NPE
+```
+Caused by: java.lang.NullPointerException:
+  at com.transistorsoft.locationmanager.service.TrackingService.b (TrackingService.java:172)
+  at com.transistorsoft.locationmanager.service.TrackingService.onStartCommand (TrackingService.java:135)
+```
+- [Added] new `uploadLog` feature for uploading logs directly to a server.  This is an alternative to `emailLog`.
+- [Changed] All logging methods (`getLog`, `emailLog` and `uploadLog`) now accept an optional `SQLQuery`.
+- [Fixed] Android: Fixed issue executing `#changePace` immediately after `#start`.
+- [Fixed] Android:  Add guard against NPR in `calculateMedianAccuracy`
+- [Added] Add new Geofencing methods: `#getGeofence(identifier)` and `#geofenceExists(identifier)`.
+
 ## [1.0.4] - 2019-10-07
 - [Fixed] Resolved a number of Android issues exposed by booting the app in [StrictMode](https://developer.android.com/reference/android/os/StrictMode).  This should definitely help alleviate ANR issues related to `Context.startForegroundService`.
 

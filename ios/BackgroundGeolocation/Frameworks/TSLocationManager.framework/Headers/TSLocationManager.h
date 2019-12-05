@@ -1,5 +1,5 @@
-#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import <CoreLocation/CoreLocation.h>
 #import <AudioToolbox/AudioToolbox.h>
@@ -15,11 +15,20 @@
 #import "TSConnectivityChangeEvent.h"
 #import "TSEnabledChangeEvent.h"
 #import "TSGeofenceEvent.h"
+#import "TSAuthorizationEvent.h"
 #import "TSGeofence.h"
 #import "LocationManager.h"
 #import "TSConfig.h"
 #import "TSCurrentPositionRequest.h"
 #import "TSWatchPositionRequest.h"
+#import "LogQuery.h"
+#import "TSDeviceInfo.h"
+#import "TSAuthorization.h"
+#import "TSHttpService.h"
+
+FOUNDATION_EXPORT double TSLocationManagerVersionNumber;
+FOUNDATION_EXPORT const unsigned char TSLocationManagerVersionString[];
+FOUNDATION_EXPORT NSString* TSLocationManagerVersion;
 
 @interface TSLocationManager : NSObject <CLLocationManagerDelegate>
 
@@ -47,6 +56,7 @@
 - (void) onPowerSaveChange:(void(^)(TSPowerSaveChangeEvent* event))success;
 - (void) onConnectivityChange:(void(^)(TSConnectivityChangeEvent* event))succes;
 - (void) onEnabledChange:(void(^)(TSEnabledChangeEvent* event))success;
+- (void) onAuthorization:(void(^)(TSAuthorizationEvent*))callback;
 
 - (void) removeListener:(NSString*)event callback:(void(^)(id))callback;
 - (void) un:(NSString*)event callback:(void(^)(id))callback;
@@ -96,7 +106,11 @@
 #pragma mark - Logging & Debug Methods
 
 - (void) getLog:(void(^)(NSString* log))success failure:(void(^)(NSString* error))failure;
+- (void) getLog:(LogQuery*)query success:(void(^)(NSString* log))success failure:(void(^)(NSString* error))failure;
 - (void) emailLog:(NSString*)email success:(void(^)(void))success failure:(void(^)(NSString* error))failure;
+- (void) emailLog:(NSString*)email query:(LogQuery*)query success:(void(^)(void))success failure:(void(^)(NSString* error))failure;
+- (void) uploadLog:(NSString*)url query:(LogQuery*)query success:(void(^)(void))success failure:(void(^)(NSString* error))failure;
+
 - (BOOL) destroyLog;
 - (void) setLogLevel:(TSLogLevel)level;
 - (void) playSound:(SystemSoundID)soundId;
@@ -112,6 +126,7 @@
 
 - (NSArray*) getGeofences;
 - (void) getGeofences:(void (^)(NSArray*))success failure:(void (^)(NSString*))failure;
+- (void) getGeofence:(NSString*)identifier success:(void (^)(TSGeofence*))success failure:(void (^)(NSString*))failure;
 - (void) geofenceExists:(NSString*)identifier callback:(void (^)(BOOL))callback;
 
 #pragma mark - Sensor Methods
