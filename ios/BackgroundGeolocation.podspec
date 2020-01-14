@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.static_framework = true
   s.preserve_paths      = 'docs', 'CHANGELOG.md', 'LICENSE'
-  s.dependency 'CocoaLumberjack', '~> 3.5.1'
+  s.dependency 'CocoaLumberjack', '~> 3.6.0'
   s.libraries           = 'sqlite3', 'z'
   s.vendored_frameworks = 'BackgroundGeolocation/Frameworks/TSLocationManager.framework', 'BackgroundGeolocation/Frameworks/TSBackgroundFetch.framework'
 end
