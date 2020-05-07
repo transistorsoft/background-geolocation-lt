@@ -18,8 +18,8 @@ buildscript {
         buildToolsVersion       = "29.0.1"
 
         constraintLayoutVersion = "1.1.3"
-        materialVersion         = "1.0.0"
-        appCompatVersion        = "1.0.2"
+        materialVersion         = "1.1.0"
+        appCompatVersion        = "1.1.0"
         googlePlayServicesLocationVersion = "17.0.0"
     }
 }

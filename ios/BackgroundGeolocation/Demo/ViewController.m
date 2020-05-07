@@ -26,35 +26,59 @@
     _mapView.userTrackingMode = MKUserTrackingModeFollow;
     
     TSConfig *config = [TSConfig sharedInstance];
-    
+        
     [_enableSwitch setOn:config.enabled];
     
     // By default, the plugin #url is configured to post to http://tracker.transistorsoft.com.  You can visit the SDK's tracking in the browser by visiting:
     // http://tracker.transistorsoft.com/username
     // CHANGME @config username The test-server organizes locations by username and device
-    NSString *username = @"transistor-native-demo";
+    NSString *organization = @"your-org-name";
+    NSString *username = @"your-username";
     
-    [config updateWithBlock:^(TSConfigBuilder *builder) {
-        // Debug config
-        builder.debug = YES;
-        builder.logLevel = 5;
-        // Geolocation Config
-        builder.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-        builder.distanceFilter = 10;
-        builder.stopTimeout = 1;
-        // HTTP Config
-        builder.url = [NSString stringWithFormat:@"http://tracker.transistorsoft.com/locations/%@", username];
-        builder.params = @{
-            @"device": [self getDeviceInfo]
+    // Fetch JSON Web Token from Transistorsoft demo server:
+    [TransistorAuthorizationToken findOrCreateWithOrg:organization
+                                             username:username
+                                                  url:@"http://tracker.transistorsoft.com"
+                                            framework:@"Native"
+                                              success:^(TransistorAuthorizationToken *token) {
+        
+        // Build TSAuthorization instance with JWT from demo server.
+        TSAuthorization *auth = [TSAuthorization new];
+        auth.strategy = @"JWT";
+        auth.accessToken = token.accessToken;
+        auth.refreshUrl = @"http://tracker.transistorsoft.com/api/refresh_token";
+        auth.refreshToken = token.refreshToken;
+        auth.expires = token.expires;
+        auth.refreshPayload = @{
+            @"refresh_token": @"{refreshToken}"
         };
-        // Application Config
-        builder.stopOnTerminate = NO;
-        builder.startOnBoot = YES;
+        
+        // Configure the plugin.
+        [config updateWithBlock:^(TSConfigBuilder *builder) {
+            // Debug config
+            builder.debug = YES;
+            builder.logLevel = 5;
+            builder.showsBackgroundLocationIndicator = YES;
+            // Geolocation Config
+            builder.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+            builder.distanceFilter = 10;
+            builder.stopTimeout = 1;
+            // HTTP Config
+            builder.url = @"http://tracker.transistorsoft.com/api/locations";
+            builder.authorization = auth;
+            // Application Config
+            builder.stopOnTerminate = NO;
+            builder.startOnBoot = YES;
+        }];
+        // [REQUIRED] Signal ready to the plugin.
+        [[TSLocationManager sharedInstance] ready];
+    } failure:^(NSError *error) {
+        NSLog(@"[TransistorAuthorizationToken] Failed to get authorization token: %@", error);
     }];
-    
+            
     TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
-    [bgGeo destroyLocations];
     
+    // Add optional event listeners
     [bgGeo onMotionChange:^(TSLocation *tsLocation) {
         [self setCenterAndZoom:tsLocation.location];
     }];
@@ -70,7 +94,6 @@
     } failure:^(NSError *error) {
         NSLog(@"[location] FAILURE: %@", @(error.code));
     }];
-    [bgGeo ready];
 }
 
 - (IBAction)onEnabledChange:(UISwitch*)sender {
