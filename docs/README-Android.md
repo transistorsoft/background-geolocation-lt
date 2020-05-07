@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 | [`disableStopDetection`](#config-boolean-disablestopdetection-false) | `boolean` | `false` | Disable accelerometer-based **Stop-detection System**. :warning: Not recommended|
 | [`triggerActivities`](#config-string-triggeractivities) | `String` |  | These are the comma-delimited list of [activity-names](https://developers.google.com/android/reference/com/google/android/gms/location/DetectedActivity) returned by the `ActivityRecognition` API which will trigger a state-change from **stationary** to **moving**.  By default, the SDK will trigger on **any** of the **moving-states**. |
 | [`disableMotionActivityUpdates`](#config-boolean-disablemotionactivityupdates-false) | `boolean` | `false` | Disable iOS motion-activity updates (eg: "walking", "in_vehicle").  :warning: The SDK is **HIGHLY** optimized to use this for improved battery performance.  You are **STRONLY** recommended to **NOT** disable this. |
-| [`motionTriggerDelay`](#config-long-motionatriggerdelay-0) | `long` | `0` | Optionally add a delay in milliseconds to trigger Android into the *moving* state when Motion API reports the device is moving (eg: `on_foot`, `in_vehicle` |
+| [`motionTriggerDelay`](#config-long-motiontriggerdelay-0) | `long` | `0` | Optionally add a delay in milliseconds to trigger Android into the *moving* state when Motion API reports the device is moving (eg: `on_foot`, `in_vehicle` |
 
 ## :wrench: HTTP & Persistence Options
 
