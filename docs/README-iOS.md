@@ -1,11 +1,11 @@
 # :books: iOS API Documentation
 ### :wrench: [Configuration Options](#wrench-configuration-options-1)
-  + [Geolocation Options](#wrench-geolocation-options)    
-  + [Activity Recognition Options](#wrench-activity-recognition-options)    
+  + [Geolocation Options](#wrench-geolocation-options)
+  + [Activity Recognition Options](#wrench-activity-recognition-options)
   + [HTTP & Persistence Options](#wrench-http--persistence-options)
   + [Geofencing Options](#wrench-geofencing-options)
-  + [Application Options](#wrench-application-options)   
-  + [Logging &amp; Debug Options](#wrench-logging--debug-options) 
+  + [Application Options](#wrench-application-options)
+  + [Logging &amp; Debug Options](#wrench-logging--debug-options)
 ### :zap: [Events](#zap-events-1)
 ### :small_blue_diamond: [Methods](#large_blue_diamond-methods)
   + [Core API Methods](#small_blue_diamond-core-api-methods)
@@ -32,7 +32,7 @@ The following **Options** can all be provided to the plugin's `TSConfig` instanc
     [super viewDidLoad];
 
     TSConfig *config = [TSConfig sharedInstance];
-          
+
     [config updateWithBlock:^(TSConfigBuilder *builder) {
         builder.debug = YES;
         builder.desiredAccuracy = kCLLocationAccuracyBest;
@@ -50,7 +50,7 @@ The following **Options** can all be provided to the plugin's `TSConfig` instanc
     // Required.
     [bgGeo ready];
 
-    if (!config.enabled) {      
+    if (!config.enabled) {
         [bgGeo start];
     }
 }
@@ -72,6 +72,8 @@ The following **Options** can all be provided to the plugin's `TSConfig` instanc
 | [`useSignificantChangesOnly`](#config-bool-usesignificantchangesonly-no) | `BOOL` | `NO` | Defaults to `NO`.  Set `YES` in order to disable constant background-tracking and use only the iOS [Significant Changes API](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html#//apple_ref/occ/instm/CLLocationManager/startMonitoringSignificantLocationChanges). |
 | [`locationAuthorizationRequest`](#config-nsstring-locationauthorizationrequest-always) | `NSString` | `Always` | The desired iOS location-authorization request, either `Always` or `WhenInUse`. |
 | [`locationAuthorizationAlert`](#config-nsdictionary-locationauthorizationalert) | `NSDictionary` | `@{}` | When you configure the plugin [`locationAuthorizationRequest`](config-string-locationauthorizationrequest-always) `Always` or `WhenInUse` and the user *changes* that value in the app's location-services settings or *disables* location-services, the plugin will display an Alert directing the user to the **Settings** screen. |
+| [`showsBackgroundLocationIndicator`](#config-bool-showsbackgroundlocationindicator-no) | `BOOL` | `NO` | A `BOOL` indicating whether the status bar changes its appearance when an app uses location services in the background with `Always` authorization. |
+
 
 ## :wrench: Activity Recognition Options
 
@@ -81,7 +83,7 @@ The following **Options** can all be provided to the plugin's `TSConfig` instanc
 | [`activityRecognitionInterval`](#config-double-millis-10000-activityrecognitioninterval) | `double` | `10000` | The desired time between activity detections. Larger values will result in fewer activity detections while improving battery life. A value of `0` will result in activity detections at the fastest possible rate. |
 | [`stopTimeout`](#config-double-stoptimeout-5) | `double` | `5`  | The number of **minutes** to wait before turning off location-services after the ActivityRecognition System (ARS) detects the device is `STILL` |
 | [`minimumActivityRecognitionConfidence`](#config-nsinteger-minimumactivityrecognitionconfidence-75) | `NSInteger` | `75` | Each activity-recognition-result returned by the API is tagged with a "confidence" level expressed as a `%`.  You can set your desired confidence to trigger a state-change.|
-| [`stopDetectionDelay`](#config-double-stopdetectiondelay-0) | `double` | `0` | Number of **minute** to delay the stop-detection system from being activated.  Default is no delay.| 
+| [`stopDetectionDelay`](#config-double-stopdetectiondelay-0) | `double` | `0` | Number of **minute** to delay the stop-detection system from being activated.  Default is no delay.|
 | [`disableStopDetection`](#config-bool-disablestopdetection-no) | `BOOL` | `NO` | Disable accelerometer-based **Stop-detection System**. :warning: Not recommended|
 | [`activityType`](#config-clactivitytype-activitytype-clactivitytypeother) | `CLActivityType` |  `CLActivityTypeOther` | Presumably, this affects ios GPS algorithm.  See [Apple docs](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/CLLocationManager/CLLocationManager.html#//apple_ref/occ/instp/CLLocationManager/activityType) for more information |
 | [`disableMotionActivityUpdates`](#config-bool-disablemotionactivityupdates-no) | `BOOL` | `NO` | Disable iOS motion-activity updates (eg: "walking", "in_vehicle").  This feature requires a device having the **M7** co-processor (ie: iPhone 5s and up). :warning: The plugin is **HIGHLY** optimized to use this for improved battery performance.  You are **STRONLY** recommended to **NOT** disable this. |
@@ -192,10 +194,10 @@ TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
 | [`geofenceschange`](#geofenceschange) | Fired when the list of monitored geofences within [`#geofenceProximityRadius`](#config-cllocationdistance-geofenceproximityradius-1000) changed|
 | [`http`](#http) | Fired after a successful HTTP response. `response` object is provided with `status` and `responseText`. |
 | [`heartbeat`](#heartbeat) | Fired each [`#heartbeatInterval`](#config-integer-heartbeatinterval-undefined) while the plugin is in the **stationary** state with.  Your callback will be provided with a `params {}` containing the last known `location {Object}` |
-| [`schedule`](#schedule) | Fired when a schedule event occurs.  Your `callbackFn` will be provided with the current **`state`** Object. | 
-| [`powersavechange`](#powersavechange) | Fired when the state of the operating-system's "Power Saving" system changes.  Your `callbackFn` will be provided with a `Boolean` showing whether "Power Saving" is **enabled** or **disabled** | 
+| [`schedule`](#schedule) | Fired when a schedule event occurs.  Your `callbackFn` will be provided with the current **`state`** Object. |
+| [`powersavechange`](#powersavechange) | Fired when the state of the operating-system's "Power Saving" system changes.  Your `callbackFn` will be provided with a `Boolean` showing whether "Power Saving" is **enabled** or **disabled** |
 | [`connectivitychange`](#connectivitychange) | Fired when the state of the device's network connectivity changes (enabled -> disabled and vice-versa) |
-| [`enabledchange`](#enabledchange) | Fired when the plugin's `enabled` state changes.  For example, executing `#start` and `#stop` will fire the `enabledchange` event. | 
+| [`enabledchange`](#enabledchange) | Fired when the plugin's `enabled` state changes.  For example, executing `#start` and `#stop` will fire the `enabledchange` event. |
 
 
 
@@ -275,7 +277,7 @@ TSConfig *config = [TSConfig sharedInstance];
 
 The minimum distance (measured in meters) a device must move horizontally before an update event is generated.
 
-However, by default, **`distanceFilter`** is elastically auto-calculated by the plugin:  When speed increases, **`distanceFilter`** increases;  when speed decreases, so too does **`distanceFilter`**.  
+However, by default, **`distanceFilter`** is elastically auto-calculated by the plugin:  When speed increases, **`distanceFilter`** increases;  when speed decreases, so too does **`distanceFilter`**.
 
 ```obj-c
 TSConfig *config = [TSConfig sharedInstance];
@@ -368,7 +370,7 @@ The following image shows the typical distance iOS requires to detect exit of th
 
 :blue_book: For more information, see [Philosophy of Operation](../../../wiki/Philosophy-of-Operation)
 
-:warning: iOS will not detect the exact moment the device moves out of the stationary-radius.  In normal conditions, it will typically take **~200 meters** before the plugin begins tracking.  
+:warning: iOS will not detect the exact moment the device moves out of the stationary-radius.  In normal conditions, it will typically take **~200 meters** before the plugin begins tracking.
 
 ------------------------------------------------------------------------------
 
@@ -427,7 +429,7 @@ TSConfig *config = [TSConfig sharedInstance];
 
 #### `@config {BOOL} useSignificantChangesOnly [NO]`
 
-Defaults to `NO`.  Set `YES` in order to disable constant background-tracking and use only the iOS [Significant Changes API](https://developer.apple.com/reference/corelocation/cllocationmanager/1423531-startmonitoringsignificantlocati?language=objc).  
+Defaults to `NO`.  Set `YES` in order to disable constant background-tracking and use only the iOS [Significant Changes API](https://developer.apple.com/reference/corelocation/cllocationmanager/1423531-startmonitoringsignificantlocati?language=objc).
 
 ```obj-c
 TSConfig *config = [TSConfig sharedInstance];
@@ -454,7 +456,7 @@ The desired iOS location-authorization request, either **`Always`**, **`WhenInUs
 
 Configuring **`Any`** will tell the plugin to operate in whichever mode the user selects, eight `WhenInUse` or `Always`.
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.locationAuthorizationRequest = @"Always";
@@ -491,8 +493,29 @@ TSConfig *config = [TSConfig sharedInstance];
         @"titleWhenOff":@"Yo, location-services OFF",
         @"instructions":@"You must enable 'Always' in location-services, buddy",
         @"cancelButton":@"Cancel",
-        @"settingsButton":@"Settings"  
+        @"settingsButton":@"Settings"
     };
+}];
+```
+
+------------------------------------------------------------------------------
+
+#### `@config {BOOL} showsBackgroundLocationIndicator [NO]`
+
+A Boolean indicating whether the status bar changes its appearance when an app uses location services in the background with `Always` authorization.
+
+The default value of this property is `NO`. The background location usage indicator is a blue bar or a blue pill in the status bar on iOS; on watchOS the indicator is a small icon. Users can tap the indicator to return to your app.
+
+This property affects only apps that received `Always` authorization. When such an app moves to the background, the system uses this property to determine whether to change the status bar appearance to indicate that location services are in use. Set this value to true to maintain transparency with the user.
+
+For apps with *When In Use* authorization, the system changes the appearance of the status bar when the app uses location services in the background.
+
+```obj-c
+TSConfig *config = [TSConfig sharedInstance];
+
+TSConfig *config = [TSConfig sharedInstance];
+[config updateWithBlock:^(TSConfigBuilder *builder) {
+    builder.showsBackgroundLocationIndicator = YES;
 }];
 ```
 
@@ -504,7 +527,7 @@ TSConfig *config = [TSConfig sharedInstance];
 
 Defaults to `10000` (10 seconds).  The desired time between activity detections. Larger values will result in fewer activity detections while improving battery life. A value of 0 will result in activity detections at the fastest possible rate.
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.activityRecognitionInterval = 10000;
@@ -513,11 +536,11 @@ TSConfig *config = [TSConfig sharedInstance];
 
 ------------------------------------------------------------------------------
 
-#### `@config {NSInteger} minimumActivityRecognitionConfidence [75]` 
+#### `@config {NSInteger} minimumActivityRecognitionConfidence [75]`
 
 Each activity-recognition-result returned by the API is tagged with a "confidence" level expressed as a %.  You can set your desired confidence to trigger a [`motionchange`](#motionchange) event.  Defaults to **`75`**.
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.minimumActivityRecognitionConfidence = 75;
@@ -530,7 +553,7 @@ TSConfig *config = [TSConfig sharedInstance];
 
 When in the **moving** state, specifies the number of minutes to wait before turning off location-services and enter **stationary** state after the ActivityRecognition System detects the device is `STILL` (defaults to 5min).  If you don't set a value, the plugin is eager to turn off the GPS ASAP.  An example use-case for this configuration is to delay GPS OFF while in a car waiting at a traffic light.
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.stopTimeout = 5;
@@ -550,7 +573,7 @@ Disables the accelerometer-based **Stop-detection System**.  When disabled, the 
 **iOS Stop-detection timing**.
 ![](https://dl.dropboxusercontent.com/s/ojjdfkmua15pskh/ios-stop-detection-timing.png?dl=1)
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.disableStopDetection = NO;
@@ -566,7 +589,7 @@ Presumably, this affects ios GPS algorithm.
 
 :blue_book: [Apple docs](https://developer.apple.com/reference/corelocation/cllocationmanager/1620567-activitytype?language=objc).
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.activityType = CLActivityTypeOther;
@@ -575,14 +598,14 @@ TSConfig *config = [TSConfig sharedInstance];
 
 ------------------------------------------------------------------------------
 
-#### `@config {double} stopDetectionDelay [0]` 
+#### `@config {double} stopDetectionDelay [0]`
 
 Measured in **minutes**; defaults to **`0`**.  Allows the stop-detection system to be delayed from activating.  When the stop-detection system *is* engaged, location-services will be turned **off** and only the accelerometer is monitored.  Stop-detection will only engage if this timer expires.  The timer is cancelled if any movement is detected before expiration.  If a value of **`0`** is specified, the stop-detection system will engage as soon as the device is detected to be stationary.
 
 **iOS Stop-detection timing**.
 ![](https://dl.dropboxusercontent.com/s/ojjdfkmua15pskh/ios-stop-detection-timing.png?dl=1)
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.stopDetectionDelay = 1;
@@ -595,7 +618,7 @@ TSConfig *config = [TSConfig sharedInstance];
 
 Defaults to **`NO`**.  Set **`YES`** to disable iOS [`CMMotionActivityManager`](https://developer.apple.com/reference/coremotion/cmmotionactivitymanager) updates (eg: `walking`, `in_vehicle`).  This feature requires a device having the **M7** co-processor (ie: iPhone 5s and up).
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.disableMotionActivityUpdates = NO;
@@ -614,7 +637,7 @@ TSConfig *config = [TSConfig sharedInstance];
 
 Defaults to `1000` meters.  **@see** releated event [`geofenceschange`](#geofenceschange).  When using Geofences, the plugin activates only thoses in proximity (the maximim geofences allowed to be simultaneously monitored is limited by the platform, where **iOS** allows only 20 and **Android**.  However, the plugin allows you to create as many geofences as you wish (thousands even).  It stores these in its database and uses spatial queries to determine which **20** or **100** geofences to activate.
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.geofenceProximityRadius = 1000;
@@ -633,7 +656,7 @@ TSConfig *config = [TSConfig sharedInstance];
 
 Defaults to `YES`.  Set `NO` to disable triggering a geofence immediately if device is already inside it.
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.geofenceInitialTriggerEntry = YES;
@@ -890,7 +913,7 @@ TSConfig *config = [TSConfig sharedInstance];
 ```
 
 **Template Tags**
-The tag-list is identical to [`#locationTemplate`](#config-string-locationtemplate-undefined) with the addition of `geofence.identifier` and `geofence.action`.  
+The tag-list is identical to [`#locationTemplate`](#config-string-locationtemplate-undefined) with the addition of `geofence.identifier` and `geofence.action`.
 
 | Tag | Type | Description |
 |-----|------|-------------|
@@ -947,7 +970,7 @@ TSConfig *config = [TSConfig sharedInstance];
 
 Default is `YES`.  If you've enabeld HTTP feature by configuring an [`#url`](#config-string-url-undefined), the plugin will attempt to HTTP POST each location to your server **as it is recorded**.  If you set [`autoSync: NO`](#config-string-autosync-true), it's up to you to **manually** execute the [`#sync`](synccallbackfn-failurefn) method to initate the HTTP POST (**NOTE** The plugin will continue to persist **every** recorded location in the SQLite database until you execute [`#sync`](synccallbackfn-failurefn)).
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.autoSync = YES;
@@ -960,7 +983,7 @@ TSConfig *config = [TSConfig sharedInstance];
 
 The minimum number of persisted records to trigger an [`autoSync`](#config-string-autosync-true) action.  If you configure a value greater-than **`0`**, the plugin will wait until that many locations are recorded before executing HTTP requests to your server through your configured [`#url`](#config-string-url-undefined).
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.autoSyncThreshold = 0;
@@ -1012,7 +1035,7 @@ TSConfig *config = [TSConfig sharedInstance];
 
 Maximum number of days to store a geolocation in plugin's SQLite database when your server fails to respond with **`HTTP 200 OK`**.  The plugin will continue attempting to sync with your server until **`maxDaysToPersist`** when it will give up and remove the location from the database.
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.maxDaysToPersist = 1;
@@ -1026,7 +1049,7 @@ TSConfig *config = [TSConfig sharedInstance];
 Maximum number of records to persist in plugin's SQLite database.  Default `-1`
  means **no limit**.
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.maxRecordsToPersist = 1000;
@@ -1039,7 +1062,7 @@ TSConfig *config = [TSConfig sharedInstance];
 
 Controls the order that locations are selected from the database (and synced to your server).  Defaults to ascending (`ASC`), where oldest locations are synced first.  Descending (`DESC`) syncs latest locations first.|
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.locationsOrderDirection = @"ASC";
@@ -1061,7 +1084,7 @@ Before an iOS app terminates, the plugin will ensure that a **stationary geofenc
 
 In the following image, imagine the user terminated the application at the **"red circle"** on the right then continued moving:  Once the device moves by about 200 meters, exiting the "stationary geofence", iOS reboots the app and tracking resumes.
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.stopOnTerminate = NO;
@@ -1080,7 +1103,7 @@ Defaults to **`NO`**.  Set **`YES`** to engage background-tracking after the dev
 
 iOS cannot **immediately** engage tracking after a device reboot.  Just like [`stopOnTerminate:NO`](#config-bool-stoponterminate-yes), iOS will not re-boot your app until the device moves beyond the **stationary geofence** around the last known location.  In addition, iOS subscribes to "background-fetch" events, which typically fire about every 15 minutes &mdash; these too are capable of rebooting your app after a device reboot.
 
-```obj-c 
+```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
     builder.startOnBoot = YES;
@@ -1099,7 +1122,7 @@ Controls the rate (in seconds) the [`heartbeat`](#heartbeat) event will fire.  T
 ```obj-c
 TSConfig *config = [TSConfig sharedInstance];
 [config updateWithBlock:^(TSConfigBuilder *builder) {
-    builder.heartbeatInterval = 60;    
+    builder.heartbeatInterval = 60;
 }];
 
 TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
@@ -1360,7 +1383,7 @@ TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
 
 ### `activitychange`
 
-Your **`^callback`** will be executed each time the activity-recognition system receives an event (`still, on_foot, in_vehicle, on_bicycle, running`).  
+Your **`^callback`** will be executed each time the activity-recognition system receives an event (`still, on_foot, in_vehicle, on_bicycle, running`).
 
 It will be provided a [`TSActivityChangeEvent`](../ios/BackgroundGeolocation/Frameworks/TSLocationManager.framework/Headers/TSActivityChangeEvent.h) containing the following parameters:
 
@@ -1409,7 +1432,7 @@ TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
     BOOL gps      = event.gps;
     BOOL network  = event.network;
     CLAuthorizationStatus status = event.status;
-    
+
     NSLog(@"[providerchange] enabled: %d, gps: %d, network: %d, status: %d", enabled, gps, network, status);
 }];
 ```
@@ -1497,7 +1520,7 @@ TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
 [bgGeo onHttp:^(TSHttpEvent *event) {
     NSInteger status = event.statusCode;
     NSString *responseText = event.responseText;
-    
+
     NSLog(@"[http] %ld, %@", status, responseText);
 }];
 ```
@@ -1619,7 +1642,7 @@ TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
 
 The **`#ready`** method is your first point-of-contact with the SDK.  You must execute the `#ready` method each time your application boots.
 
-:information_source: BackgroundGeolocation persists its **`enabled`** state between application terminate or device reboot and **`#ready`** will **automatically** [`#start`](startsuccessfn-failurefn) tracking if it finds **`enabled == true`**.  
+:information_source: BackgroundGeolocation persists its **`enabled`** state between application terminate or device reboot and **`#ready`** will **automatically** [`#start`](startsuccessfn-failurefn) tracking if it finds **`enabled == true`**.
 
 ------------------------------------------------------------------------------
 
@@ -1643,14 +1666,14 @@ Enable location tracking.  This is the SDK's power **ON** button.  The SDK will 
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    
+
     TSConfig *config = [TSConfig sharedInstance];
-    
+
     if (!config.isFirstBoot) {
       [config updateWithBlock:^(TSConfigBuilder *builder) {
           builder.distanceFilter = 10;
           builder.debug = YES;
-          builder.desiredAccuracy = kCLLocationAccuracyBest;          
+          builder.desiredAccuracy = kCLLocationAccuracyBest;
           builder.logLevel = tsLogLevelVerbose;
           builder.stopOnTerminate = NO;
           builder.startOnBoot = YES;
@@ -1658,7 +1681,7 @@ Enable location tracking.  This is the SDK's power **ON** button.  The SDK will 
     }
 
     TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
-    
+
     // If the SDK is current enabled, #ready will automatically execute #start
     [bgGeo ready];
 }
@@ -1777,7 +1800,7 @@ Start a stream of continuous location-updates.  The native code will persist the
 TSWatchPositionRequest *request = [[TSWatchPositionRequest alloc] initWithSuccess:^(TSLocation *location) {
     NSLog(@"- watchPosition success: %@", [location toDictionary]);
 } failure:^(NSError *error) {
-    NSLog(@"- watchPosition failure: %@", error);        
+    NSLog(@"- watchPosition failure: %@", error);
 }];
 
 request.interval = 5000;
@@ -1811,10 +1834,10 @@ Executing `#changePace` will cause the [`motionchange`](#motionchange) event to 
 ```obj-c
 - (IBAction)onClickChangePace:(UIBarButtonItem*)sender {
     TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
-    TSConfig *config = [TSConfig sharedInstance];    
+    TSConfig *config = [TSConfig sharedInstance];
     if (!config.enabled) { return; }
 
-    [bgGeo changePace:!config.isMoving];    
+    [bgGeo changePace:!config.isMoving];
 }
 ```
 
@@ -1896,7 +1919,7 @@ TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
 
 ### `(UIBackgroundTaskIdentifier) createBackgroundTask`
 
-Sends a signal to iOS that you wish to perform a long-running task.  The OS will not suspend your app until you signal completion with the [`#stopBackgroundTask`](#stopBackgroundTaskuibackgroundtaskidentifier) method.  
+Sends a signal to iOS that you wish to perform a long-running task.  The OS will not suspend your app until you signal completion with the [`#stopBackgroundTask`](#stopBackgroundTaskuibackgroundtaskidentifier) method.
 
 Eg:
 ```obj-c
@@ -1978,14 +2001,14 @@ BackgroundGeolocation.removeListeners();
 
 ### `getLocations:(^Block) failure:(^Block)`
 
-Fetch all the locations currently stored in native plugin's SQLite database.  Your **`success`** will receive an `NSArray` of locations 
+Fetch all the locations currently stored in native plugin's SQLite database.  Your **`success`** will receive an `NSArray` of locations
 
 Eg:
 ```obj-c
 TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
 
 [bgGeo getLocations:^(NSArray* records) {
-    NSLog(@"- getLocations success: %@", records);    
+    NSLog(@"- getLocations success: %@", records);
 } failure:^(NSString* error) {
     NSLog(@"- getLocations failure: %@", error);
 }];
@@ -1996,7 +2019,7 @@ TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
 
 
 ### `(int) getCount`
-Fetches count of SQLite locations table `SELECT count(*) from locations`.  The 
+Fetches count of SQLite locations table `SELECT count(*) from locations`.  The
 
 ```obj-c
 TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
@@ -2016,10 +2039,21 @@ TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
 
 ------------------------------------------------------------------------------
 
+### `destroyLocation:(NSString*)uuid`
+
+Remove a single record from the SDK's SQLite database by `TSLocation.uuid`.
+
+```obj-c
+TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
+[bgGeo destroyLocation:tsLocation.uuid];
+```
+
+------------------------------------------------------------------------------
+
 
 ### `sync:(^Block) failure:(^Block)`
 
-If the plugin is configured for HTTP with an [`#url`](#config-string-url-undefined) and [`autoSync: false`](#config-string-autosync-true), this method will initiate POSTing the locations currently stored in the native SQLite database to your configured [`#url`](#config-string-url-undefined).  When your HTTP server returns a response of `200 OK`, that record(s) in the database will be DELETED.  
+If the plugin is configured for HTTP with an [`#url`](#config-string-url-undefined) and [`autoSync: false`](#config-string-autosync-true), this method will initiate POSTing the locations currently stored in the native SQLite database to your configured [`#url`](#config-string-url-undefined).  When your HTTP server returns a response of `200 OK`, that record(s) in the database will be DELETED.
 
 If you configured [`batchSync: true`](#config-bool-batchsync-no), all the locations will be sent to your server in a single HTTP POST request, otherwise the plugin will create execute an HTTP post for **each** location in the database (REST-style).  Your **`callbackFn`** will be executed and provided with an Array of all the locations from the SQLite database.  If you configured the plugin for HTTP (by configuring an [`#url`](#config-nsstring-url-undefined), your **`callbackFn`** will be executed after the HTTP request(s) have completed.  If the plugin failed to sync to your server (possibly because of no network connection), the **`failureFn`** will be called with an `errorMessage`.  If you are **not** using the HTTP features, **`sync`** will delete all records from its SQLite datbase.  Eg:
 
@@ -2090,7 +2124,7 @@ TSGeofence geofence = [[TSGeofence alloc] initWithIdentifier: params[@"identifie
 
 ### `addGeofence:(TSGeofence*) success:(^block) failure:(^block)`
 
-Adds a geofence to be monitored by the native plugin.  If a geofence *already exists* with the configured **`identifier`**, the previous one will be **deleted** before the new one is inserted.  
+Adds a geofence to be monitored by the native plugin.  If a geofence *already exists* with the configured **`identifier`**, the previous one will be **deleted** before the new one is inserted.
 
 #### `TSGeofence` Options
 

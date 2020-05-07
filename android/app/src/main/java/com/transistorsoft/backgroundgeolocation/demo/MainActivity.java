@@ -1,5 +1,6 @@
 package com.transistorsoft.backgroundgeolocation.demo;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import android.view.View;
@@ -22,6 +23,8 @@ import com.transistorsoft.locationmanager.adapter.callback.TSGeofenceCallback;
 import com.transistorsoft.locationmanager.adapter.callback.TSHttpResponseCallback;
 import com.transistorsoft.locationmanager.adapter.callback.TSLocationCallback;
 import com.transistorsoft.locationmanager.adapter.callback.TSLocationProviderChangeCallback;
+import com.transistorsoft.locationmanager.config.TSAuthorization;
+import com.transistorsoft.locationmanager.config.TransistorAuthorizationToken;
 import com.transistorsoft.locationmanager.event.ConnectivityChangeEvent;
 import com.transistorsoft.locationmanager.event.GeofenceEvent;
 import com.transistorsoft.locationmanager.event.LocationProviderChangeEvent;
@@ -32,6 +35,9 @@ import com.transistorsoft.locationmanager.logger.TSLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static String TAG = "BackgroundGeolocationDemo";
@@ -58,40 +64,76 @@ public class MainActivity extends AppCompatActivity {
         mBtnCurrentPosition.setOnClickListener(createCurrentPositionClickListener());
         mLocationView = findViewById(R.id.content);
 
-        configureBackgroundGeolocation();
+        // @config Enter your own unique organization & username here (eg: Github username)
+        // View your tracking in browser by visiting:  http://tracker.transistorsoft.com/your-org-name
+        String organization = "your-org-name";
+        String username = "your-username";
+
+        // URL to Transistor Software Demo Server:
+        final String url = "http://tracker.transistorsoft.com";
+
+        // Register with Transistorsoft Demo server to receive a JSON Web Token.
+        TransistorAuthorizationToken.findOrCreate(getApplicationContext(), organization, username, url, new TransistorAuthorizationToken.Callback() {
+            @Override
+            public void onSuccess(TransistorAuthorizationToken token) {
+                configureBackgroundGeolocation(token, url);
+            }
+            @Override
+            public void onFailure(String error) {
+                Log.e(TAG, "*** TransistorAuthorization error: " + error);
+            }
+        });
     }
 
-    private void configureBackgroundGeolocation() {
-        BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(getApplicationContext(), getIntent());
-        final TSConfig config = TSConfig.getInstance(getApplicationContext());
+    private void configureBackgroundGeolocation(TransistorAuthorizationToken token, String url) {
+        Context context = getApplicationContext();
 
-        // @config Enter your own unique username here (eg: Github username)
-        // View your tracking in browser by visiting:  http://tracker.transistorsoft.com/your-username
-        String username = "transistor-demo";
-        // URL to demo server:
-        String url = "http://tracker.transistorsoft.com/locations/" + username;
-        // Build HTTP params required by demo server.
-        JSONObject params = buildHttpParams();
+        BackgroundGeolocation bgGeo = BackgroundGeolocation.getInstance(context);
+        final TSConfig config = TSConfig.getInstance(context);
+
+        // Build TSAuthorization instance for authorization with demo server via JSON Web Token.
+        Map<String,Object> refreshPayload = new HashMap<>();
+        refreshPayload.put("refresh_token", "{refreshToken}");
+
+        // Configure TSAuthorization for automatic JWT authorization-handling (including automatic token refresh).
+        TSAuthorization auth = new TSAuthorization();
+        auth.setStrategy("JWT");
+        auth.setAccessToken(token.getAccessToken());
+        auth.setRefreshToken(token.getRefreshToken());
+        auth.setExpires(token.getExpires());
+        auth.setRefreshPayload(refreshPayload);
+        auth.setRefreshUrl(url + "/api/refresh_token");
 
         // Configure the SDK:
         config.updateWithBuilder()
-                // Configure Debugging
-                .setDebug(true)
-                .setLogLevel(5)
-                // Configure Geolocation
-                .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setDistanceFilter(50f)
-                .setStopTimeout(1L)
-                // Configure Application behaviour
-                .setForegroundService(true)
-                .setStopOnTerminate(false)
-                .setStartOnBoot(false)
-                // Configure HTTP
-                .setUrl(url)
-                .setParams(params)
-                .setHeader("X-FOO", "FOO")  // <-- Optional HTTP headers
-                .setHeader("X-BAR", "BAR")
-                .commit();
+            // Configure Debugging
+            .setDebug(true)
+            .setLogLevel(5)
+            // Configure Geolocation
+            .setDesiredAccuracy(LocationRequest.PRIORITY_HIGH_ACCURACY)
+            .setDistanceFilter(50f)
+            .setStopTimeout(1L)
+            // Configure Application behaviour
+            .setForegroundService(true)
+            .setStopOnTerminate(false)
+            .setStartOnBoot(false)
+            // Configure HTTP
+            .setAuthorization(auth)
+            .setUrl(url + "/api/locations")
+            .setHeader("X-FOO", "FOO")  // <-- Optional HTTP headers
+            .setHeader("X-BAR", "BAR")
+            .commit();
+
+        // Finally, signal #ready to the plugin.
+        BackgroundGeolocation.getInstance(getApplicationContext()).ready(new TSCallback() {
+            @Override public void onSuccess() {
+                TSLog.logger.debug("[ready] success");
+                mBtnEnable.setChecked(config.getEnabled());
+            }
+            @Override public void onFailure(String error) {
+                TSLog.logger.debug("[ready] FAILURE: " + error);
+            }
+        });
 
         // Listen to motionchange event
         bgGeo.onMotionChange(createMotionChangeCallback());
@@ -110,41 +152,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Listen to http event
         bgGeo.onHttp(createHttpCallback());
-
-        // Finally, signal #ready to the plugin.
-        bgGeo.ready(new TSCallback() {
-            @Override public void onSuccess() {
-                TSLog.logger.debug("[ready] success");
-                mBtnEnable.setChecked(config.getEnabled());
-            }
-            @Override public void onFailure(String error) {
-                TSLog.logger.debug("[ready] FAILURE: " + error);
-            }
-        });
     }
 
-    /**
-     * Compose HTTP params for SDK.  These specific params are used by tracker.transistorsoft.com demo server
-     * @return
-     */
-    private JSONObject buildHttpParams() {
-        JSONObject params = new JSONObject();
-        JSONObject device = new JSONObject();
-
-        try {
-            DeviceInfo deviceInfo = DeviceInfo.getInstance(getApplicationContext());
-
-            device.put("uuid", deviceInfo.getUniqueId());
-            device.put("model", deviceInfo.getModel());
-            device.put("platform", deviceInfo.getPlatform());
-            device.put("manufacturer", deviceInfo.getManufacturer());
-            device.put("version", deviceInfo.getVersion());
-            device.put("framework", "Native");
-            params.put("device", device);
-        } catch (JSONException e) {}
-
-        return params;
-    }
     private View.OnClickListener createdChangePaceClickListener() {
         return new View.OnClickListener() {
             @Override public void onClick(View view) {
