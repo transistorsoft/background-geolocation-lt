@@ -1,5 +1,29 @@
 # Change Log
 
+## [1.4.0] - 2020-06-17
+
+- [Fixed][Android] `com.android.tools.build:gradle:4.0.0` no longer allows "*direct local aar dependencies*".  The Android Setup now requires a custom __`maven url`__ to be added to your app's root __`android/build.gradle`__:\
+
+:open_file_folder: `android/build.gradle`:
+
+```diff
+allprojects {
+    repositories {
+        google()
+        jcenter()
++       maven {
++           url("${project(':background-geolocation').projectDir}/libs")
++       }
+    }
+}
+```
+
+- [Fixed][Android] `onConnectivityChange` can report incorrect value for `enabled` when toggling between Wifi Off / Airplane mode.
+- [Fixed][Android] `onGeofence` event-handler fails to be fired when `maxRecordsToPersist: 0`.
+- [Fixed][Android] `requestPermission` method was always returning `AUTHORIZATION_STATUS_ALWAYS` even when *When in Use* was selected.
+- [Fixed][iOS] When using `disableStopDetection: true` with `pausesLocationUpdatesAutomatically: true`, the `CLLocationManagerDelegate didPauseLocationUpdates` the `motionchange` event reported `isMoving: true`.
+- [Fixed][Android] Ensure location failure callback is executed on main-thread.
+
 ## [1.3.0] - 2020-05-07
 
 - [Added] New method `BackgroundGeolocation.destroyLocation(uuid)` for destroying a single location by `Location.uuid`.
