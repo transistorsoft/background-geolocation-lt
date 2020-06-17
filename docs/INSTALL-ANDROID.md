@@ -24,10 +24,21 @@ buildscript {
         compileSdkVersion = 29        // <-- set as desired
         targetSdkVersion = 29         // <-- set as desired
         minSdkVersion = 19            // <-- set as desired
-+       appCompatVersion = "1.1.0"    // <-- AndroidX compatibility.  For pre-androidX, specify `com.android.support` version.
++       appCompatVersion = "1.1.0"    // <-- AndroidX compatibility.  set as desired.  For pre-androidX, specify `com.android.support` version.
 +       googlePlayServicesLocationVersion = "17.0.0"
     }
     ...
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
++       maven {
++           // REQUIRED background-geolocation
++           url("${project(':background-geolocation').projectDir}/libs")
++       }
+    }
 }
 ```
 

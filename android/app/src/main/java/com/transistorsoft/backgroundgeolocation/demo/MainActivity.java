@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             // Configure Application behaviour
             .setForegroundService(true)
             .setStopOnTerminate(false)
-            .setStartOnBoot(false)
+            .setStartOnBoot(true)
             // Configure HTTP
             .setAuthorization(auth)
             .setUrl(url + "/api/locations")

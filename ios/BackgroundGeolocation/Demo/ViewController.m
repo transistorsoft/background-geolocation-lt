@@ -20,28 +20,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     _locations = [NSMutableArray new];
-    
+
     _mapView.delegate = self;
-    
+
     _mapView.userTrackingMode = MKUserTrackingModeFollow;
-    
+
     TSConfig *config = [TSConfig sharedInstance];
-        
+
     [_enableSwitch setOn:config.enabled];
-    
+
     // By default, the plugin #url is configured to post to http://tracker.transistorsoft.com.  You can visit the SDK's tracking in the browser by visiting:
     // http://tracker.transistorsoft.com/username
     // CHANGME @config username The test-server organizes locations by username and device
     NSString *organization = @"your-org-name";
     NSString *username = @"your-username";
-    
+
     // Fetch JSON Web Token from Transistorsoft demo server:
     [TransistorAuthorizationToken findOrCreateWithOrg:organization
                                              username:username
                                                   url:@"http://tracker.transistorsoft.com"
                                             framework:@"Native"
                                               success:^(TransistorAuthorizationToken *token) {
-        
+
         // Build TSAuthorization instance with JWT from demo server.
         TSAuthorization *auth = [TSAuthorization new];
         auth.strategy = @"JWT";
@@ -52,7 +52,7 @@
         auth.refreshPayload = @{
             @"refresh_token": @"{refreshToken}"
         };
-        
+
         // Configure the plugin.
         [config updateWithBlock:^(TSConfigBuilder *builder) {
             // Debug config
@@ -75,16 +75,16 @@
     } failure:^(NSError *error) {
         NSLog(@"[TransistorAuthorizationToken] Failed to get authorization token: %@", error);
     }];
-            
+
     TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
-    
+
     // Add optional event listeners
     [bgGeo onMotionChange:^(TSLocation *tsLocation) {
         [self setCenterAndZoom:tsLocation.location];
     }];
-    
+
     [bgGeo onLocation:^(TSLocation *tsLocation) {
-        NSLog(@"********* location data: %@", [tsLocation toDictionary]);
+        NSLog(@"[location]: %@", [tsLocation toDictionary]);
         if (!tsLocation.isSample) {
             [self renderLocation:tsLocation.location];
         }
@@ -122,7 +122,7 @@
 
 - (IBAction)onClickGetCurrentPosition:(UIBarButtonItem*)sender {
     TSLocationManager *bgGeo = [TSLocationManager sharedInstance];
-    
+
     TSCurrentPositionRequest *request = [[TSCurrentPositionRequest alloc] initWithSuccess:^(TSLocation *location) {
         NSLog(@"- getCurrentPosition success");
     } failure:^(NSError *error) {
@@ -139,7 +139,7 @@
     if (region.span.latitudeDelta < span.latitudeDelta) { return; }
     region = MKCoordinateRegionMake(location.coordinate, span);
     [_mapView setRegion:region animated:YES];
-    
+
 }
 
 - (void) setCenter:(CLLocation*)location {
@@ -151,9 +151,9 @@
     //[_mapView addAnnotation:annotation];
     MKCircle *circle = [MKCircle circleWithCenterCoordinate:location.coordinate radius:5];
     [_mapView addOverlay:circle];
-    
+
     [_locations addObject:location];
-    
+
     [self renderPolyline];
 }
 
@@ -179,7 +179,7 @@
         renderer.lineWidth = 8.0f;
         renderer.strokeColor = [UIColor blueColor];
         renderer.alpha = 0.5;
-        
+
         return renderer;
     } else if ([overlay isKindOfClass:[MKCircle class]]) {
         MKCircleRenderer *circleView = [[MKCircleRenderer alloc] initWithOverlay:overlay];
