@@ -11770,6 +11770,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12057,10 +12085,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#location" class="md-nav__link">
+  <a href="#locationevent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        location
+        locationEvent
       
     </span>
   </a>
@@ -12706,6 +12734,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -13829,6 +13885,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -14698,6 +14782,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../kotlin/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../kotlin/DeviceSettings/" class="md-nav__link">
         
   
@@ -15201,10 +15313,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#location" class="md-nav__link">
+  <a href="#locationevent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        location
+        locationEvent
       
     </span>
   </a>
@@ -15241,13 +15353,13 @@ providing a regular opportunity to perform work even when no location events
 are occurring. Configure the interval with <a href="../AppConfig/#heartbeatinterval">AppConfig.heartbeatInterval</a>.</p>
 <hr />
 <h2 id="members">Members<a class="headerlink" href="#members" title="Permanent link">&para;</a></h2>
-<h3 id="location">location<a class="headerlink" href="#location" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">location</span><span class="p">:</span><span class="w"> </span><span class="bp">CLLocation</span>
-</code></pre></div>
+<h3 id="locationevent">locationEvent<a class="headerlink" href="#locationevent" title="Permanent link">&para;</a></h3>
+<p><code>public let locationEvent:</code><a href="../LocationEvent/"><code>LocationEvent</code></a></p>
 <p>Most recent location recorded by the SDK.</p>
 <p>The heartbeat event does not actively request a fresh location fix. Call
 <a href="../BGGeo/#getcurrentposition">BGGeo.getCurrentPosition</a> if an up-to-date reading
 is required.</p>
+<p>In the Swift API the Location is <code>locationEvent</code>, a <code>LocationEvent</code>; <code>location</code> is the raw <code>CLLocation</code>.</p>
 
 
 

@@ -11871,6 +11871,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12730,6 +12758,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -13853,6 +13909,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -14722,6 +14806,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../kotlin/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../kotlin/DeviceSettings/" class="md-nav__link">
         
   
@@ -15285,7 +15397,7 @@
 are accepted, averaged, or rejected by the <a href="../LocationFilterConfig/">LocationFilterConfig</a>.</p>
 <p>The filtering policy determines how aggressively the plugin removes noisy,
 inaccurate, or redundant location updates. It represents the <em>first stage</em>
-in the SDK’s data-quality pipeline — before Kalman smoothing, burst averaging,
+in the SDK’s data-quality pipeline — before burst averaging,
 or other denoising steps are applied.</p>
 <p>Choosing the correct policy depends on your app’s tolerance for jitter versus
 responsiveness:</p>
@@ -15377,8 +15489,8 @@ motion metrics such as:</p>
 </ul>
 <p><strong>Coordinates are never modified.</strong> This policy adjusts <em>which</em> samples are
 included, not <em>how</em> they are positioned.</p>
-<p>If <a href="../LocationFilterConfig/#usekalman">LocationFilterConfig.useKalman</a> is enabled, additional smoothing may occur,
-but the physical coordinates of each accepted sample remain untouched.</p>
+<p><a href="../LocationFilterConfig/#usekalman">LocationFilterConfig.useKalman</a> has no effect on delivered locations:
+the physical coordinates of each accepted sample remain untouched.</p>
 <h3 id="conservative">conservative<a class="headerlink" href="#conservative" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">case</span><span class="w"> </span><span class="n">conservative</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span>
 </code></pre></div>

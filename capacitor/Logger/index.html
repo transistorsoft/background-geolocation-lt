@@ -11972,6 +11972,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12831,6 +12859,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -13954,6 +14010,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -14815,6 +14899,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -15754,9 +15866,18 @@ the result may be several megabytes.</p>
 <h3 id="uploadlog">uploadLog<a class="headerlink" href="#uploadlog" title="Permanent link">&para;</a></h3>
 <p><code>uploadLog(url: string, query?:</code><a href="../SQLQuery/"><code>SQLQuery</code></a><code>): Promise&lt;boolean | void&gt;;</code></p>
 <p>Upload the SDK's log database to a URL as a gzipped multipart file.</p>
-<p>Provide an optional <a href="../SQLQuery/">SQLQuery</a> to constrain which records are included.
-The upload includes your configured <a href="../HttpConfig/#headers">HttpConfig.headers</a> for
-authentication.</p>
+<p>Provide an optional <a href="../SQLQuery/">SQLQuery</a> to constrain which records are included.</p>
+<h5 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h5>
+<p>The upload carries the same credentials as a location upload: your
+configured <a href="../HttpConfig/#headers">HttpConfig.headers</a>, then the <code>authorization</code> access token
+as an <code>Authorization</code> header. When both supply an <code>Authorization</code> header,
+the access token wins. A <code>Content-Type</code> or <code>Content-Length</code> in
+<code>http.headers</code> is not sent: the multipart body sets its own.</p>
+<p>The upload does not refresh an expired access token: a <code>401</code> response
+rejects it. Token refresh on a <code>401</code> applies to location uploads only.</p>
+<p>The headers go to whatever URL you pass, including the URL of an RPC
+<code>uploadLog</code> command. A pre-signed storage URL may refuse a request that
+carries an <code>Authorization</code> header.</p>
 <h5 id="multipart-upload">Multipart upload<a class="headerlink" href="#multipart-upload" title="Permanent link">&para;</a></h5>
 <p>The log is posted as a gzipped multipart file — the same file produced by
 <code>emailLog</code>. The request body also includes a form with the following
@@ -15791,12 +15912,19 @@ fields:</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The upload does not follow HTTP redirects: any <code>3xx</code> response rejects it,
+so pass the URL your server answers directly. When your server redirects
+an unauthenticated upload to a login page, the promise rejects instead of
+resolving on the login page's <code>200</code>.</p>
 <p><strong>See also</strong>
 - <a href="../LoggerConfig/#loglevel">LoggerConfig.logLevel</a>
 - <code>getLog</code>
 - <code>emailLog</code>
 - <code>destroyLog</code>
 - 📘<a href="../../help/debugging/">Debugging Guide</a></p>
+</div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="k">await</span><span class="w"> </span><span class="nx">BackgroundGeolocation</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">uploadLog</span><span class="p">(</span>
 <a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">  </span><span class="s2">&quot;https://my.server.com/users/123/logs&quot;</span>
 <a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="p">);</span>

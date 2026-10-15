@@ -11768,6 +11768,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12635,6 +12663,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../swift/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../swift/Sensors/" class="md-nav__link">
         
   
@@ -13267,6 +13323,17 @@
     <span class="md-ellipsis">
       
         changePace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        deviceInfo
       
     </span>
   </a>
@@ -14248,6 +14315,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -15117,6 +15212,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../DeviceSettings/" class="md-nav__link">
         
   
@@ -15806,6 +15929,17 @@
     <span class="md-ellipsis">
       
         changePace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deviceinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        deviceInfo
       
     </span>
   </a>
@@ -16537,8 +16671,13 @@ independent of the device's motion sensors.</p>
 <a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">changePace</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w">  </span><span class="c1">// &lt;-- Location-services ON (&quot;moving&quot; state)</span>
 <a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">changePace</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="c1">// &lt;-- Location-services OFF (&quot;stationary&quot; state)</span>
 </code></pre></div>
+<h3 id="deviceinfo">deviceInfo<a class="headerlink" href="#deviceinfo" title="Permanent link">&para;</a></h3>
+<p><code>val deviceInfo:</code><a href="../DeviceInfo/"><code>DeviceInfo</code></a></p>
+<p>Returns device information.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1">// Not available in native Kotlin API</span>
+</code></pre></div>
 <h3 id="getcurrentposition">getCurrentPosition<a class="headerlink" href="#getcurrentposition" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">getCurrentPosition</span><span class="p">(</span><span class="w"> </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="p">,</span><span class="w"> </span><span class="n">desiredAccuracy</span><span class="p">:</span><span class="w"> </span><span class="kt">Double</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.0</span><span class="p">,</span><span class="w"> </span><span class="n">maximumAge</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">samples</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">persist</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="n">extras</span><span class="p">:</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="kt">Any</span><span class="o">&gt;?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">getCurrentPosition</span><span class="p">(</span><span class="w"> </span><span class="n">timeout</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="p">,</span><span class="w"> </span><span class="n">desiredAccuracy</span><span class="p">:</span><span class="w"> </span><span class="kt">Double</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.0</span><span class="p">,</span><span class="w"> </span><span class="n">maximumAge</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">samples</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">persist</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="n">extras</span><span class="p">:</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="kt">Any</span><span class="o">&gt;?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="p">)</span>
 </code></pre></div>
 <p>Retrieve the current <a href="../LocationEvent/">LocationEvent</a>.</p>
 <p>Instructs the SDK to fetch a single location at maximum power and
@@ -16565,16 +16704,16 @@ of a foreground service, honoring <code>samples</code>, <code>desiredAccuracy</c
 identically to the fully-permissioned SDK; in the background, Android
 throttles location delivery to unpromoted apps — expect slower fixes,
 fewer samples, or a timeout.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1">// Within a coroutine scope</span>
-<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
-<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bgGeo</span><span class="p">.</span><span class="na">getCurrentPosition</span><span class="p">(</span>
-<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w">    </span><span class="n">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="p">,</span>
-<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="w">    </span><span class="n">maximumAge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5000L</span><span class="p">,</span>
-<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="w">    </span><span class="n">desiredAccuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10.0</span><span class="p">,</span>
-<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="w">    </span><span class="n">samples</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span>
-<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="w">    </span><span class="n">extras</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapOf</span><span class="p">(</span><span class="s">&quot;route_id&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="m">123</span><span class="p">)</span>
-<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1">// Within a coroutine scope</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bgGeo</span><span class="p">.</span><span class="na">getCurrentPosition</span><span class="p">(</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="w">    </span><span class="n">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="p">,</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="w">    </span><span class="n">maximumAge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5000L</span><span class="p">,</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="w">    </span><span class="n">desiredAccuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10.0</span><span class="p">,</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a><span class="w">    </span><span class="n">samples</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span>
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="w">    </span><span class="n">extras</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapOf</span><span class="p">(</span><span class="s">&quot;route_id&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="m">123</span><span class="p">)</span>
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="p">)</span>
 </code></pre></div>
 <h3 id="ready">ready<a class="headerlink" href="#ready" title="Permanent link">&para;</a></h3>
 <p><code>suspend fun ready( reset: Boolean = true, transistorAuthorizationToken:</code><a href="../TransistorToken/"><code>TransistorToken</code></a><code>? = null, configure: ConfigEditor.() -&gt; Unit )</code></p>
@@ -16595,37 +16734,37 @@ that path, tracking will not resume.</p>
 - <a href="../Config/#reset">Config.reset</a>
 - <code>setConfig</code></p>
 </div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1">// Within a coroutine scope</span>
-<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">ready</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="w">    </span><span class="n">geolocation</span><span class="p">.</span><span class="na">desiredAccuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DesiredAccuracy</span><span class="p">.</span><span class="na">HIGH</span>
-<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="w">    </span><span class="n">geolocation</span><span class="p">.</span><span class="na">distanceFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10f</span>
-<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="na">stopOnTerminate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="na">startOnBoot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a><span class="w">    </span><span class="n">http</span><span class="p">.</span><span class="na">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://your.server.com&quot;</span>
-<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="w">    </span><span class="n">http</span><span class="p">.</span><span class="na">headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapOf</span><span class="p">(</span><span class="s">&quot;my-auth-token&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="s">&quot;secret-token&quot;</span><span class="p">)</span>
-<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="p">}</span>
-<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[ready] success&quot;</span><span class="p">)</span>
-</code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1">// Within a coroutine scope</span>
 <a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">config</span><span class="p">.</span><span class="na">reset</span><span class="p">()</span>
-<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="c1">// Reset to documented default-values with overrides</span>
-<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">config</span><span class="p">.</span><span class="na">edit</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="w">    </span><span class="n">geolocation</span><span class="p">.</span><span class="na">distanceFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10f</span>
-<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="p">}</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">ready</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">    </span><span class="n">geolocation</span><span class="p">.</span><span class="na">desiredAccuracy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DesiredAccuracy</span><span class="p">.</span><span class="na">HIGH</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w">    </span><span class="n">geolocation</span><span class="p">.</span><span class="na">distanceFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10f</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="na">stopOnTerminate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="na">startOnBoot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="w">    </span><span class="n">http</span><span class="p">.</span><span class="na">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://your.server.com&quot;</span>
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="w">    </span><span class="n">http</span><span class="p">.</span><span class="na">headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapOf</span><span class="p">(</span><span class="s">&quot;my-auth-token&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="s">&quot;secret-token&quot;</span><span class="p">)</span>
+<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a><span class="p">}</span>
+<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[ready] success&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1">// Within a coroutine scope</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">config</span><span class="p">.</span><span class="na">reset</span><span class="p">()</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="c1">// Reset to documented default-values with overrides</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">config</span><span class="p">.</span><span class="na">edit</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="w">    </span><span class="n">geolocation</span><span class="p">.</span><span class="na">distanceFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10f</span>
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="removelisteners">removeListeners<a class="headerlink" href="#removelisteners" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">removeListeners</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">removeListeners</span><span class="p">()</span>
 </code></pre></div>
 <p>Remove all event listeners.</p>
 <p>Calls <code>Subscription.remove</code> on all active subscriptions.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>
-<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">removeListeners</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">removeListeners</span><span class="p">()</span>
 </code></pre></div>
 <h3 id="resetodometer">resetOdometer<a class="headerlink" href="#resetodometer" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">resetOdometer</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">resetOdometer</span><span class="p">()</span>
 </code></pre></div>
 <p><strong>Deprecated.</strong> Use <code>setOdometer</code> with <code>0</code> — this method is an alias for it in every
 SDK that has it, and the Dart API does not have it at all.</p>
@@ -16639,14 +16778,14 @@ location where the odometer was reset. Equivalent to
 been granted — no fix is acquired and the resolved <a href="../LocationEvent/">LocationEvent</a> is <strong>synthetic</strong>: it carries
 the new odometer value, a timestamp and a <code>uuid</code>, but its <code>coords</code> are zeroes rather than a
 position. Check <a href="../State/#enabled">State.enabled</a> first if you need the location to be real.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1">// Within a coroutine scope</span>
-<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>
-<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bgGeo</span><span class="p">.</span><span class="na">setOdometer</span><span class="p">(</span><span class="m">0.0</span><span class="p">)</span>
-<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[setOdometer] success: </span><span class="si">$</span><span class="n">location</span><span class="s">&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1">// Within a coroutine scope</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bgGeo</span><span class="p">.</span><span class="na">setOdometer</span><span class="p">(</span><span class="m">0.0</span><span class="p">)</span>
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[setOdometer] success: </span><span class="si">$</span><span class="n">location</span><span class="s">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="setodometer">setOdometer<a class="headerlink" href="#setodometer" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">setOdometer</span><span class="p">(</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">Double</span><span class="p">,</span><span class="w"> </span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">setOdometer</span><span class="p">(</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">Double</span><span class="p">,</span><span class="w"> </span><span class="p">)</span>
 </code></pre></div>
 <p>Set the odometer to an arbitrary value.</p>
 <p>Internally performs a <code>getCurrentPosition</code> to record the exact
@@ -16657,14 +16796,14 @@ location where the odometer was set.</p>
 been granted — no fix is acquired and the resolved <a href="../LocationEvent/">LocationEvent</a> is <strong>synthetic</strong>: it carries
 the new odometer value, a timestamp and a <code>uuid</code>, but its <code>coords</code> are zeroes rather than a
 position. Check <a href="../State/#enabled">State.enabled</a> first if you need the location to be real.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1">// Within a coroutine scope</span>
-<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>
-<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bgGeo</span><span class="p">.</span><span class="na">setOdometer</span><span class="p">(</span><span class="m">1234.56</span><span class="p">)</span>
-<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[setOdometer] success: </span><span class="si">$</span><span class="n">location</span><span class="s">&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1">// Within a coroutine scope</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="kd">val</span><span class="w"> </span><span class="nv">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bgGeo</span><span class="p">.</span><span class="na">setOdometer</span><span class="p">(</span><span class="m">1234.56</span><span class="p">)</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[setOdometer] success: </span><span class="si">$</span><span class="n">location</span><span class="s">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="start">start<a class="headerlink" href="#start" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span>
 </code></pre></div>
 <p>Enable location and geofence tracking.</p>
 <p>This is the SDK's power <strong>ON</strong> switch. The SDK enters its <strong>stationary</strong>
@@ -16680,13 +16819,13 @@ schedule and begins tracking immediately.</p>
 - <code>stop</code>
 - <code>startGeofences</code></p>
 </div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1">// Within a coroutine scope</span>
-<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">start</span><span class="p">()</span>
-<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[start] success&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1">// Within a coroutine scope</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">start</span><span class="p">()</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[start] success&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="startgeofences">startGeofences<a class="headerlink" href="#startgeofences" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">startGeofences</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">startGeofences</span><span class="p">()</span>
 </code></pre></div>
 <p>Switch to geofences-only tracking mode.</p>
 <p>In this mode no active location tracking occurs — only geofences are
@@ -16700,36 +16839,36 @@ in geofences-only mode (or vice versa) switches modes; there is no need to call
 <p><strong>See also</strong>
 - <code>stop</code>
 - 📘 <a href="../Geofence/">Geofencing Guide</a></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1">// Within a coroutine scope</span>
-<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>
-<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="c1">// Add a geofence.</span>
-<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">geofences</span><span class="p">.</span><span class="na">add</span><span class="p">(</span>
-<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="w">    </span><span class="n">Geofence</span><span class="p">.</span><span class="na">Builder</span><span class="p">()</span>
-<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="w">        </span><span class="p">.</span><span class="na">setIdentifier</span><span class="p">(</span><span class="s">&quot;ZONE_OF_INTEREST&quot;</span><span class="p">)</span>
-<a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="w">        </span><span class="p">.</span><span class="na">setLatitude</span><span class="p">(</span><span class="m">37.234232</span><span class="p">)</span>
-<a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a><span class="w">        </span><span class="p">.</span><span class="na">setLongitude</span><span class="p">(</span><span class="m">42.234234</span><span class="p">)</span>
-<a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a><span class="w">        </span><span class="p">.</span><span class="na">setRadius</span><span class="p">(</span><span class="m">200f</span><span class="p">)</span>
-<a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a><span class="w">        </span><span class="p">.</span><span class="na">setNotifyOnExit</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-<a id="__codelineno-39-12" name="__codelineno-39-12" href="#__codelineno-39-12"></a><span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">()</span>
-<a id="__codelineno-39-13" name="__codelineno-39-13" href="#__codelineno-39-13"></a><span class="p">)</span>
-<a id="__codelineno-39-14" name="__codelineno-39-14" href="#__codelineno-39-14"></a>
-<a id="__codelineno-39-15" name="__codelineno-39-15" href="#__codelineno-39-15"></a><span class="c1">// Listen to geofence events.</span>
-<a id="__codelineno-39-16" name="__codelineno-39-16" href="#__codelineno-39-16"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">onGeofence</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="o">-&gt;</span>
-<a id="__codelineno-39-17" name="__codelineno-39-17" href="#__codelineno-39-17"></a><span class="w">    </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[onGeofence] - </span><span class="si">$</span><span class="n">event</span><span class="s">&quot;</span><span class="p">)</span>
-<a id="__codelineno-39-18" name="__codelineno-39-18" href="#__codelineno-39-18"></a><span class="p">}</span>
-<a id="__codelineno-39-19" name="__codelineno-39-19" href="#__codelineno-39-19"></a>
-<a id="__codelineno-39-20" name="__codelineno-39-20" href="#__codelineno-39-20"></a><span class="c1">// Configure the plugin</span>
-<a id="__codelineno-39-21" name="__codelineno-39-21" href="#__codelineno-39-21"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">config</span><span class="p">.</span><span class="na">edit</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-39-22" name="__codelineno-39-22" href="#__codelineno-39-22"></a><span class="w">    </span><span class="n">http</span><span class="p">.</span><span class="na">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://my.server.com&quot;</span>
-<a id="__codelineno-39-23" name="__codelineno-39-23" href="#__codelineno-39-23"></a><span class="w">    </span><span class="n">http</span><span class="p">.</span><span class="na">autoSync</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<a id="__codelineno-39-24" name="__codelineno-39-24" href="#__codelineno-39-24"></a><span class="p">}</span>
-<a id="__codelineno-39-25" name="__codelineno-39-25" href="#__codelineno-39-25"></a>
-<a id="__codelineno-39-26" name="__codelineno-39-26" href="#__codelineno-39-26"></a><span class="c1">// Start monitoring geofences.</span>
-<a id="__codelineno-39-27" name="__codelineno-39-27" href="#__codelineno-39-27"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">startGeofences</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c1">// Within a coroutine scope</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="c1">// Add a geofence.</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">geofences</span><span class="p">.</span><span class="na">add</span><span class="p">(</span>
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="w">    </span><span class="n">Geofence</span><span class="p">.</span><span class="na">Builder</span><span class="p">()</span>
+<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="w">        </span><span class="p">.</span><span class="na">setIdentifier</span><span class="p">(</span><span class="s">&quot;ZONE_OF_INTEREST&quot;</span><span class="p">)</span>
+<a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="w">        </span><span class="p">.</span><span class="na">setLatitude</span><span class="p">(</span><span class="m">37.234232</span><span class="p">)</span>
+<a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a><span class="w">        </span><span class="p">.</span><span class="na">setLongitude</span><span class="p">(</span><span class="m">42.234234</span><span class="p">)</span>
+<a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a><span class="w">        </span><span class="p">.</span><span class="na">setRadius</span><span class="p">(</span><span class="m">200f</span><span class="p">)</span>
+<a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a><span class="w">        </span><span class="p">.</span><span class="na">setNotifyOnExit</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+<a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a><span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">()</span>
+<a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a><span class="p">)</span>
+<a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a>
+<a id="__codelineno-40-15" name="__codelineno-40-15" href="#__codelineno-40-15"></a><span class="c1">// Listen to geofence events.</span>
+<a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">onGeofence</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a><span class="w">    </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[onGeofence] - </span><span class="si">$</span><span class="n">event</span><span class="s">&quot;</span><span class="p">)</span>
+<a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a><span class="p">}</span>
+<a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a>
+<a id="__codelineno-40-20" name="__codelineno-40-20" href="#__codelineno-40-20"></a><span class="c1">// Configure the plugin</span>
+<a id="__codelineno-40-21" name="__codelineno-40-21" href="#__codelineno-40-21"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">config</span><span class="p">.</span><span class="na">edit</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-40-22" name="__codelineno-40-22" href="#__codelineno-40-22"></a><span class="w">    </span><span class="n">http</span><span class="p">.</span><span class="na">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http://my.server.com&quot;</span>
+<a id="__codelineno-40-23" name="__codelineno-40-23" href="#__codelineno-40-23"></a><span class="w">    </span><span class="n">http</span><span class="p">.</span><span class="na">autoSync</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-40-24" name="__codelineno-40-24" href="#__codelineno-40-24"></a><span class="p">}</span>
+<a id="__codelineno-40-25" name="__codelineno-40-25" href="#__codelineno-40-25"></a>
+<a id="__codelineno-40-26" name="__codelineno-40-26" href="#__codelineno-40-26"></a><span class="c1">// Start monitoring geofences.</span>
+<a id="__codelineno-40-27" name="__codelineno-40-27" href="#__codelineno-40-27"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">startGeofences</span><span class="p">()</span>
 </code></pre></div>
 <h3 id="startschedule">startSchedule<a class="headerlink" href="#startschedule" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">startSchedule</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">startSchedule</span><span class="p">()</span>
 </code></pre></div>
 <p>Activate the configured <a href="../AppConfig/#schedule">AppConfig.schedule</a>.</p>
 <p>Initiates the schedule defined in <a href="../AppConfig/#schedule">AppConfig.schedule</a>. The SDK
@@ -16739,12 +16878,12 @@ scheduled tracking, call <code>stopSchedule</code>.</p>
 - <a href="../AppConfig/#schedule">AppConfig.schedule</a>
 - <code>stopSchedule</code></p>
 <p>Resolves the <a href="../State/">State</a> once the scheduler is active, like <code>start</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">startSchedule</span><span class="p">()</span>
-<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[startSchedule] success&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">startSchedule</span><span class="p">()</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[startSchedule] success&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="stop">stop<a class="headerlink" href="#stop" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">stop</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">stop</span><span class="p">()</span>
 </code></pre></div>
 <p>Disable location and geofence monitoring.</p>
 <p>This is the SDK's power <strong>OFF</strong> switch.</p>
@@ -16754,16 +16893,16 @@ scheduled tracking, call <code>stopSchedule</code>.</p>
 the scheduler. Call <code>stopSchedule</code> explicitly if you also want to
 stop scheduled tracking (for example, on user logout).</p>
 </div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="c1">// Within a coroutine scope</span>
-<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c1">// Later when you want to stop the Scheduler (e.g., user logout)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c1">// Within a coroutine scope</span>
 <a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">stopSchedule</span><span class="p">()</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="c1">// Later when you want to stop the Scheduler (e.g., user logout)</span>
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">stopSchedule</span><span class="p">()</span>
 </code></pre></div>
 <h3 id="stopschedule">stopSchedule<a class="headerlink" href="#stopschedule" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">stopSchedule</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">stopSchedule</span><span class="p">()</span>
 </code></pre></div>
 <p>Halt scheduled tracking.</p>
 <div class="admonition warning">
@@ -16775,17 +16914,17 @@ tracking session.</p>
 - <code>startSchedule</code></p>
 <p>Resolves the <a href="../State/">State</a> once the scheduler is halted, like <code>stop</code>.</p>
 </div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">stopSchedule</span><span class="p">()</span>
-<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[stopSchedule] success&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">stopSchedule</span><span class="p">()</span>
+<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[stopSchedule] success&quot;</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c1">// Within a coroutine scope</span>
-<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="c1">// Later when you want to stop the Scheduler (e.g., user logout)</span>
-<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">stopSchedule</span><span class="p">()</span>
-<a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bgGeo</span><span class="p">.</span><span class="na">enabled</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a><span class="w">    </span><span class="n">bgGeo</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
-<a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="c1">// Within a coroutine scope</span>
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="c1">// Later when you want to stop the Scheduler (e.g., user logout)</span>
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
+<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">stopSchedule</span><span class="p">()</span>
+<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bgGeo</span><span class="p">.</span><span class="na">enabled</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a><span class="w">    </span><span class="n">bgGeo</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
+<a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="watchposition">watchPosition<a class="headerlink" href="#watchposition" title="Permanent link">&para;</a></h3>
 <p><code>fun watchPosition( interval: Long = 1000, timeout: Int = 60, persist: Boolean = false, extras: Map&lt;String, Any&gt;? = null, success: (</code><a href="../LocationEvent/"><code>LocationEvent</code></a><code>) -&gt; Unit, failure: (Int) -&gt; Unit )</code></p>
@@ -16808,70 +16947,70 @@ foreground.</p>
 <p><code>watchPosition</code> continues running in the background, preventing iOS from
 suspending your app. Remove the subscription in your app's suspend handler
 to avoid draining the battery.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="kd">var</span><span class="w"> </span><span class="nv">watchSubscription</span><span class="p">:</span><span class="w"> </span><span class="n">EventSubscription? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
-<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>
-<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">onResume</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="w">    </span><span class="n">watchSubscription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bgGeo</span><span class="p">.</span><span class="na">watchPosition</span><span class="p">(</span>
-<a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a><span class="w">        </span><span class="n">interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1000L</span><span class="p">,</span>
-<a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a><span class="w">        </span><span class="n">persist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a><span class="w">        </span><span class="n">extras</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapOf</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="s">&quot;bar&quot;</span><span class="p">),</span>
-<a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a><span class="w">        </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">location</span><span class="w"> </span><span class="o">-&gt;</span>
-<a id="__codelineno-48-10" name="__codelineno-48-10" href="#__codelineno-48-10"></a><span class="w">            </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[watchPosition] - </span><span class="si">$</span><span class="n">location</span><span class="s">&quot;</span><span class="p">)</span>
-<a id="__codelineno-48-11" name="__codelineno-48-11" href="#__codelineno-48-11"></a><span class="w">        </span><span class="p">},</span>
-<a id="__codelineno-48-12" name="__codelineno-48-12" href="#__codelineno-48-12"></a><span class="w">        </span><span class="n">failure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">errorCode</span><span class="w"> </span><span class="o">-&gt;</span>
-<a id="__codelineno-48-13" name="__codelineno-48-13" href="#__codelineno-48-13"></a><span class="w">            </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[watchPosition] ERROR - </span><span class="si">$</span><span class="n">errorCode</span><span class="s">&quot;</span><span class="p">)</span>
-<a id="__codelineno-48-14" name="__codelineno-48-14" href="#__codelineno-48-14"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-48-15" name="__codelineno-48-15" href="#__codelineno-48-15"></a><span class="w">    </span><span class="p">)</span>
-<a id="__codelineno-48-16" name="__codelineno-48-16" href="#__codelineno-48-16"></a><span class="p">}</span>
-<a id="__codelineno-48-17" name="__codelineno-48-17" href="#__codelineno-48-17"></a>
-<a id="__codelineno-48-18" name="__codelineno-48-18" href="#__codelineno-48-18"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">onSuspend</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-48-19" name="__codelineno-48-19" href="#__codelineno-48-19"></a><span class="w">    </span><span class="n">watchSubscription</span><span class="o">?.</span><span class="na">close</span><span class="p">()</span>
-<a id="__codelineno-48-20" name="__codelineno-48-20" href="#__codelineno-48-20"></a><span class="w">    </span><span class="n">watchSubscription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
-<a id="__codelineno-48-21" name="__codelineno-48-21" href="#__codelineno-48-21"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="kd">var</span><span class="w"> </span><span class="nv">watchSubscription</span><span class="p">:</span><span class="w"> </span><span class="n">EventSubscription? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>
+<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">onResume</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a><span class="w">    </span><span class="n">watchSubscription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bgGeo</span><span class="p">.</span><span class="na">watchPosition</span><span class="p">(</span>
+<a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a><span class="w">        </span><span class="n">interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1000L</span><span class="p">,</span>
+<a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a><span class="w">        </span><span class="n">persist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a><span class="w">        </span><span class="n">extras</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapOf</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="s">&quot;bar&quot;</span><span class="p">),</span>
+<a id="__codelineno-49-9" name="__codelineno-49-9" href="#__codelineno-49-9"></a><span class="w">        </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">location</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-49-10" name="__codelineno-49-10" href="#__codelineno-49-10"></a><span class="w">            </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[watchPosition] - </span><span class="si">$</span><span class="n">location</span><span class="s">&quot;</span><span class="p">)</span>
+<a id="__codelineno-49-11" name="__codelineno-49-11" href="#__codelineno-49-11"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-49-12" name="__codelineno-49-12" href="#__codelineno-49-12"></a><span class="w">        </span><span class="n">failure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">errorCode</span><span class="w"> </span><span class="o">-&gt;</span>
+<a id="__codelineno-49-13" name="__codelineno-49-13" href="#__codelineno-49-13"></a><span class="w">            </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[watchPosition] ERROR - </span><span class="si">$</span><span class="n">errorCode</span><span class="s">&quot;</span><span class="p">)</span>
+<a id="__codelineno-49-14" name="__codelineno-49-14" href="#__codelineno-49-14"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-49-15" name="__codelineno-49-15" href="#__codelineno-49-15"></a><span class="w">    </span><span class="p">)</span>
+<a id="__codelineno-49-16" name="__codelineno-49-16" href="#__codelineno-49-16"></a><span class="p">}</span>
+<a id="__codelineno-49-17" name="__codelineno-49-17" href="#__codelineno-49-17"></a>
+<a id="__codelineno-49-18" name="__codelineno-49-18" href="#__codelineno-49-18"></a><span class="kd">fun</span><span class="w"> </span><span class="nf">onSuspend</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-49-19" name="__codelineno-49-19" href="#__codelineno-49-19"></a><span class="w">    </span><span class="n">watchSubscription</span><span class="o">?.</span><span class="na">close</span><span class="p">()</span>
+<a id="__codelineno-49-20" name="__codelineno-49-20" href="#__codelineno-49-20"></a><span class="w">    </span><span class="n">watchSubscription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span>
+<a id="__codelineno-49-21" name="__codelineno-49-21" href="#__codelineno-49-21"></a><span class="p">}</span>
 </code></pre></div>
 <h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <h3 id="app">app<a class="headerlink" href="#app" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">app</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">app</span>
 </code></pre></div>
 <p><a href="../App/">App</a> API — background-task and power-save utilities.</p>
 <h3 id="authorization">authorization<a class="headerlink" href="#authorization" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">authorization</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">authorization</span>
 </code></pre></div>
 <p><a href="../Authorization/">Authorization</a> API — request and monitor location permissions.</p>
 <h3 id="config">config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">config</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">config</span>
 </code></pre></div>
 <p><a href="../Config/">Config</a> API — read and update the SDK configuration.</p>
 <h3 id="devicesettings">deviceSettings<a class="headerlink" href="#devicesettings" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">deviceSettings</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">deviceSettings</span>
 </code></pre></div>
 <p><a href="../DeviceSettings/">DeviceSettings</a> API</p>
 <h3 id="geofences">geofences<a class="headerlink" href="#geofences" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">geofences</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">geofences</span>
 </code></pre></div>
 <p>Access to the <a href="../GeofenceManager/">GeofenceManager</a> — add, remove, and query geofences.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
-<a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">geofences</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">geofence</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="na">instance</span>
+<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="n">bgGeo</span><span class="p">.</span><span class="na">geofences</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">geofence</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="logger">logger<a class="headerlink" href="#logger" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">logger</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">logger</span>
 </code></pre></div>
 <p><a href="../Logger/">Logger</a> API</p>
 <h3 id="sensors">sensors<a class="headerlink" href="#sensors" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">sensors</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">sensors</span>
 </code></pre></div>
 <p><a href="../Sensors/">Sensors</a> API — query the device motion hardware.</p>
 <h3 id="state">state<a class="headerlink" href="#state" title="Permanent link">&para;</a></h3>
 <p><code>val state:</code><a href="../State/"><code>State</code></a></p>
 <p>Read-only snapshot of the SDK's current runtime state.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bgGeo</span><span class="p">.</span><span class="na">state</span>
-<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="na">enabled</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="na">isMoving</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a><span class="w">    </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Tracking in motion, odometer: </span><span class="si">${</span><span class="n">state</span><span class="p">.</span><span class="na">odometer</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
-<a id="__codelineno-57-4" name="__codelineno-57-4" href="#__codelineno-57-4"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bgGeo</span><span class="p">.</span><span class="na">state</span>
+<a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="na">enabled</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="na">isMoving</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a><span class="w">    </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="n">TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Tracking in motion, odometer: </span><span class="si">${</span><span class="n">state</span><span class="p">.</span><span class="na">odometer</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<a id="__codelineno-58-4" name="__codelineno-58-4" href="#__codelineno-58-4"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="store">store<a class="headerlink" href="#store" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">store</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="kd">val</span><span class="w"> </span><span class="nv">store</span>
 </code></pre></div>
 <p><a href="../DataStore/">DataStore</a> API — query, upload, and destroy persisted location records.</p>
 

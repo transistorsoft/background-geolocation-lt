@@ -11768,6 +11768,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12627,6 +12655,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -13598,6 +13654,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NAVIGATION
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#very_low" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VERY_LOW
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -13851,6 +13929,34 @@
     
   
     TrackingMode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
   
 
     
@@ -14733,6 +14839,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../DeviceSettings/" class="md-nav__link">
         
   
@@ -15279,6 +15413,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NAVIGATION
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#very_low" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VERY_LOW
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -15304,6 +15460,10 @@
 <h1 id="desiredaccuracy">DesiredAccuracy<a class="headerlink" href="#desiredaccuracy" title="Permanent link">&para;</a></h1>
 <p><code>enum</code><a href="./"><code>DesiredAccuracy</code></a><code>: Enum&lt;</code><a href="./"><code>DesiredAccuracy</code></a><code>&gt;</code></p>
 <p>Desired accuracy presets (meters / platform-tuned).</p>
+<p>In the Kotlin API, each member's <code>value</code> is the Android location priority it requests, not the number above:
+<code>HIGH</code> and <code>NAVIGATION</code> are <code>Priority.PRIORITY_HIGH_ACCURACY</code> (100), <code>MEDIUM</code> is
+<code>PRIORITY_BALANCED_POWER_ACCURACY</code> (102), <code>LOW</code> is <code>PRIORITY_LOW_POWER</code> (104), and <code>LOWEST</code> and <code>VERY_LOW</code> are
+<code>PRIORITY_PASSIVE</code> (105). Set and compare the members themselves, never their <code>value</code>.</p>
 <hr />
 <h2 id="members">Members<a class="headerlink" href="#members" title="Permanent link">&para;</a></h2>
 <h3 id="high">HIGH<a class="headerlink" href="#high" title="Permanent link">&para;</a></h3>
@@ -15318,6 +15478,12 @@
 <h3 id="medium">MEDIUM<a class="headerlink" href="#medium" title="Permanent link">&para;</a></h3>
 <p><code>val MEDIUM:</code><a href="./"><code>DesiredAccuracy</code></a></p>
 <p>Medium accuracy (e.g., 10m).</p>
+<h3 id="navigation">NAVIGATION<a class="headerlink" href="#navigation" title="Permanent link">&para;</a></h3>
+<p><code>val NAVIGATION:</code><a href="./"><code>DesiredAccuracy</code></a></p>
+<p>Navigation-level accuracy (e.g., 0-10m).</p>
+<h3 id="very_low">VERY_LOW<a class="headerlink" href="#very_low" title="Permanent link">&para;</a></h3>
+<p><code>val VERY_LOW:</code><a href="./"><code>DesiredAccuracy</code></a></p>
+<p>Very low accuracy (e.g., 1000m).</p>
 
 
 

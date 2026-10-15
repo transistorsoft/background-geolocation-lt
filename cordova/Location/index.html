@@ -12010,6 +12010,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12869,6 +12897,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -13992,6 +14048,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -14853,6 +14937,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -15753,22 +15865,30 @@ to maintain a running total. This value survives app restarts unless
 explicitly reset.</p>
 <h5 id="how-its-calculated">How it's calculated<a class="headerlink" href="#how-its-calculated" title="Permanent link">&para;</a></h5>
 <ul>
-<li>Distance is computed between each consecutive pair of accepted locations.</li>
-<li>The <a href="../LocationFilter/">LocationFilter</a> evaluates accuracy and motion context for
-  each sample. Low-quality samples may be rejected or down-weighted
-  based on <a href="../LocationFilter/#odometeraccuracythreshold">LocationFilter.odometerAccuracyThreshold</a>.</li>
-<li>Accumulated drift is exposed via <a href="./#odometer_error">Location.odometer_error</a>.</li>
+<li>Every location the tracking filter accepts goes through the odometer's
+  position filter, which follows the fixes as closely as their own speed
+  warrants (<code>kalmanProfile</code>), and the odometer adds the distance between the
+  positions it last added to.</li>
+<li>A location whose accuracy is worse than
+  <a href="../LocationFilter/#odometeraccuracythreshold">LocationFilter.odometerAccuracyThreshold</a> is refused and moves
+  nothing.</li>
+<li>Across a gap in the fixes (a tunnel, a garage, an app restart) the odometer
+  adds the straight-line distance between the last position it added to and
+  the first fix after the gap.</li>
+<li>The odometer's uncertainty is exposed via <a href="./#odometer_error">Location.odometer_error</a>.</li>
 </ul>
 <h5 id="when-it-increases">When it increases<a class="headerlink" href="#when-it-increases" title="Permanent link">&para;</a></h5>
 <ul>
 <li>After the device moves and a new location is recorded.</li>
-<li>During both moving and stationary states when minor motion is detected.</li>
-<li>In geofences-only mode, at each geofence transition or stationary exit.</li>
+<li>While the device is stationary, only when its fixes move beyond the hold
+  radius their accuracy sets.</li>
 </ul>
 <h5 id="when-it-does-not-increase">When it does not increase<a class="headerlink" href="#when-it-does-not-increase" title="Permanent link">&para;</a></h5>
 <ul>
 <li>When a sample fails accuracy thresholds.</li>
-<li>When the device is stationary and no sufficient movement is detected.</li>
+<li>While the device is stationary and its fixes wander within their accuracy.</li>
+<li>In geofences-only mode, and under <code>useSignificantChangesOnly</code>: the odometer
+  runs only while location tracking is on.</li>
 </ul>
 <p><strong>See also</strong>
 - <a href="../LocationFilter/">LocationFilter</a>
@@ -15785,23 +15905,20 @@ explicitly reset.</p>
 <h3 id="odometer_error">odometer_error<a class="headerlink" href="#odometer_error" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nx">odometer_error</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
 </code></pre></div>
-<p>Accumulated odometer drift in meters.</p>
-<p>Represents the uncertainty that has built up in the <code>odometer</code>
-value due to GPS noise, tunnel blackouts, and other inaccurate samples.</p>
-<h5 id="how-to-use-it">How to use it<a class="headerlink" href="#how-to-use-it" title="Permanent link">&para;</a></h5>
-<p>Treat this as a confidence interval for <code>odometer</code>. For example,
-if <code>odometer = 12000</code> and <code>odometer_error = 40</code>, the true traveled
-distance is likely within ±40 meters of the reported value.</p>
-<p>Resetting or setting a new <code>odometer</code> value automatically resets
-<code>odometer_error</code> to <code>0</code>. Values typically remain low (&lt; 10 m) under
-good GPS conditions but grow during long tunnels, dense urban canyons, or
-extended indoor tracking.</p>
+<p>An index of the odometer's uncertainty, in meters.</p>
+<p>It grows with the accuracy the device reports, where the path turns, and
+where the odometer adds the distance across a gap such as a tunnel, and it
+resets with <code>setOdometer</code> and <code>resetOdometer</code>. It is not a confidence interval
+and states no probability. It does not include systematic error, such as the
+distance a straight chord misses on a curved road.</p>
+<p>Compare values from one device over time rather than across devices: a device
+that reports coarser accuracy produces a larger index on the same road.</p>
 <p><strong>See also</strong>
 - <code>odometer</code></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nx">BackgroundGeolocation</span><span class="p">.</span><span class="nx">onLocation</span><span class="p">((</span><span class="nx">location</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Odometer:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">location</span><span class="p">.</span><span class="nx">odometer</span><span class="p">);</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">odometer_error</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">50</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;High odometer drift — signal quality degraded&quot;</span><span class="p">);</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;Odometer uncertainty is high&quot;</span><span class="p">);</span>
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="p">}</span>
 <a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p">});</span>
 </code></pre></div>
@@ -15817,6 +15934,8 @@ extended indoor tracking.</p>
 <li>When <a href="../PersistenceConfig/#timestampformat">PersistenceConfig.timestampFormat</a> is <code>"iso"</code> (default): ISO-8601 UTC <code>string</code>.</li>
 <li>When <a href="../PersistenceConfig/#timestampformat">PersistenceConfig.timestampFormat</a> is <code>"epoch"</code>: epoch milliseconds <code>number</code>.</li>
 </ul>
+<p>In the Swift API, <code>recordedAt</code> is a <code>Date</code>, and <code>recordedAtString</code> carries the string. In the Kotlin
+API it is the <code>String</code> described above.</p>
 <h3 id="sample">sample<a class="headerlink" href="#sample" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nx">sample?</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
 </code></pre></div>
@@ -15835,6 +15954,8 @@ SQLite. Filter them out before manually posting locations to your server.</p>
 <li>When <a href="../PersistenceConfig/#timestampformat">PersistenceConfig.timestampFormat</a> is <code>"iso"</code> (default): ISO-8601 UTC <code>string</code> (eg <code>"2025-04-10T12:00:01.123Z"</code>).</li>
 <li>When <a href="../PersistenceConfig/#timestampformat">PersistenceConfig.timestampFormat</a> is <code>"epoch"</code>: epoch milliseconds <code>number</code>.</li>
 </ul>
+<p>In the Swift API, <code>timestamp</code> is a <code>Date</code>, and <code>timestampString</code> carries the string. In the Kotlin
+API it is the <code>String</code> described above.</p>
 <h3 id="uuid">uuid<a class="headerlink" href="#uuid" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nx">uuid</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
 </code></pre></div>

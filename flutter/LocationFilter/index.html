@@ -11977,6 +11977,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12836,6 +12864,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -13959,6 +14015,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -14828,6 +14912,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../kotlin/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../kotlin/DeviceSettings/" class="md-nav__link">
         
   
@@ -15510,9 +15622,9 @@ data from the underlying platform.</p>
 <hr />
 <h5 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h5>
 <p>The SDK applies several processing stages to each raw GPS sample before
-recording it: Kalman filtering, rolling-window burst averaging, and
-speed/distance/accuracy constraints. These produce smoother paths, reduce
-jitter, and improve odometer stability.</p>
+recording it: an accuracy gate, rolling-window burst detection, and speed
+and distance constraints; the odometer runs its own position filter on the
+samples that pass. Coordinates are never modified.</p>
 <p><img alt="" src="https://dl.dropbox.com/scl/fi/71rkzdo2tr3qm651ulou8/location-filter-flowchart.svg?rlkey=16zxs3lnqvlrw137974jbsoj7&amp;dl=1" /></p>
 <table>
 <thead>
@@ -15528,15 +15640,15 @@ jitter, and improve odometer stability.</p>
 </tr>
 <tr>
 <td><code>useKalman</code></td>
-<td>Enables Kalman filtering of speed and position (default: <code>true</code>).</td>
+<td>Has no effect on delivered locations (default: <code>true</code>).</td>
 </tr>
 <tr>
 <td><code>kalmanDebug</code></td>
-<td>Enables verbose Kalman diagnostic logs (default: <code>false</code>).</td>
+<td>Logs the odometer filter's values for each location (default: <code>false</code>).</td>
 </tr>
 <tr>
 <td><code>kalmanProfile</code></td>
-<td>Selects a Kalman tuning profile (see <a href="../KalmanProfile/">KalmanProfile</a>).</td>
+<td>Selects how strongly the odometer smooths the path at slow speeds (see <a href="../KalmanProfile/">KalmanProfile</a>).</td>
 </tr>
 <tr>
 <td><code>rollingWindow</code></td>
@@ -15564,7 +15676,7 @@ jitter, and improve odometer stability.</p>
 </tr>
 <tr>
 <td><code>odometerUseKalmanFilter</code></td>
-<td>Applies Kalman smoothing to odometer calculations (default: <code>true</code>).</td>
+<td>Switches the odometer's position filter (default: <code>true</code>).</td>
 </tr>
 <tr>
 <td><code>odometerAccuracyThreshold</code></td>
@@ -15614,8 +15726,8 @@ regardless of the chosen policy:</p>
 </tr>
 <tr>
 <td><code>useKalman</code>, <code>kalmanProfile</code></td>
-<td style="text-align: center;">No</td>
-<td>Kalman smoothing runs before the policy phase whenever <code>useKalman</code> is <code>true</code>.</td>
+<td style="text-align: center;">—</td>
+<td>Neither affects the tracking <code>policy</code>: <code>useKalman</code> has no effect on delivered locations, and <code>kalmanProfile</code> governs the odometer's filter.</td>
 </tr>
 <tr>
 <td><code>maxBurstDistance</code>, <code>burstWindow</code></td>
@@ -15682,41 +15794,39 @@ filtering pipeline.</p>
 <h3 id="kalmandebug">kalmanDebug<a class="headerlink" href="#kalmandebug" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">bool</span><span class="o">?</span><span class="w"> </span><span class="n">kalmanDebug</span>
 </code></pre></div>
-<p>Enables verbose Kalman debug output in logs. Defaults to <code>false</code>.</p>
-<p>When enabled, the SDK logs additional diagnostic data about the Kalman
-filter's internal state (for example, variance and innovation) for each
-incoming sample.</p>
+<p>Logs the odometer filter's values for each location. Defaults to <code>false</code>.</p>
+<p>When enabled, each location the odometer sees adds one line to the SDK log at
+the <code>Debug</code> level: the filter's status, the distance added, the profile and
+gain in force, the speed that set the gain, the prediction and update terms,
+the distance to the anchor and the hold radius, and the filtered position's
+own accuracy. Keep it off in production: it is one line per location.</p>
 <h3 id="kalmanprofile">kalmanProfile<a class="headerlink" href="#kalmanprofile" title="Permanent link">&para;</a></h3>
 <p><a href="../KalmanProfile/"><code>KalmanProfile</code></a><code>? kalmanProfile</code></p>
-<p>Selects the preset tuning profile for the Kalman filter. Defaults to
-<code>KalmanProfile.Default</code>.</p>
-<p>Each profile adjusts the Kalman filter's process and measurement noise
-parameters, trading off between responsiveness and smoothness:</p>
-<table>
-<thead>
-<tr>
-<th>Profile</th>
-<th>Behaviour</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>defaultProfile</code></td>
-<td><strong>Balanced</strong> — General-purpose; suitable for most movement types.</td>
-</tr>
-<tr>
-<td><code>aggressive</code></td>
-<td><strong>Aggressive</strong> — Fast response; minimal smoothing.</td>
-</tr>
-<tr>
-<td><code>conservative</code></td>
-<td><strong>Conservative</strong> — Maximum smoothing; slowest response to changes.</td>
-</tr>
-</tbody>
-</table>
-<p>Use <code>aggressive</code> for fast-changing activities requiring rapid updates. Use
-<code>conservative</code> when stability and track smoothness are more important than
-immediate responsiveness.</p>
+<p>Selects how strongly the odometer smooths the path while the device moves
+slowly. Defaults to <code>KalmanProfile.Default</code>.</p>
+<p>The odometer integrates a filtered position rather than the raw fixes. The
+profile sets how closely that position follows each fix: <code>Aggressive</code> follows
+the fixes most, <code>Conservative</code> smooths most and cuts the most corners,
+<code>Default</code> sits between.</p>
+<ul>
+<li>At riding and driving speed the three profiles agree. They differ at walking
+  pace, between about 1 and 3 m/s, mostly with <code>distanceFilter: 0</code>, where every
+  fix reaches the odometer. Below about 1 m/s the SDK's stationary detection
+  decides and the three read the same.</li>
+<li><code>Conservative</code> can read 20 to 50 % short on short back-and-forth paths such
+  as store aisles and corridors.</li>
+<li>How much a profile smooths depends on the accuracy each device reports, so
+  the same profile smooths two devices differently.</li>
+<li>When parked, the profiles do not differ in the expected order:
+  <code>Conservative</code> can add the most distance at a stop.</li>
+<li>When the device reports no speed, the three read the same, and
+  back-and-forth movement within a few tens of meters (about 45 m at a
+  reported accuracy of 10 m) is not counted.</li>
+<li>Under the default <code>distanceFilter</code> the difference between profiles is a
+  fraction of a percent.</li>
+</ul>
+<p>The profile applies only to the odometer. It changes neither which locations
+are recorded nor their coordinates.</p>
 <h3 id="maxburstdistance">maxBurstDistance<a class="headerlink" href="#maxburstdistance" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">double</span><span class="o">?</span><span class="w"> </span><span class="n">maxBurstDistance</span>
 </code></pre></div>
@@ -15791,16 +15901,15 @@ important than capturing every meter of movement, use <code>Conservative</code>.
 <h3 id="odometerusekalmanfilter">odometerUseKalmanFilter<a class="headerlink" href="#odometerusekalmanfilter" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">bool</span><span class="o">?</span><span class="w"> </span><span class="n">odometerUseKalmanFilter</span>
 </code></pre></div>
-<p>Applies a Kalman filter to odometer calculations, independent of
-<a href="./#usekalman">LocationFilter.useKalman</a>. Defaults to <code>true</code>.</p>
-<p>When enabled, the odometer's internal distance-accumulation logic applies a
-Kalman filter to smooth incoming samples, reducing jitter and noise without
-modifying the recorded track points.</p>
-<p>This is useful when smoother odometer readings are needed while preserving
-the raw location stream for mapping, analysis, or debugging.</p>
-<p>If both <a href="./#usekalman">LocationFilter.useKalman</a> and
-<a href="./#odometerusekalmanfilter">LocationFilter.odometerUseKalmanFilter</a> are <code>true</code>, the SDK maintains
-independent Kalman filter instances for tracking and odometer calculations.</p>
+<p>Switches the odometer's position filter. Defaults to <code>true</code>.</p>
+<p><code>true</code>: the odometer integrates filtered positions. Every fix the tracking
+filter accepts goes through a position filter whose gain follows the fix's own
+speed, selected by <code>kalmanProfile</code>, and the odometer adds the distance between
+the positions it last added to. <code>false</code>: the odometer integrates the fixes
+themselves, with the same accuracy gate, gaps and stops.</p>
+<p>Neither setting changes the recorded locations, and neither reproduces the
+odometer of earlier versions. <a href="./#usekalman">LocationFilter.useKalman</a> is independent
+of this flag and has no effect on delivered locations.</p>
 <h3 id="policy">policy<a class="headerlink" href="#policy" title="Permanent link">&para;</a></h3>
 <p><a href="../LocationFilterPolicy/"><code>LocationFilterPolicy</code></a><code>? policy</code></p>
 <p>Selects the filtering policy applied to incoming raw GPS samples before they
@@ -15808,7 +15917,7 @@ are accepted, averaged, or rejected. Defaults to
 <code>LocationFilterPolicy.Conservative</code>.</p>
 <p>The filtering policy determines how aggressively the SDK removes noisy,
 inaccurate, or redundant location updates. It is the first stage in the
-data-quality pipeline — before Kalman smoothing, burst averaging, or other
+data-quality pipeline — before burst averaging or other
 denoising steps are applied.</p>
 <table>
 <thead>
@@ -15921,10 +16030,12 @@ discarded and not used in path or odometer calculations.</p>
 <h3 id="usekalman">useKalman<a class="headerlink" href="#usekalman" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kt">bool</span><span class="o">?</span><span class="w"> </span><span class="n">useKalman</span>
 </code></pre></div>
-<p>Enables the Kalman filter to smooth incoming location speed and position.
-Defaults to <code>true</code>.</p>
-<p>When enabled, the SDK applies a Kalman filter to reduce noise and stabilize
-velocity and distance calculations.</p>
+<p>Has no effect on delivered locations. Defaults to <code>true</code>.</p>
+<p>The SDK records and delivers every accepted location with its original
+coordinates. This flag switches a smoothing stage on the tracking path whose
+output changes neither the locations the SDK records nor the filter's
+decisions; it is kept so existing configurations stay valid. The odometer's
+own filter is switched by <code>odometerUseKalmanFilter</code>.</p>
 
 
 

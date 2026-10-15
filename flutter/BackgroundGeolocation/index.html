@@ -9028,6 +9028,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#kotlin-and-swift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kotlin and Swift
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#requesttemporaryfullaccuracy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -12536,6 +12547,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -13395,6 +13434,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -14518,6 +14585,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -15379,6 +15474,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -16463,6 +16586,17 @@
     <span class="md-ellipsis">
       
         iOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kotlin-and-swift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kotlin and Swift
       
     </span>
   </a>
@@ -17613,6 +17747,8 @@ it is deleted before the new one is inserted.</p>
 </code></pre></div>
 <p>Remove all monitored <a href="../Geofence/">Geofence</a> records, or a specific subset by
 identifier.</p>
+<p>With no argument, removes every geofence. With a list of identifiers,
+removes only the geofences it names. An empty list removes none.</p>
 <p><strong>See also</strong>
 - 📘 <a href="../Geofence/">Geofencing Guide</a></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="n">BackgroundGeolocation</span><span class="p">.</span><span class="n">removeGeofences</span><span class="p">();</span>
@@ -17765,6 +17901,10 @@ the hardware is absent — not recoverable from the app's own Settings page) or
 app was backgrounded). If the location dialog has already been shown and the
 current grant does not match the configured request, the SDK presents an alert
 offering to direct the user to the app's Settings page.</p>
+<h4 id="kotlin-and-swift">Kotlin and Swift<a class="headerlink" href="#kotlin-and-swift" title="Permanent link">&para;</a></h4>
+<p>A denial is not an error. <code>requestPermission</code> returns the status instead of throwing:
+Kotlin <code>PermissionStatus.DENIED</code> or <code>DENIED_ALWAYS</code>, Swift <code>.denied</code>, <code>.deniedAlways</code>,
+<code>.restricted</code> or <code>.notDetermined</code>. Branch on the returned value.</p>
 <h6 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h6>
 <p>The SDK automatically requests every required permission when you call
 <code>start</code>, <code>startGeofences</code>, or <code>getCurrentPosition</code>. Calling

@@ -11913,6 +11913,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12772,6 +12800,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -13895,6 +13951,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -14764,6 +14848,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../kotlin/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../kotlin/DeviceSettings/" class="md-nav__link">
         
   
@@ -15611,30 +15723,29 @@ timer elapses naturally. It does <strong>not</strong> fire when
 <a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="triggeractivities">triggerActivities<a class="headerlink" href="#triggeractivities" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">triggerActivities</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
-</code></pre></div>
+<p><code>public var triggerActivities: [</code><a href="../TriggerActivity/"><code>TriggerActivity</code></a><code>]</code></p>
 <p>Restricts which detected activities can trigger a transition from the
 <em>stationary</em> state to the <em>moving</em> state.</p>
 <p>By default the SDK triggers on any moving activity: <code>in_vehicle</code>,
 <code>on_bicycle</code>, <code>on_foot</code>, <code>running</code>, or <code>walking</code>. Configure this to
 limit tracking to specific use cases — for example, vehicles only.</p>
-<p>See <code>TriggerActivity</code> for all valid activity names.</p>
+<p>See <a href="../TriggerActivity/">TriggerActivity</a> for all valid activity names.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Using <code>triggerActivities</code> requires the user to grant the
 <strong>Motion &amp; Fitness</strong> (iOS) or <strong>Physical Activity</strong> (Android 10+)
 permission.</p>
 </div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">let</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="n">shared</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1">// Only trigger tracking for vehicles</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="k">in</span>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="n">config</span><span class="p">.</span><span class="n">activity</span><span class="p">.</span><span class="n">triggerActivities</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;in_vehicle&quot;</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="p">}</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1">// Only trigger tracking for on_foot, walking and running</span>
-<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="n">bgGeo</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="k">in</span>
-<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">    </span><span class="n">config</span><span class="p">.</span><span class="n">activity</span><span class="p">.</span><span class="n">triggerActivities</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;on_foot, walking, running&quot;</span>
-<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kd">let</span><span class="w"> </span><span class="nv">bgGeo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">BGGeo</span><span class="p">.</span><span class="n">shared</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1">// Only trigger tracking for vehicles</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">bgGeo</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="k">in</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="n">config</span><span class="p">.</span><span class="n">activity</span><span class="p">.</span><span class="n">triggerActivities</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;in_vehicle&quot;</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">}</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1">// Only trigger tracking for on_foot, walking and running</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="n">bgGeo</span><span class="p">.</span><span class="n">ready</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="k">in</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="n">config</span><span class="p">.</span><span class="n">activity</span><span class="p">.</span><span class="n">triggerActivities</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;on_foot, walking, running&quot;</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="p">}</span>
 </code></pre></div>
 
 

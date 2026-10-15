@@ -12098,6 +12098,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12957,6 +12985,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -14080,6 +14136,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -14941,6 +15025,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -15863,7 +15975,7 @@ foreground service and active location updates for near-instant transition detec
 immediately if the device is already inside it when the geofence is registered.</p>
 <hr />
 <h5 id="filtering">Filtering<a class="headerlink" href="#filtering" title="Permanent link">&para;</a></h5>
-<p><code>filter</code> applies Kalman smoothing, rolling-window averaging, and accuracy and
+<p><code>filter</code> applies rolling-window averaging, and accuracy and
 speed constraints to raw platform samples before they are recorded. This reduces GPS
 jitter and improves odometer accuracy. See <a href="../LocationFilter/">LocationFilter</a> for full
 documentation.</p>
@@ -16223,7 +16335,7 @@ recorded or used for odometer calculations.</p>
 fine-grained control over how the SDK handles noisy or inconsistent
 location data from the underlying platform.</p>
 <p>The native platform continuously produces raw <code>CLLocation</code> (iOS) or <code>Location</code>
-(Android) samples. The filter applies Kalman filtering, rolling-window averaging,
+(Android) samples. The filter applies rolling-window averaging,
 and speed, distance, and accuracy constraints to produce smoother paths, reduce
 jitter, and improve odometer stability.</p>
 <h5 id="filtering-flow">Filtering flow<a class="headerlink" href="#filtering-flow" title="Permanent link">&para;</a></h5>
@@ -16242,15 +16354,15 @@ jitter, and improve odometer stability.</p>
 </tr>
 <tr>
 <td><strong><a href="../LocationFilter/#usekalman">LocationFilter.useKalman</a></strong></td>
-<td>Enables Kalman filtering of speed and position (default: <code>true</code>).</td>
+<td>Has no effect on delivered locations (default: <code>true</code>).</td>
 </tr>
 <tr>
 <td><strong><a href="../LocationFilter/#kalmandebug">LocationFilter.kalmanDebug</a></strong></td>
-<td>Enables verbose Kalman diagnostic logs.</td>
+<td>Logs the odometer filter's values for each location (default: <code>false</code>).</td>
 </tr>
 <tr>
 <td><strong><a href="../LocationFilter/#kalmanprofile">LocationFilter.kalmanProfile</a></strong></td>
-<td>Selects a Kalman tuning profile (see <a href="../KalmanProfile/">KalmanProfile</a>).</td>
+<td>Selects how strongly the odometer smooths the path at slow speeds (see <a href="../KalmanProfile/">KalmanProfile</a>).</td>
 </tr>
 <tr>
 <td><strong><a href="../LocationFilter/#rollingwindow">LocationFilter.rollingWindow</a></strong></td>
@@ -16278,7 +16390,7 @@ jitter, and improve odometer stability.</p>
 </tr>
 <tr>
 <td><strong><a href="../LocationFilter/#odometerusekalmanfilter">LocationFilter.odometerUseKalmanFilter</a></strong></td>
-<td>Applies Kalman smoothing to odometer calculations.</td>
+<td>Switches the odometer's position filter (default: <code>true</code>).</td>
 </tr>
 <tr>
 <td><strong><a href="../LocationFilter/#odometeraccuracythreshold">LocationFilter.odometerAccuracyThreshold</a></strong></td>

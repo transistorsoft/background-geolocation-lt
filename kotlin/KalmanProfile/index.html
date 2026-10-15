@@ -11768,6 +11768,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12627,6 +12655,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -13853,6 +13909,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -14722,6 +14806,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../DeviceSettings/" class="md-nav__link">
         
   
@@ -15281,50 +15393,26 @@
 
 <h1 id="kalmanprofile">KalmanProfile<a class="headerlink" href="#kalmanprofile" title="Permanent link">&para;</a></h1>
 <p><code>enum</code><a href="./"><code>KalmanProfile</code></a></p>
-<p>Specifies the preset tuning profile for the Kalman filter used in location
-denoising.</p>
-<p>Each profile adjusts the Kalman filter’s process and measurement noise
-parameters, trading off between responsiveness and smoothness:</p>
-<table>
-<thead>
-<tr>
-<th>Profile</th>
-<th>Behavior</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>defaultProfile</code></td>
-<td><strong>Balanced</strong> — General-purpose; suitable for most movement types.</td>
-</tr>
-<tr>
-<td><code>aggressive</code></td>
-<td><strong>Aggressive</strong> — Fast response; minimal smoothing.</td>
-</tr>
-<tr>
-<td><code>conservative</code></td>
-<td><strong>Conservative</strong> — Maximum smoothing; slowest response to changes.</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>If no profile is provided, <code>defaultProfile</code> is applied.</li>
-<li>Use <code>aggressive</code> for fast-changing activities requiring rapid updates.</li>
-<li>Use <code>conservative</code> when stability and track smoothness are more important
-  than immediate responsiveness.</li>
-</ul>
-<p>This maps directly to native Kalman tuning implementations on both Android and iOS.</p>
+<p>How strongly the odometer smooths the path while the device moves slowly.</p>
+<p><code>Aggressive</code> follows the fixes most, <code>Conservative</code> smooths most and cuts the
+most corners, <code>Default</code> sits between. At riding and driving speed the three
+agree; they differ at walking pace, between about 1 and 3 m/s, mostly with
+<code>distanceFilter: 0</code>. The profile applies only to the odometer.</p>
+<p>If no profile is provided, <code>Default</code> is applied.</p>
 <hr />
 <h2 id="members">Members<a class="headerlink" href="#members" title="Permanent link">&para;</a></h2>
 <h3 id="aggressive">Aggressive<a class="headerlink" href="#aggressive" title="Permanent link">&para;</a></h3>
 <p><code>val Aggressive:</code><a href="./"><code>KalmanProfile</code></a></p>
-<p><strong>Aggressive</strong> — Fast response; minimal smoothing.</p>
+<p>Follows the fixes most closely: the least smoothing, the most of a slow path
+kept, and the most GPS wander counted.</p>
 <h3 id="conservative">Conservative<a class="headerlink" href="#conservative" title="Permanent link">&para;</a></h3>
 <p><code>val Conservative:</code><a href="./"><code>KalmanProfile</code></a></p>
-<p><strong>Conservative</strong> — Maximum smoothing; slowest response to changes.</p>
+<p>Smooths most: the steadiest total at riding and driving speed, the most
+corners cut at walking pace, and 20 to 50 % short on short back-and-forth
+paths.</p>
 <h3 id="default">Default<a class="headerlink" href="#default" title="Permanent link">&para;</a></h3>
 <p><code>val Default:</code><a href="./"><code>KalmanProfile</code></a></p>
-<p><strong>Balanced</strong> — General-purpose; suitable for most movement types.</p>
+<p>The SDK's default: between the other two, for most apps.</p>
 
 
 

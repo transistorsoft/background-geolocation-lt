@@ -11768,6 +11768,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12635,6 +12663,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../swift/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../swift/Sensors/" class="md-nav__link">
         
   
@@ -13091,6 +13147,17 @@
     <span class="md-ellipsis">
       
         iOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kotlin-and-swift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kotlin and Swift
       
     </span>
   </a>
@@ -13866,6 +13933,34 @@
     
   
     TrackingMode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
   
 
     
@@ -14748,6 +14843,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../DeviceSettings/" class="md-nav__link">
         
   
@@ -15295,6 +15418,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#kotlin-and-swift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kotlin and Swift
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -15412,6 +15546,10 @@ the hardware is absent — not recoverable from the app's own Settings page) or
 app was backgrounded). If the location dialog has already been shown and the
 current grant does not match the configured request, the SDK presents an alert
 offering to direct the user to the app's Settings page.</p>
+<h4 id="kotlin-and-swift">Kotlin and Swift<a class="headerlink" href="#kotlin-and-swift" title="Permanent link">&para;</a></h4>
+<p>A denial is not an error. <code>requestPermission</code> returns the status instead of throwing:
+Kotlin <code>PermissionStatus.DENIED</code> or <code>DENIED_ALWAYS</code>, Swift <code>.denied</code>, <code>.deniedAlways</code>,
+<code>.restricted</code> or <code>.notDetermined</code>. Branch on the returned value.</p>
 <h6 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h6>
 <p>The SDK automatically requests every required permission when you call
 <code>start</code>, <code>startGeofences</code>, or <code>getCurrentPosition</code>. Calling

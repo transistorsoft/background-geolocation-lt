@@ -11770,6 +11770,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12023,6 +12051,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#geofence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        geofence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#identifier" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -12038,6 +12077,17 @@
     <span class="md-ellipsis">
       
         location
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timestamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        timestamp
       
     </span>
   </a>
@@ -12739,6 +12789,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -13862,6 +13940,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -14731,6 +14837,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../kotlin/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../kotlin/DeviceSettings/" class="md-nav__link">
         
   
@@ -15256,6 +15390,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#geofence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        geofence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#identifier" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -15271,6 +15416,17 @@
     <span class="md-ellipsis">
       
         location
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timestamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        timestamp
       
     </span>
   </a>
@@ -15317,6 +15473,9 @@ boundary. Each event carries the transition type (<code>ENTER</code>, <code>EXIT
 </code></pre></div>
 <p>Optional metadata originally configured on the <a href="../Geofence/">Geofence</a>. Present
 only when the geofence was created with an <code>extras</code> map.</p>
+<h3 id="geofence">geofence<a class="headerlink" href="#geofence" title="Permanent link">&para;</a></h3>
+<p><code>public let geofence:</code><a href="../BGGeo/"><code>BGGeo</code></a><code>.</code><a href="../Geofence/"><code>Geofence</code></a></p>
+<p>The complete <a href="../Geofence/">Geofence</a> record that triggered this event.</p>
 <h3 id="identifier">identifier<a class="headerlink" href="#identifier" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">identifier</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
 </code></pre></div>
@@ -15324,6 +15483,12 @@ only when the geofence was created with an <code>extras</code> map.</p>
 <h3 id="location">location<a class="headerlink" href="#location" title="Permanent link">&para;</a></h3>
 <p><code>public let location:</code><a href="../BGGeo/"><code>BGGeo</code></a><code>.</code><a href="../LocationEvent/"><code>LocationEvent</code></a></p>
 <p>Location recorded at the moment the geofence boundary was crossed.</p>
+<h3 id="timestamp">timestamp<a class="headerlink" href="#timestamp" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nv">timestamp</span><span class="p">:</span><span class="w"> </span><span class="n">Date</span>
+</code></pre></div>
+<p>ISO-8601 UTC timestamp from the device system clock at the moment the OS
+delivered the geofence event.</p>
+<p>In the Swift API, <code>timestamp</code> is a <code>Date</code>.</p>
 
 
 

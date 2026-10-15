@@ -11977,6 +11977,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12836,6 +12864,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../swift/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -13959,6 +14015,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/TriggerActivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TriggerActivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -14820,6 +14904,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kotlin/DeviceInfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DeviceInfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -15844,6 +15956,8 @@ time by calling the corresponding start method.</p>
 </tr>
 </tbody>
 </table>
+<p>In the Kotlin and Swift APIs, <code>entryState</code> is an <code>EntryState</code> enum, not a number: Kotlin
+<code>EntryState.OUTSIDE</code>, <code>INSIDE</code> and <code>PENDING_EXIT</code>; Swift <code>.outside</code> and <code>.inside</code>.</p>
 <h3 id="extras">extras<a class="headerlink" href="#extras" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nx">extras?</span><span class="o">:</span><span class="w"> </span><span class="kt">Record</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">unknown</span><span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
@@ -15911,6 +16025,8 @@ approximately 200 meters."</em></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nx">stateUpdatedAt?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
 </code></pre></div>
 <p>Epoch timestamp in seconds of the last geofence transition.</p>
+<p>In the Kotlin and Swift APIs, <code>stateUpdatedAt</code> is a <code>Date</code>, and <code>null</code> (Kotlin) or <code>nil</code> (Swift) when
+the geofence has never triggered.</p>
 <h3 id="vertices">vertices<a class="headerlink" href="#vertices" title="Permanent link">&para;</a></h3>
 <p><code>vertices?:</code><a href="../Vertices/"><code>Vertices</code></a><code>;</code></p>
 <p>Polygon geofence vertices as <code>[[lat, lng], ...]</code> pairs.</p>
