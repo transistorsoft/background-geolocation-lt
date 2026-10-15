@@ -19,6 +19,8 @@ public class BGGeo {
     public let logger = Logger()
     public let geofences = GeofenceManager()
     public let sensors = Sensors()
+    public let deviceSettings = DeviceSettings()   // (WO-170) the only way to `isPowerSaveMode`
+    public let deviceInfo = DeviceInfo()   // (WO-168)
     public let app = App()
     public let store = DataStore()
     public let authorization = Authorization()

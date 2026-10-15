@@ -16,5 +16,8 @@ extension BGGeo {
         public var hasGyroscope: Bool { manager.isGyroAvailable() }
         public var hasMagnetometer: Bool { manager.isMagnetometerAvailable() }
         public var hasSignificantMotion: Bool { manager.isMotionHardwareAvailable() }
+
+        /// The OS: `"ios"`, as the bridges report it (WO-160).
+        public var platform: String { "ios" }
     }
 }

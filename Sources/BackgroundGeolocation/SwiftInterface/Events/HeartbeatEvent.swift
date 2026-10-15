@@ -18,9 +18,14 @@ extension BGGeo {
         /// The full location data dictionary (same shape as HTTP post body).
         public let data: [String: Any]
 
+        /// The heartbeat's location as a typed `LocationEvent`: uuid, isMoving, odometer, battery, activity, age, as
+        /// on every other event.  (WO-171) `location` stays the raw `CLLocation`.
+        public let locationEvent: LocationEvent
+
         public init(_ obj: TSHeartbeatEvent) {
             self.location = obj.location
             self.data = obj.data as? [String: Any] ?? [:]
+            self.locationEvent = LocationEvent(TSLocationEvent(locationDictionary: obj.data, location: obj.location))
         }
     }
 }

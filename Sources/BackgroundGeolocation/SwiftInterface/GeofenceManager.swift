@@ -50,6 +50,8 @@ extension BGGeo {
 
         public func removeAll(_ identifiers: [String]? = nil) async throws {
             if let identifiers {
+                // (WO-055) An empty list names none.  The core reads one as "all", so it is answered here.
+                if identifiers.isEmpty { return }
                 try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
                     manager.removeGeofences(identifiers,
                         success: { continuation.resume() },
