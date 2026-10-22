@@ -1,5 +1,8 @@
  CHANGELOG
 
+## 4.7.6 &mdash; 2026-10-22
+- fix(event): the SDK now holds at most 100 of each event for the app while it waits for `ready()`, as on iOS. Once an Activity of the app starts, events wait until the app calls `ready()`, and nothing limited how many: an app reopened while tracking continued from a background relaunch (`stopOnTerminate: false`), that did not call `ready()` again, held every location, about 6 KB each, for the rest of the process, until `OutOfMemoryError`. Past 100, the oldest of that event is dropped, and the log says so once per event until the backlog is delivered. Other events are never dropped to make room for a flood of locations, and the order across events is kept (long-standing, flutter #1720)
+
 ## 4.7.3 &mdash; 2026-10-22
 - fix(service): the SDK's foreground services no longer keep every start they are given for as long as they run. Each location reaches `TrackingService` as a start of its own, and a service kept every start in a list while it was sticky: for `TrackingService`, whenever the device is moving, which with `disableStopDetection: true` is for good. Nothing removed an entry, so the app's Java heap grew by about 1 KB per location until the service stopped: about 3 MB an hour at one location a second, measured over 12 hours. A `watchPosition` kept its locations the same way. The list exists so that the service behind `getCurrentPosition` and `watchPosition` can cancel its requests when Android's short-service timeout fires, and it now keeps only those requests' own starts (long-standing, flutter #1720)
 
